@@ -104,14 +104,32 @@ curl -H ‘apikey: key’ ‘https://api.inten.to/ai/text/translate’
 The response contains a list of the providers available for given constraints with an information on pricing etc:
 
 ```sh
-Intents loaded:
-	ai.text.detect-intent
-	ai.text.translate
-Instances loaded:
-	ai.text.detect-intent.amazon.lex
-	ai.text.detect-intent.api.ai.1-0.20150910
-	ai.text.detect-intent.ibm.watson.conversation.1-0.20170421
-	...
+[
+  {
+    "id": "ai.text.translate.baidu.translate_api",
+    "name": "Baidu Translate API",
+    "score": 0,
+    "price": 0
+  },
+  {
+    "id": "ai.text.translate.google.translate_api.2-0",
+    "name": "Google Cloud Translation API",
+    "score": 0,
+    "price": 0
+  },
+  {
+    "id": "ai.text.translate.yandex.translate_api.1-5",
+    "name": "Yandex Translate API",
+    "score": 0,
+    "price": 0
+  },
+  {
+    "id": "ai.text.translate.systran.translation_api.1-0-0",
+    "name": "SYSTRAN REST Translation API",
+    "score": 0,
+    "price": 0
+  }
+]
  ```
  
 ## Using a provider with your own keys
