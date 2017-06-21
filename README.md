@@ -31,3 +31,54 @@ We enable cross-origin resource sharing support for our API so that you can use 
 ### Paying for services
 
 Third-party services may be paid via Intento (the default scenario) or via your own account at the third party service. In order to use your own account at the third party service, specify the account credentials as described below. NOTE: some of the services are available only with your own accounts (i.e. we don’t have a billing integration with them).
+
+## Authentication
+
+We use the key-based authentication. Each request to intento API should pass an access key in header “apikey” as demonstrated in the examples below.
+ 
+For each account, we provide two keys, a real key and a sandbox one. Requests performed with the real key are actually fulfilled via third-party services and billed towards your account. Usage limits for real keys are governed by the subscription tier you have. Requests performed with the sandbox key are intended for testing purposes and return some sample responses. Usage limits for sandbox keys are quite low, let us know if anything is wrong with that.
+
+## Usage limits
+
+The following limits apply to the production keys:
+- Requests per second: 10
+- Requests per month: 1,000,000
+- Data per request: 4MB
+ 
+When the limits as exceeded, Intento API returns an error (see below).
+
+## Errors
+
+### Application specific errors
+
+Error responses usually include a JSON document in the response body, which contains information about the error.
+ 
+Structure returned:
+
+```javascript
+‘error’ : {
+‘code’: error code
+‘message’ : error text
+}
+```
+ 
+Example:
+
+```javascript
+{
+ “code” : 401,
+ “message” : “Required parameter ‘text’ is missing”
+}
+```
+ 
+Codes:
+
+`400` -- Error returned by a service provider. 
+`401` -- Intento: Required parameter is missing
+`403` -- Intento: Authentication error
+`404` -- Intento: Intent/Provider not found
+`500` -- Intento: Internal error
+
+*TBD Exceeding usage limits*
+
+
