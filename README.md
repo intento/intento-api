@@ -45,11 +45,11 @@ The following limits apply to the production keys:
 - Requests per month: 1,000,000
 - Data per request: 4MB
  
-When the limits as exceeded, Intento API will return a HTTP error 429 (see below).
+Remaining limits will be added to response as headers: `X-RateLimit-Remaining-second`, `X-RateLimit-Remaining-month`
+
+When the limits as exceeded, Intento API will return a HTTP error 429/413 (see below).
 
 ## Errors
-
-### Application specific errors
 
 Error responses usually include a JSON document in the response body, which contains information about the error.
  
@@ -59,6 +59,7 @@ Error codes:
 * `401` -- Intento: Required parameter is missing
 * `403` -- Intento: Auth key is invalid 
 * `404` -- Intento: Intent/Provider not found
+* `413` -- Intento: Request entity too large
 * `429` -- Intento: API rate limit exceeded
 * `500` -- Intento: Internal error
 * `502` -- Intento: Gateway timeout
