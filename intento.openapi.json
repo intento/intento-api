@@ -66,6 +66,10 @@
                                     "type": "string",
                                     "description": "Service provider id"
                                   },
+                                  "name": {
+                                    "type": "string",
+                                    "description": "Service provider print name"
+                                  },
                                   "score": {
                                     "type": "number",
                                     "description": "Estimated performance score in (0,1]"
