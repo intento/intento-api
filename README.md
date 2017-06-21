@@ -133,7 +133,7 @@ The response contains a list of the providers available for given constraints wi
 ]
  ```
  
-## Using a provider with your own keys
+## Using a service provider with your own keys
 
 *TBD*
 
