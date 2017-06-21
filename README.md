@@ -110,3 +110,34 @@ The response contains the translated text and a service information:
  }
 }
 ```
+
+## Getting available providers
+
+To get a list of available Machine Translation providers, send a GET request to https://api.inten.to/ai/text/translate. Additional parameters, such as the language pair, are specified in GET query:
+
+```sh
+curl -H ‘apikey: key’ ‘https://api.inten.to/ai/text/translate’
+```
+ 
+The response contains a list of the providers available for given constraints with an information on pricing etc:
+
+```sh
+Intents loaded:
+	ai.text.detect-intent
+	ai.text.translate
+Instances loaded:
+	ai.text.detect-intent.amazon.lex
+	ai.text.detect-intent.api.ai.1-0.20150910
+	ai.text.detect-intent.ibm.watson.conversation.1-0.20170421
+	...
+ ```
+ 
+## Using a provider with your own keys
+
+*TBD*
+
+## Smart routing
+
+*TBD*
+ 
+
