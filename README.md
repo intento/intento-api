@@ -45,7 +45,7 @@ The following limits apply to the production keys:
 - Requests per month: 1,000,000
 - Data per request: 4MB
  
-When the limits as exceeded, Intento API returns an error (see below).
+When the limits as exceeded, Intento API will return a HTTP error 429 (see below).
 
 ## Errors
 
@@ -53,33 +53,15 @@ When the limits as exceeded, Intento API returns an error (see below).
 
 Error responses usually include a JSON document in the response body, which contains information about the error.
  
-Structure returned:
+Error codes:
 
-```javascript
-‘error’ : {
-‘code’: error code
-‘message’ : error text
-}
-```
- 
-Example:
-
-```javascript
-{
- “code” : 401,
- “message” : “Required parameter ‘text’ is missing”
-}
-```
- 
-Codes:
-
-* `400` -- Error returned by a service provider. 
-* `401` -- Intento: Required parameter is missing
-* `403` -- Intento: Authentication error
-* `404` -- Intento: Intent/Provider not found
-* `500` -- Intento: Internal error
-
-*TBD Exceeding usage limits*
+* '400' -- Provider-related errors. 
+* '401' -- Intento: Required parameter is missing
+* '403' -- Intento: Auth key is invalid 
+* '404' -- Intento: Intent/Provider not found
+* '429' -- Intento: API rate limit exceeded
+* '500' -- Intento: Internal error
+* '502' -- Intento: Gateway timeout
 
 ## Basic usage
 
