@@ -73,12 +73,40 @@ Example:
  
 Codes:
 
-`400` -- Error returned by a service provider. 
-`401` -- Intento: Required parameter is missing
-`403` -- Intento: Authentication error
-`404` -- Intento: Intent/Provider not found
-`500` -- Intento: Internal error
+* `400` -- Error returned by a service provider. 
+* `401` -- Intento: Required parameter is missing
+* `403` -- Intento: Authentication error
+* `404` -- Intento: Intent/Provider not found
+* `500` -- Intento: Internal error
 
 *TBD Exceeding usage limits*
 
+## Basic usage
 
+To translate a text, send a POST request to Intento API at https://api.inten.to/ai/text/translate. Specify the source text, the target language and the desired translation provider in JSON body of the request as in the following example:
+
+```shell
+curl -XPOST -H ‘apikey: YOUR_API_KEY’ ‘https://api.inten.to/ai/text/translate’ -d ‘{
+	 “context”: {
+	   “text”: “A sample text”,
+	   “to”: “es”
+  },
+	 “service”: {
+		  “provider”: “ai.text.translate.microsoft.translator_text_api.2-0”
+  }
+}’
+```
+ 
+The response contains the translated text and a service information:
+
+```shell
+{
+	 "results": ["Un texto de ejemplo"],
+	 "service": {
+		  "provider": {
+			   "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+			   "name": "Microsoft"
+		  }
+	 }
+}
+```
