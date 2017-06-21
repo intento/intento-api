@@ -87,13 +87,13 @@ To translate a text, send a POST request to Intento API at https://api.inten.to/
 
 ```sh
 curl -XPOST -H ‘apikey: YOUR_API_KEY’ ‘https://api.inten.to/ai/text/translate’ -d ‘{
-	 “context”: {
-	   “text”: “A sample text”,
-	   “to”: “es”
-  },
-	 “service”: {
-		  “provider”: “ai.text.translate.microsoft.translator_text_api.2-0”
-  }
+ “context”: {
+ “text”: “A sample text”,
+  “to”: “es”
+ },
+ “service”: {
+  “provider”: “ai.text.translate.microsoft.translator_text_api.2-0”
+ }
 }’
 ```
  
@@ -101,12 +101,12 @@ The response contains the translated text and a service information:
 
 ```sh
 {
-	 "results": ["Un texto de ejemplo"],
-	 "service": {
-		  "provider": {
-			   "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-			   "name": "Microsoft"
-		  }
-	 }
+ "results": ["Un texto de ejemplo"],
+ "service": {
+  "provider": {
+   "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+   "name": "Microsoft"
+  }
+ }
 }
 ```
