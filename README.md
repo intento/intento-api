@@ -85,7 +85,7 @@ Codes:
 
 To translate a text, send a POST request to Intento API at https://api.inten.to/ai/text/translate. Specify the source text, the target language and the desired translation provider in JSON body of the request as in the following example:
 
-```shell
+```sh
 curl -XPOST -H ‘apikey: YOUR_API_KEY’ ‘https://api.inten.to/ai/text/translate’ -d ‘{
 	 “context”: {
 	   “text”: “A sample text”,
@@ -99,7 +99,7 @@ curl -XPOST -H ‘apikey: YOUR_API_KEY’ ‘https://api.inten.to/ai/text/transl
  
 The response contains the translated text and a service information:
 
-```shell
+```sh
 {
 	 "results": ["Un texto de ejemplo"],
 	 "service": {
