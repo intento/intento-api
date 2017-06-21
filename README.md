@@ -55,13 +55,13 @@ Error responses usually include a JSON document in the response body, which cont
  
 Error codes:
 
-* '400' -- Provider-related errors. 
-* '401' -- Intento: Required parameter is missing
-* '403' -- Intento: Auth key is invalid 
-* '404' -- Intento: Intent/Provider not found
-* '429' -- Intento: API rate limit exceeded
-* '500' -- Intento: Internal error
-* '502' -- Intento: Gateway timeout
+* `400` -- Provider-related errors. 
+* `401` -- Intento: Required parameter is missing
+* `403` -- Intento: Auth key is invalid 
+* `404` -- Intento: Intent/Provider not found
+* `429` -- Intento: API rate limit exceeded
+* `500` -- Intento: Internal error
+* `502` -- Intento: Gateway timeout
 
 ## Basic usage
 
