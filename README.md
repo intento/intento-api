@@ -41,7 +41,7 @@ For each account, we provide two keys, a real key and a sandbox one. Requests pe
 ## Usage limits
 
 The following limits apply to the production keys:
-- Requests per second: 10
+- Requests per second: 100
 - Requests per month: 1,000,000
 - Data per request: 4MB
  
