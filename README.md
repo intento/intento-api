@@ -101,7 +101,7 @@ The response contains the translated text and a service information:
 To get a list of available Machine Translation providers, send a GET request to https://api.inten.to/ai/text/translate. 
 
 ```sh
-curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate'
 ```
  
 The response contains a list of the providers available for given constraints with an information on pricing etc:
@@ -140,19 +140,19 @@ The response contains a list of the providers available for given constraints wi
 The list of providers may be further constrained by adding desired parameter values to the GET request:
 
 ```sh
-curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?from=en&to=es'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es'
 ```
 
 In case of multiple values passed per parameter, the conjunction of the constraints is used (i.e. the method returns all providers that meet all the constraints). The following request would return providers that support all four language pairs (en-es, ru-es, en-de, ru-de):
 
 ```sh
-curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?from=en&from=ru&to=es&to=de'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&from=ru&to=es&to=de'
 ```
 
 Besides source and target language, service providers may be filtered by support of specific translation domains (`domain`), bulk translate option (`bulk`) and available billing via Intento (`billing`). Note that usually specific domains are supported for a small number of language pairs, thus it's better to supply the language pair altogether:
 
 ```sh
-curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?from=en&to=es&domain=patent&bulk=true'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es&domain=patent&bulk=true'
 ```
 
 ## :lock: Using a service provider with your own keys
@@ -165,7 +165,7 @@ Intento supports two modes of using 3rd party services:
 In the tech proxy mode, the custom credentials are passed in the `auth` service field. Auth object structure is different for different providers and may be obtained together with other provider details by sending GET request for this provider:
 
 ```sh
-curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?provider=ai.text.translate.google.translate_api.2-0'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?provider=ai.text.translate.google.translate_api.2-0'
 [{
     "id": "ai.text.translate.google.translate_api.2-0",
     "name": "Google Cloud Translation API",
@@ -173,6 +173,21 @@ curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?provider=ai.text.t
     "score": 0,
     "price": 0
   }]
+```
+
+```sh
+curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+ "context": {
+ "text": "A sample text",
+  "to": "es"
+ },
+ "service": {
+  "provider": "ai.text.translate.google.translate_api.2-0",
+  "auth": {
+   "api_key": YOUR_GOOGLE_KEY
+  }
+ }
+}'
 ```
 
 ## Smart routing
