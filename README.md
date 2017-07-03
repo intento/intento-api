@@ -96,6 +96,16 @@ The response contains the translated text and a service information:
 }
 ```
 
+### :lock: Bulk mode
+We provide a bulk fulfillment mode to translation an array of segments at once. The mode is activated by sending an array of strings to the `context.text` parameter. The bulk mode is supported for some of the providers.
+
+TBD
+
+### :lock: Multi mode
+In the multi mode, the translation of the text is performed using a list of providers. The mode is activated by passing an array of provider identificators.
+
+TBD
+
 ## Getting available providers
 
 To get a list of available Machine Translation providers, send a GET request to https://api.inten.to/ai/text/translate. 
@@ -170,6 +180,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?provi
     "id": "ai.text.translate.google.translate_api.2-0",
     "name": "Google Cloud Translation API",
     "auth": {api_key: ""},
+    "bulk_mode": true,
     "score": 0,
     "price": 0
   }]
@@ -190,8 +201,134 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
 }'
 ```
 
-## Smart routing
+## :lock: Smart routing
 
-*TBD*
- 
+Intento provides the smart routing feature, so that the translation request is automatically routed to the best provider. The best provider is determined based on the following information:
+- apriori benchmark on the standard dataset
+- provider usage statistics, collected by Intento, including user feedback signals (the post-editing complexity for Machine Translation).
 
+### :lock: Basic smart routing
+To use the smart routing, just omit the `service.provider` parameter:
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+ "context": {
+ "text": "A sample text",
+  "to": "es"
+ }
+}'
+
+{
+ "results": ["Un texto de ejemplo"],
+ "service": {
+  "provider": {
+   "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+   "name": "Microsoft Translator API"
+  }
+ }
+}
+```
+
+### :lock: Specifying the bidding strategy
+By default, when the provider is missing, requests are routed to a provider with the best expected price/performance ratio. This behavior may be controlled by specifying the desired bidding strategy in the `service.bidding` parameter. Supported values are:
+* `best` (default)
+* `best_quality` - the best expected quality regardless of the price
+* `best_price` - the cheapest provider
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+ "context": {
+ "text": "A sample text",
+  "to": "es"
+ },
+ "service": {
+  "bidding": "best_quality"
+ }
+}'
+```
+
+### :lock: Failover mode
+Both for smart routing mode and basic mode, a failover is supported. By default, the failover is off, thus when the selected provider fails, an error is returned. To enable the failover mode, set the `service.failover` to `true`. A failover strategy is governed by the `service.bidding` parameter described above.
+
+In the following example we set the provider, but specify the bidding strategy to control the failover:
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+ "context": {
+ "text": "A sample text",
+  "to": "es"
+ },
+ "service": {
+  "provider": "ai.text.translate.microsoft.translator_text_api.2-0",
+  "failover": true,
+  "bidding": "best_price"
+ }
+}'
+```
+
+### :lock: Sending feedback signals
+In order to fine tune the smart routing algorithm, users may send the translation quality feedback. 
+
+For each transation, Intento returns its unique id in `service.id` field:
+
+{
+ "results": ["Un texto de ejemplo"],
+ "service": {
+  "id": "AVsAnRaMhIu3DcCXPJYY",
+  "provider": {
+   "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+   "name": "Microsoft Translator API"
+  }
+ }
+}
+
+This id may be used to send back the translation quality feedback:
+
+```sh
+curl -XPUT -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+ "id": "AVsAnRaMhIu3DcCXPJYY",
+ "feedback": {
+  "type": "raw",
+  "value": "A better text"
+ }
+}'
+```
+
+We support several types of the feedback:
+* `raw` - raw post-edited text
+* `fuzzy_word` - word-based inverted Levenstein distance
+* `fuzzy_char` - character-based inverted Levenstein distance
+* `time` - time spent on editing
+* `effort` - an amount of mouse clicks and keyboard strokes spent on editing
+
+### :lock: Session-based routing
+The feedback signals sent back to Intento are used to fine-tune smart routing for all translations within language pair and domain for the user who sent the feedback.
+
+To control this process, a user may specify the session as a `service.session` object with arbitrary string fields. We assume that sessions form some sort of hierarchy and do our best to infer it from the session data sent to Intento. Possible sessions may include: 
+
+```json
+{ "translator": "John Reed",
+  "author": "Leo Tolstoy",
+  "project": "War and Peace",
+  "document": "Chapter one" }
+```
+
+or 
+
+```json
+{ "author": "Leo Tolstoy",
+  "project": "Anna Karenina" }
+```
+
+## :lock: Custom Translation Models
+
+Intento provides conventional customization tools for Machine Translation models: term bases, translation memory and custom translation engines. Those tools are enabled for MT providers which support them.
+
+### Term Base / Glossary
+TBD
+
+### Translation Memory
+TBD
+
+### Custom Translation Engine
+TBD
