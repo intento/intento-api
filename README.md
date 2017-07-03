@@ -18,7 +18,7 @@ In order to fulfill an intent (e.g. translate some text), use `POST` requests. T
  
 All methods of the Intento API return JSON responses.
 
-Some of the features described below are supported in the testing branch of our API, please contact us to enable these features for your API key.
+Some of the features described below are supported in the testing branch of our API. They are marked by :lock:. Please contact us to enable these features for your API key.
  
 ### Error handling
 
@@ -135,7 +135,7 @@ The response contains a list of the providers available for given constraints wi
 ]
  ```
 
-### :lock: Advanced usage (beta)
+### :lock: Advanced usage
 
 The list of providers may be further constrained by adding desired parameter values to the GET request:
 
@@ -155,9 +155,25 @@ Besides source and target language, service providers may be filtered by support
 curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?from=en&to=es&domain=patent&bulk=true'
 ```
 
-## Using a service provider with your own keys
+## :lock: Using a service provider with your own keys
 
-*TBD*
+Intento supports two modes of using 3rd party services: 
+
+* full proxy: 3rd party service used via Intento and paid to the Intento (available for some of the services).
+* tech proxy: 3rd party service used via our user's own credentials and billed towards the user's account at the third-party service (available for all services).
+
+In the tech proxy mode, the custom credentials are passed in the `auth` service field. Auth object structure is different for different providers and may be obtained together with other provider details by sending GET request for this provider:
+
+```sh
+curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?provider=ai.text.translate.google.translate_api.2-0'
+[{
+    "id": "ai.text.translate.google.translate_api.2-0",
+    "name": "Google Cloud Translation API",
+    "auth": {api_key: ""},
+    "score": 0,
+    "price": 0
+  }]
+```
 
 ## Smart routing
 
