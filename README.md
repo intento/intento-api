@@ -17,6 +17,8 @@ In order to get a list of providers available for some intent, use `GET` request
 In order to fulfill an intent (e.g. translate some text), use `POST` requests. The request is routed to a provider that supports the input data. In order to control the provider selection process, you may specify the bidding strategy or identifier of the particular provider to use.
  
 All methods of the Intento API return JSON responses.
+
+Some of the features described below are supported in the testing branch of our API, please contact us to enable these features for your API key.
  
 ### Error handling
 
@@ -45,7 +47,7 @@ The following limits apply to the production keys:
 - Requests per month: 1,000,000
 - Data per request: 4MB
  
-Remaining limits will be added to response as headers: `X-RateLimit-Remaining-second`, `X-RateLimit-Remaining-month`
+Remaining limits are returned with a response in headers: `X-RateLimit-Remaining-second`, `X-RateLimit-Remaining-month`
 
 When the limits as exceeded, Intento API will return a HTTP error 429/413 (see below).
 
@@ -96,7 +98,7 @@ The response contains the translated text and a service information:
 
 ## Getting available providers
 
-To get a list of available Machine Translation providers, send a GET request to https://api.inten.to/ai/text/translate. Additional parameters, such as the language pair, are specified in GET query:
+To get a list of available Machine Translation providers, send a GET request to https://api.inten.to/ai/text/translate. 
 
 ```sh
 curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate'
@@ -132,7 +134,27 @@ The response contains a list of the providers available for given constraints wi
   }
 ]
  ```
- 
+
+### :lock: Advanced usage (beta)
+
+The list of providers may be further constrained by adding desired parameter values to the GET request:
+
+```sh
+curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?from=en&to=es'
+```
+
+In case of multiple values passed per parameter, the conjunction of the constraints is used (i.e. the method returns all providers that meet all the constraints). The following request would return providers that support all four language pairs (en-es, ru-es, en-de, ru-de):
+
+```sh
+curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?from=en&from=ru&to=es&to=de'
+```
+
+Besides source and target language, service providers may be filtered by support of specific translation domains (`domain`), bulk translate option (`bulk`) and available billing via Intento (`billing`). Note that usually specific domains are supported for a small number of language pairs, thus it's better to supply the language pair altogether:
+
+```sh
+curl -H 'apikey: key' 'https://api.inten.to/ai/text/translate?from=en&to=es&domain=patent&bulk=true'
+```
+
 ## Using a service provider with your own keys
 
 *TBD*
