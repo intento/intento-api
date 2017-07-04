@@ -113,7 +113,7 @@ curl -XPOST -H "apikey: YOUR_API_KEY" "$HOST/ai/text/translate" -d '
 }'
 ```
 
-The response contains the translated text and a service information:
+The response contains the translated texts and a service information:
 
 ```sh
 {
@@ -130,7 +130,43 @@ The response contains the translated text and a service information:
 ### :lock: Multi mode
 In the multi mode, the translation of the text is performed using a list of providers. The mode is activated by passing an array of provider identificators.
 
-TBD
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+ "context": {
+  "text": "A sample text",
+  "to": "es"
+ },
+ "service": {
+  "provider": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"]
+ }
+}'
+```
+ 
+The response contains the translated text and a service information:          ↑
+
+```sh
+[
+{
+ "results": ["Un ejemplo de texto"],
+ "service": {
+  "provider": {
+   "id": "ai.text.translate.google.translate_api.2-0",
+   "name": "Google Cloud Translation API"
+  }
+ }
+},
+{
+ "results": ["Un texto de ejemplo"],
+ "service": {
+  "provider": {
+   "id": "ai.text.translate.yandex.translate_api.1-5",
+   "name": "Yandex Translate API"
+  }
+ }
+}
+]
+```
+
 
 ## Getting available providers
 
