@@ -322,13 +322,9 @@ or
 
 ## :lock: Custom Translation Models
 
-Intento provides conventional customization tools for Machine Translation models: term bases, translation memory and custom translation engines. Those tools are enabled for MT providers which support them.
+Some of the MT services allow for fine-tuning of the translation models. Using the Intento API you may have an access to the models you've already trained in the past or train new ones based on the data you have, for example:
+- glossaries / term bases,
+- parallel corpuses,
+- monolingual corpuses
 
-### Term Base / Glossary
-TBD
-
-### Translation Memory
-TBD
-
-### Custom Translation Engine
 TBD
