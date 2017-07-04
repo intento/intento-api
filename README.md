@@ -97,7 +97,7 @@ The response contains the translated text and a service information:
 ```
 
 ### :lock: Bulk mode
-We provide a bulk fulfillment mode to translation an array of segments at once. The mode is activated by sending an array of strings to the `context.text` parameter. The bulk mode is supported for some of the providers.
+We provide a bulk fulfillment mode to translation an array of segments at once. The mode is activated by sending an array of strings to the `context.text` parameter. The bulk mode is supported for most of the providers.
 
 TBD
 
@@ -248,7 +248,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 ```
 
 ### :lock: Failover mode
-Both for smart routing mode and basic mode, a failover is supported. By default, the failover is off, thus when the selected provider fails, an error is returned. To enable the failover mode, set the `service.failover` to `true`. A failover strategy is governed by the `service.bidding` parameter described above.
+Both for smart routing mode and basic mode, a failover is supported. By default, the failover is off, thus when the selected provider fails, an error is returned. To enable the failover mode, set the `service.failover` to `true`. By default, failover is governed by the default bidding strategy (`best`). To control this behavior, another bidding strategy may be specified via `service.bidding` parameter. Alternatively, you may specify a list of providers to consider for the failover (`service.failover_list`). This option overrides the bidding strategy for the failover procedure.
 
 In the following example we set the provider, but specify the bidding strategy to control the failover:
 
@@ -261,7 +261,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
  "service": {
   "provider": "ai.text.translate.microsoft.translator_text_api.2-0",
   "failover": true,
-  "bidding": "best_price"
+  "failover_list": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"]
  }
 }'
 ```
@@ -269,7 +269,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 ### :lock: Sending feedback signals
 In order to fine tune the smart routing algorithm, users may send the translation quality feedback. 
 
-For each transation, Intento returns its unique id in `service.id` field:
+For each translation, Intento returns its unique id in `service.id` field:
 
 {
  "results": ["Un texto de ejemplo"],
@@ -298,7 +298,7 @@ We support several types of the feedback:
 * `raw` - raw post-edited text
 * `fuzzy_word` - word-based inverted Levenstein distance
 * `fuzzy_char` - character-based inverted Levenstein distance
-* `time` - time spent on editing
+* `time` - time spent on editing in seconds
 * `effort` - an amount of mouse clicks and keyboard strokes spent on editing
 
 ### :lock: Session-based routing
@@ -326,5 +326,9 @@ Some of the MT services allow for fine-tuning of the translation models. Using t
 - glossaries / term bases,
 - parallel corpuses,
 - monolingual corpuses
+
+TBD
+
+### :lock: Migrating custom models between providers
 
 TBD
