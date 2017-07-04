@@ -73,7 +73,7 @@ To translate a text, send a POST request to Intento API at https://api.inten.to/
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
  "context": {
- "text": "A sample text",
+  "text": "A sample text",
   "to": "es"
  },
  "service": {
@@ -99,7 +99,33 @@ The response contains the translated text and a service information:
 ### :lock: Bulk mode
 We provide a bulk fulfillment mode to translation an array of segments at once. The mode is activated by sending an array of strings to the `context.text` parameter. The bulk mode is supported for most of the providers.
 
-TBD
+```sh
+curl -XPOST -H "apikey: YOUR_API_KEY" "$HOST/ai/text/translate" -d '
+{
+  "context": {
+    "text": ["A sample text", "Hello world"],
+    "from": "en",
+    "to": "de"
+  },
+  "service": {
+    "provider" : "ai.text.translate.microsoft.translator_text_api.2-0"
+  }
+}'
+```
+
+The response contains the translated text and a service information:
+
+```sh
+{
+ "results": ["Ein Beispieltext", "Hallo Welt"],
+ "service": {
+  "provider": {
+   "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+   "name": "Microsoft Translator API"
+  }
+ }
+}
+```
 
 ### :lock: Multi mode
 In the multi mode, the translation of the text is performed using a list of providers. The mode is activated by passing an array of provider identificators.
