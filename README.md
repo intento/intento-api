@@ -247,12 +247,6 @@ The list of providers may be further constrained by adding desired parameter val
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es'
 ```
 
-In case of multiple values passed per parameter, the conjunction of the constraints is used (i.e. the method returns all providers that meet all the constraints). The following request would return providers that support all four language pairs (en-es, ru-es, en-de, ru-de):
-
-```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&from=ru&to=es&to=de'
-```
-
 Besides source and target language, service providers may be filtered by support of specific translation domains (`domain`), bulk translate option (`bulk`) and available billing via Intento (`billing`). Note that usually specific domains are supported for a small number of language pairs, thus it's better to supply the language pair altogether:
 
 ```sh
