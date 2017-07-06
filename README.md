@@ -96,6 +96,38 @@ The response contains the translated text and a service information:
 }
 ```
 
+## Translation domains
+
+Currently we have a rudimentary support of the translation domains (`category`) with the main purpose to support choice between Statistical Nachine Translation and Neural Machine Translation for Microsoft Translation Text API (for Microsoft Translation, the default mode is NMT - `"category": "generalnn"`). 
+
+```sh
+curl -XPOST -H 'apikey: YOUR_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+  "context": {
+   "text": "A sample text",
+   "to": "es",
+   "category": "general"
+  },
+  "service": {
+   "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+  }
+ }'
+{"results": ["Un texto de muestra"], "service": {"provider": {"id": "ai.text.translate.microsoft.translator_text_api.2-0", "name": "Microsoft Translator API"}}}
+```
+
+```sh
+curl -XPOST -H 'apikey: YOUR_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+  "context": {
+   "text": "A sample text",
+   "to": "es",
+   "category": "generalnn"
+  },
+  "service": {
+   "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+  }
+ }'
+{"results": ["Un texto de ejemplo"], "service": {"provider": {"id": "ai.text.translate.microsoft.translator_text_api.2-0", "name": "Microsoft Translator API"}}}
+```
+
 ### Bulk mode
 We provide a bulk fulfillment mode to translation an array of segments at once. The mode is activated by sending an array of strings to the `context.text` parameter. The bulk mode is supported for most of the providers.
 
