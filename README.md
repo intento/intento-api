@@ -96,7 +96,7 @@ The response contains the translated text and a service information:
 }
 ```
 
-### :lock: Bulk mode
+### Bulk mode
 We provide a bulk fulfillment mode to translation an array of segments at once. The mode is activated by sending an array of strings to the `context.text` parameter. The bulk mode is supported for most of the providers.
 
 ```sh
