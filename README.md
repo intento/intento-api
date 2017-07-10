@@ -238,7 +238,7 @@ The response contains the translated text, service information and meta informat
 }
 ```
 
-Depending on the provider, the result may contain either single value (detected language for all the translated sentences) or array of values (detected language for each of the translated sentences).          ↑
+Depending on the provider, the result may contain either a single value (detected language for all the translated sentences) or an array of values (detected language for each of the translated sentences).          ↑
 
 
 ## Getting available providers
