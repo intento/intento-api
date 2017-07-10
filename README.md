@@ -200,6 +200,54 @@ The response contains the translated text and a service information:          â†
 ```
 
 
+### :lock: Language detection mode
+Many providers allow automatic source language detection and return results of the detection. 
+
+If such information is available, it is returned in the "meta" section of the response:
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+ "context": {
+  "text": "A sample text",
+  "to": "es"
+ },
+ "service": {
+  "provider": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"]
+ }
+}'
+```
+ 
+The response contains the translated text, service information and meta information (i.e. detected language):
+
+```sh
+[
+{
+ "results": ["Un ejemplo de texto"],
+ "service": {
+  "provider": {
+   "id": "ai.text.translate.google.translate_api.2-0",
+   "name": "Google Cloud Translation API"
+  }
+ }
+},
+{
+ "results": ["Un texto de ejemplo"],
+ "meta": {
+  "detected_source_language": "en"
+ },
+ "service": {
+  "provider": {
+   "id": "ai.text.translate.yandex.translate_api.1-5",
+   "name": "Yandex Translate API"
+  }
+ }
+}
+]
+```
+
+Depending on the provider, the result may contain either single value (detected language for all the translated sentences) or array of values (detected language for each of the translated sentences).          â†‘
+
+
 ## Getting available providers
 
 To get a list of available Machine Translation providers, send a GET request to https://api.inten.to/ai/text/translate. 
