@@ -201,9 +201,9 @@ The response contains the translated text and a service information:          â†
 
 
 ### :lock: Language detection mode
-Many providers allow automatic source language detection and return results of the detection. 
+If the "from" parameter is omitted many providers allow automatic source language detection and return results of the detection. 
 
-If such information is available, it is returned in the "meta" section of the response:
+If such information is available from a provider, it is returned in the "meta" section of the response:
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
