@@ -87,6 +87,7 @@ The response contains the translated text and a service information:
 ```sh
 {
  "results": ["Un texto de ejemplo"],
+ "meta": {},
  "service": {
   "provider": {
    "id": "ai.text.translate.microsoft.translator_text_api.2-0",
@@ -111,7 +112,7 @@ curl -XPOST -H 'apikey: YOUR_KEY' 'https://api.inten.to/ai/text/translate' -d '{
    "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
   }
  }'
-{"results": ["Un texto de muestra"], "service": {"provider": {"id": "ai.text.translate.microsoft.translator_text_api.2-0", "name": "Microsoft Translator API"}}}
+{"results": ["Un texto de muestra"], "meta": {}, "service": {"provider": {"id": "ai.text.translate.microsoft.translator_text_api.2-0", "name": "Microsoft Translator API"}}}
 ```
 
 ```sh
@@ -125,7 +126,7 @@ curl -XPOST -H 'apikey: YOUR_KEY' 'https://api.inten.to/ai/text/translate' -d '{
    "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
   }
  }'
-{"results": ["Un texto de ejemplo"], "service": {"provider": {"id": "ai.text.translate.microsoft.translator_text_api.2-0", "name": "Microsoft Translator API"}}}
+{"results": ["Un texto de ejemplo"], "meta": {}, "service": {"provider": {"id": "ai.text.translate.microsoft.translator_text_api.2-0", "name": "Microsoft Translator API"}}}
 ```
 
 ### Bulk mode
@@ -150,6 +151,7 @@ The response contains the translated texts and a service information:
 ```sh
 {
  "results": ["Ein Beispieltext", "Hallo Welt"],
+ "meta": {},
  "service": {
   "provider": {
    "id": "ai.text.translate.microsoft.translator_text_api.2-0",
@@ -180,6 +182,7 @@ The response contains the translated text and a service information:          â†
 [
 {
  "results": ["Un ejemplo de texto"],
+ "meta": {},
  "service": {
   "provider": {
    "id": "ai.text.translate.google.translate_api.2-0",
@@ -189,6 +192,7 @@ The response contains the translated text and a service information:          â†
 },
 {
  "results": ["Un texto de ejemplo"],
+ "meta": {},
  "service": {
   "provider": {
    "id": "ai.text.translate.yandex.translate_api.1-5",
@@ -345,6 +349,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 
 {
  "results": ["Un texto de ejemplo"],
+ "meta": {},
  "service": {
   "provider": {
    "id": "ai.text.translate.microsoft.translator_text_api.2-0",
