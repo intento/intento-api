@@ -34,6 +34,12 @@
                         "type": "string"
                     },{
                         "in": "query",
+                        "name": "domain",
+                        "required": false,
+                        "description": "Translation domain", 
+                        "type": "string"
+                    },{
+                        "in": "query",
                         "name": "provider",
                         "required": false,
                         "description": "Provider identificator to use for the request. A list of the available providers is returned by the GET request. If not specified, the provider is selected according to the bidding policy",
