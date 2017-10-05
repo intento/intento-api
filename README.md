@@ -294,6 +294,28 @@ Besides source and target language, service providers may be filtered by support
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es&domain=patent&bulk=true'
 ```
 
+## Getting information about a provider
+
+To get information about a provider with a given ID, send a GET request to https://api.inten.to/ai/text/translate/PROVIDER_ID. 
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0'
+```
+
+The response contains a list of the metadata fields and values available for the provider:
+
+```sh
+{
+  "id": "ai.text.translate.google.translate_api.2-0",
+  "name": "Google Cloud Translation API",
+  "logo": "https://inten.to/img/api/ggl_translate.png",
+  "languages": {
+   "symmetric": ["gu","gd","ga","gl","lb","la","lo","tr","lv","lt","th","tg","te","haw","yi","ceb","yo","de","da","el","eo","en","zh","eu","et","es","ru","ro","be","bg","uk","bn","jw","bs","ja","xh","co","ca","cy","cs","ps","pt","tl","pa","vi","pl","hy","hr","ht","hu","hmn","hi","ha","he","mg","uz","ml","mn","mi","mk","ur","mt","ms","mr","ta","my","af","sw","is","am","it","sv","ar","km","zu","az","id","ig","nl","no","ne","ny","fr","ku","fy","fa","fi","ka","kk","sr","sq","ko","kn","su","st","sk","si","so","sn","sm","sl","ky","sd"]
+   "pairs": []
+  }
+}
+ ```
+
 ## :lock: Using a service provider with your own keys
 
 Intento supports two modes of using 3rd party services: 
