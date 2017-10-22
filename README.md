@@ -278,14 +278,51 @@ The response contains a list of the providers available for given constraints wi
     "price": 0
   }
 ]
- ```
+```
 
-### :lock: Advanced usage
+### Advanced usage
 
 The list of providers may be further constrained by adding desired parameter values to the GET request:
 
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es'
+```
+
+```sh
+[
+  {
+    "id": "ai.text.translate.baidu.translate_api",
+    "name": "Baidu Translate API",
+    "from": [],
+    "to": [],
+    "score": 0,
+    "price": 0
+  },
+  {
+    "id": "ai.text.translate.google.translate_api.2-0",
+    "name": "Google Cloud Translation API",
+    "from": [],
+    "to": [],
+    "score": 0,
+    "price": 0
+  },
+  {
+    "id": "ai.text.translate.yandex.translate_api.1-5",
+    "name": "Yandex Translate API",
+    "from": [],
+    "to": [],
+    "score": 0,
+    "price": 0
+  },
+  {
+    "id": "ai.text.translate.systran.translation_api.1-0-0",
+    "name": "SYSTRAN REST Translation API",
+    "from": [],
+    "to": [],
+    "score": 0,
+    "price": 0
+  }
+]
 ```
 
 Besides source and target language, service providers may be filtered by support of specific translation domains (`domain`), bulk translate option (`bulk`) and available billing via Intento (`billing`). Note that usually specific domains are supported for a small number of language pairs, thus it's better to supply the language pair altogether:
@@ -311,10 +348,67 @@ The response contains a list of the metadata fields and values available for the
   "logo": "https://inten.to/img/api/ggl_translate.png",
   "languages": {
    "symmetric": ["gu","gd","ga","gl","lb","la","lo","tr","lv","lt","th","tg","te","haw","yi","ceb","yo","de","da","el","eo","en","zh","eu","et","es","ru","ro","be","bg","uk","bn","jw","bs","ja","xh","co","ca","cy","cs","ps","pt","tl","pa","vi","pl","hy","hr","ht","hu","hmn","hi","ha","he","mg","uz","ml","mn","mi","mk","ur","mt","ms","mr","ta","my","af","sw","is","am","it","sv","ar","km","zu","az","id","ig","nl","no","ne","ny","fr","ku","fy","fa","fi","ka","kk","sr","sq","ko","kn","su","st","sk","si","so","sn","sm","sl","ky","sd"]
-   "pairs": []
+   "pairs": [
+     [
+       ["en", "de"],
+       ["fr", "en"] 
+     ]
+   ]
   }
 }
- ```
+```
+
+## Supported languages
+
+### Getting list of supported languages
+
+Will return an array of supported languages, for each language:
+
+* iso name
+* intento code
+* client code (if the client calling the method has its own codes)
+ 
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/lang'
+```
+
+```
+[
+  {
+    "iso_code": "he",
+    "intento_code": "he",
+    "client_code": "hebr"
+  }
+]
+```
+
+### Getting full information on the supported language
+
+For a given language code (intento internal or client’s) will show full metadata:
+
+* iso name
+* native name
+* intento code
+* iso codes (ones which are applicable)
+* providers’ codes (which map to this internal code)
+* client code (if the client calling the method has its own codes)
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/lang/he'
+```
+
+```
+{
+  "iso_name": "Hebrew (modern)",
+  "native_name": "עברית",
+  "intento_code": "he",
+  "iso_codes": ["he", "heb"],
+  "provider_codes": {
+      "ai.text.translate.google.translate_api.2-0": "iw"
+  },
+  "client_code": "hebr"
+}
+```
 
 ## :lock: Using a service provider with your own keys
 
