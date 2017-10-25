@@ -369,7 +369,7 @@ Will return an array of supported languages, for each language:
 * client code (if the client calling the method has its own codes)
  
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/lang'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/languages'
 ```
 
 ```
@@ -394,7 +394,7 @@ For a given language code (intento internal or client’s) will show full metada
 * client code (if the client calling the method has its own codes)
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/lang/he'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/languages/he'
 ```
 
 ```
@@ -402,7 +402,10 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/lang/
   "iso_name": "Hebrew (modern)",
   "native_name": "עברית",
   "intento_code": "he",
-  "iso_codes": ["he", "heb"],
+  "iso_639_1_code": "he",
+  "iso_639_2t_code": "heb",
+  "iso_639_2b_code": "heb",
+  "iso_639_3_code": "heb",
   "provider_codes": {
       "ai.text.translate.google.translate_api.2-0": "iw"
   },
