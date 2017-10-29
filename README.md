@@ -346,6 +346,8 @@ The response contains a list of the metadata fields and values available for the
   "id": "ai.text.translate.google.translate_api.2-0",
   "name": "Google Cloud Translation API",
   "logo": "https://inten.to/img/api/ggl_translate.png",
+  "billing": true,
+  "bulk": true,
   "languages": {
    "symmetric": {
      "from": ["gu","gd","ga","gl","lb","la","lo","tr","lv","lt","th","tg","te","haw","yi","ceb","yo","de","da","el","eo","en","zh","eu","et","es","ru","ro","be","bg","uk","bn","jw","bs","ja","xh","co","ca","cy","cs","ps","pt","tl","pa","vi","pl","hy","hr","ht","hu","hmn","hi","ha","he","mg","uz","ml","mn","mi","mk","ur","mt","ms","mr","ta","my","af","sw","is","am","it","sv","ar","km","zu","az","id","ig","nl","no","ne","ny","fr","ku","fy","fa","fi","ka","kk","sr","sq","ko","kn","su","st","sk","si","so","sn","sm","sl","ky","sd"],
@@ -378,7 +380,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/langu
 ```
 [
   {
-    "iso_code": "he",
+    "iso_name": "Hebrew (modern)",
     "intento_code": "he",
     "client_code": "hebr"
   }
@@ -403,7 +405,6 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/langu
 ```
 {
   "iso_name": "Hebrew (modern)",
-  "native_name": "עברית",
   "intento_code": "he",
   "iso_639_1_code": "he",
   "iso_639_2t_code": "heb",
