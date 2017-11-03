@@ -293,32 +293,32 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=
   {
     "id": "ai.text.translate.baidu.translate_api",
     "name": "Baidu Translate API",
-    "from": [],
-    "to": [],
+    "symmetric": [],
+    "pairs": [],
     "score": 0,
     "price": 0
   },
   {
     "id": "ai.text.translate.google.translate_api.2-0",
     "name": "Google Cloud Translation API",
-    "from": [],
-    "to": [],
+    "symmetric": [],
+    "pairs": [],
     "score": 0,
     "price": 0
   },
   {
     "id": "ai.text.translate.yandex.translate_api.1-5",
     "name": "Yandex Translate API",
-    "from": [],
-    "to": [],
+    "symmetric": [],
+    "pairs": [],
     "score": 0,
     "price": 0
   },
   {
     "id": "ai.text.translate.systran.translation_api.1-0-0",
     "name": "SYSTRAN REST Translation API",
-    "from": [],
-    "to": [],
+    "symmetric": [],
+    "pairs": [],
     "score": 0,
     "price": 0
   }
