@@ -269,14 +269,10 @@
                       "description": "Supported languages",
                       "type": "object",
                       "example": {
-                        "symmetric": {
-                          "from": [
-                            "en", "es"
-                          ],
-                          "to": [
-                            "en", "es"
-                          ]
-                        },
+                        "symmetric": [
+                          "en",
+                          "es"
+                        ],
                         "pairs": [
                           [
                             "en",

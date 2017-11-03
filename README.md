@@ -349,10 +349,9 @@ The response contains a list of the metadata fields and values available for the
   "billing": true,
   "bulk": true,
   "languages": {
-   "symmetric": {
-     "from": ["gu","gd","ga","gl","lb","la","lo","tr","lv","lt","th","tg","te","haw","yi","ceb","yo","de","da","el","eo","en","zh","eu","et","es","ru","ro","be","bg","uk","bn","jw","bs","ja","xh","co","ca","cy","cs","ps","pt","tl","pa","vi","pl","hy","hr","ht","hu","hmn","hi","ha","he","mg","uz","ml","mn","mi","mk","ur","mt","ms","mr","ta","my","af","sw","is","am","it","sv","ar","km","zu","az","id","ig","nl","no","ne","ny","fr","ku","fy","fa","fi","ka","kk","sr","sq","ko","kn","su","st","sk","si","so","sn","sm","sl","ky","sd"],
-     "to": ["gu","gd","ga","gl","lb","la","lo","tr","lv","lt","th","tg","te","haw","yi","ceb","yo","de","da","el","eo","en","zh","eu","et","es","ru","ro","be","bg","uk","bn","jw","bs","ja","xh","co","ca","cy","cs","ps","pt","tl","pa","vi","pl","hy","hr","ht","hu","hmn","hi","ha","he","mg","uz","ml","mn","mi","mk","ur","mt","ms","mr","ta","my","af","sw","is","am","it","sv","ar","km","zu","az","id","ig","nl","no","ne","ny","fr","ku","fy","fa","fi","ka","kk","sr","sq","ko","kn","su","st","sk","si","so","sn","sm","sl","ky","sd"]
-   },
+   "symmetric": [
+       "gu","gd","ga","gl","lb"
+    ],
    "pairs": [
      [
        ["en", "de"],
