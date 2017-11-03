@@ -1,276 +1,461 @@
 {
-    "basePath": "/ai/text/translate", 
+    "basePath": "/",
     "consumes": [
-        "application/json"
-    ], 
+      "application/json"
+    ],
     "externalDocs": {
-        "url": "https://inten.to/api-platform/ai/text/translate"
-    }, 
-    "host": "api.inten.to", 
+      "url": "https://api.inten.to"
+    },
+    "securityDefinitions": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "apikey"
+      }
+    },
+    "security": [
+      {
+        "APIKeyHeader": []
+      }
+    ],
+    "host": "api.inten.to",
     "info": {
-        "description": "Translate a text from one language to another.", 
-        "title": "ai.text.translate", 
-        "version": "1.0"
-    }, 
+      "description": "Translate a text from one language to another.",
+      "title": "ai.text.translate",
+      "version": "1.0"
+    },
     "paths": {
-        "/": {
-            "get": {
-                "summary": "Get a list of available service providers",
-                "description": "Get a list of available service provider identifiers for this intent. If context parameters are specified, the reponse contains only providers that meet all restrictions implied by the context (conjunction)",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "from",
-                        "required": false,
-                        "description": "Source language", 
+      "/ai/text/translate": {
+        "get": {
+          "summary": "Get a list of available service providers",
+          "description": "Get a list of available service provider identifiers for this intent. If context parameters are specified, the reponse contains only providers that meet all restrictions implied by the context (conjunction)",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "from",
+              "required": false,
+              "description": "Source language",
+              "format": "iso639code",
+              "type": "string"
+            },
+            {
+              "in": "query",
+              "name": "to",
+              "required": false,
+              "description": "Target language",
+              "format": "iso639code",
+              "type": "string"
+            },
+            {
+              "in": "query",
+              "name": "domain",
+              "required": false,
+              "description": "Translation domain",
+              "type": "string"
+            },
+            {
+              "in": "query",
+              "name": "bulk",
+              "required": false,
+              "description": "Bulk translate option",
+              "type": "boolean"
+            },
+            {
+              "in": "query",
+              "name": "billing",
+              "required": false,
+              "description": "Billing avaliable via Intento",
+              "type": "boolean"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of available providers",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Service provider id",
+                      "example": "ai.text.translate.google.translate_api.2-0"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Service provider print name",
+                      "example": "Google Cloud Translation API"
+                    },
+                    "score": {
+                      "type": "number",
+                      "description": "Estimated performance score in (0,1]"
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "Estimated price per 1 million characters, USD"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Something went wrong"
+            }
+          }
+        },
+        "post": {
+          "summary": "Translates a text string from one language to another",
+          "description": "Translates a text string from one language to another",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "example": {
+                  "context": {
+                    "text": "API economy (application programming interface economy) is a general term that describes the way application programming interfaces (APIs) can positively affect an organization's profitability . An API is a customer interface for technology products that allows software components to communicate.",
+                    "to": "es"
+                  }
+                },
+                "required": [
+                  "context"
+                ],
+                "properties": {
+                  "context": {
+                    "description": "Input data for the intent fulfillment",
+                    "type": "object",
+                    "required": [
+                      "text",
+                      "to"
+                    ],
+                    "properties": {
+                      "text": {
+                        "description": "Text to translate",
+                        "allOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "items": [
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "type": "array"
+                          }
+                        ]
+                      },
+                      "to": {
+                        "description": "Target language",
                         "format": "iso639code",
                         "type": "string"
-                    },{
-                        "in": "query",
-                        "name": "to",
-                        "required": false,
-                        "description": "Target language", 
+                      },
+                      "from": {
+                        "description": "Source language",
                         "format": "iso639code",
-                        "type": "string"
-                    },{
-                        "in": "query",
-                        "name": "domain",
-                        "required": false,
-                        "description": "Translation domain", 
-                        "type": "string"
-                    },{
-                        "in": "query",
-                        "name": "provider",
-                        "required": false,
+                        "type": "string",
+                        "default": "auto"
+                      },
+                      "category": {
+                        "description": "Translation domain",
+                        "type": "string",
+                        "enum": [
+                          "general"
+                        ],
+                        "default": "auto"
+                      }
+                    }
+                  },
+                  "service": {
+                    "description": "Service parameters related to the Intento Platform: I/O formats etc",
+                    "type": "object",
+                    "properties": {
+                      "provider": {
                         "description": "Provider identificator to use for the request. A list of the available providers is returned by the GET request. If not specified, the provider is selected according to the bidding policy",
                         "type": "string"
-                    },{
-                        "in": "query",
-                        "name": "bidding",
-                        "required": false,
+                      },
+                      "bidding": {
                         "description": "Policy to select the provider if it is not specified. The default value is 'auto'",
                         "type": "string",
                         "default": "auto"
-                    },{
-                        "in": "query",
-                        "name": "pretty_print",
-                        "required": false,
-                        "description": "Human-friendly output", 
+                      },
+                      "multiple_translations": {
+                        "description": "Return multiple translations for a single text",
                         "type": "boolean",
                         "default": false
+                      },
+                      "input_format": {
+                        "description": "Input text content type",
+                        "type": "string",
+                        "enum": [
+                          "text/plain",
+                          "text/html"
+                        ],
+                        "default": "auto"
+                      },
+                      "output_format": {
+                        "description": "Output text content type",
+                        "type": "string",
+                        "enum": [
+                          "text/plain",
+                          "text/html"
+                        ],
+                        "default": "auto"
+                      },
+                      "pretty_print": {
+                        "description": "Human-friendly output",
+                        "type": "boolean",
+                        "default": false
+                      }
                     }
-                ], 
-                "responses": {
-                    "200": {
-                        "description": "List of available providers", 
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string",
-                                    "description": "Service provider id"
-                                  },
-                                  "name": {
-                                    "type": "string",
-                                    "description": "Service provider print name"
-                                  },
-                                  "score": {
-                                    "type": "number",
-                                    "description": "Estimated performance score in (0,1]"
-                                  },
-                                  "price": {
-                                    "type": "number",
-                                    "description": "Estimated price per 1 million characters, USD"
-                                  }
-                                }
-                            }
-                        }
-                    }, 
-                    "400": {
-                        "description": "Something went wrong"
-                    }
+                  }
                 }
-            },
-            "post": {
-                "summary": "Translates a text string from one language to another",
-                "description": "Translates a text string from one language to another",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "example": {
-                                "context": {
-                                    "text":"API economy (application programming interface economy) is a general term that describes the way application programming interfaces (APIs) can positively affect an organization's profitability . An API is a customer interface for technology products that allows software components to communicate.",
-                                    "to":"es"
-                                }
-                            },
-                            "required": ["context"],
-                            "properties": {
-                                "context": {
-                                    "description": "Input data for the intent fulfillment",                         
-                                    "type": "object",
-                                    "required": ["text", "to"],
-                                    "properties": {
-                                        "text": {
-                                            "description": "Text to translate", 
-                                            "allOf": [
-                                                {
-                                                    "type": "string"
-                                                }, 
-                                                { 
-                                                    "items": [
-                                                        {
-                                                            "type": "string"
-                                                        }
-                                                    ], 
-                                                    "type": "array"
-                                                }
-                                            ]
-                                        },
-                                        "to": {
-                                            "description": "Target language", 
-                                            "format": "iso639code", 
-                                            "type": "string"
-                                        },
-                                        "from": {
-                                            "description": "Source language", 
-                                            "format": "iso639code",
-                                            "type": "string",
-                                            "default": "auto"
-                                        },
-                                        "category": {
-                                            "description": "Translation domain", 
-                                            "type": "string",
-                                            "enum": [
-                                                "general"
-                                            ],
-                                            "default": "auto"
-                                        }   
-                                    }
-                                },
-                                "service": {
-                                    "description": "Service parameters related to the Intento Platform: I/O formats etc",
-                                    "type": "object",
-                                    "properties": {
-                                        "provider": {
-                                            "description": "Provider identificator to use for the request. A list of the available providers is returned by the GET request. If not specified, the provider is selected according to the bidding policy",
-                                            "type": "string"
-                                        },
-                                        "bidding": {
-                                            "description": "Policy to select the provider if it is not specified. The default value is 'auto'",
-                                            "type": "string",
-                                            "default": "auto"
-                                        },
-                                        "multiple_translations": {
-                                            "description": "Return multiple translations for a single text", 
-                                            "type": "boolean",
-                                            "default": false
-                                        },
-                                        "input_format": {
-                                            "description": "Input text content type", 
-                                            "type": "string",
-                                            "enum": [
-                                                "text/plain", 
-                                                "text/html"
-                                            ],
-                                            "default": "auto"
-                                        },
-                                        "output_format": {
-                                            "description": "Output text content type", 
-                                            "type": "string",
-                                            "enum": [
-                                                "text/plain", 
-                                                "text/html"
-                                            ],
-                                            "default": "auto"
-                                        },
-                                        "pretty_print": {
-                                            "description": "Human-friendly output", 
-                                            "type": "boolean",
-                                            "default": false
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    ], 
-                "responses": {
-                    "200": {
-                        "description": "Translated text", 
-                        "schema": {
-                            "$ref": "#/definitions/Response"
-                        }
-                    }, 
-                    "400": {
-                        "description": "Something went wrong"
-                    }
-                }
+              }
             }
+          ],
+          "responses": {
+            "200": {
+              "description": "Translated text",
+              "schema": {
+                "$ref": "#/definitions/Response"
+              }
+            },
+            "400": {
+              "description": "Something went wrong"
+            }
+          }
         }
+      },
+      "/ai/text/translate/{id}": {
+        "get": {
+          "summary": "Get information about a provider",
+          "description": "The response contains a list of the metadata fields and values available for the provider",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Provider id",
+              "default": "ai.text.translate.google.translate_api.2-0",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of available providers",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Service provider id",
+                      "example": "ai.text.translate.google.translate_api.2-0"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Service provider name",
+                      "example": "Google Cloud Translation API"
+                    },
+                    "logo": {
+                      "type": "string",
+                      "description": "Service provider logo",
+                      "example": "https://inten.to/img/api/ggl_translate.png"
+                    },
+                    "languages": {
+                      "description": "Supported languages",
+                      "type": "object",
+                      "example": {
+                        "symmetric": [
+                          "en",
+                          "es"
+                        ],
+                        "pairs": [
+                          [
+                            "en",
+                            "de"
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Something went wrong"
+            }
+          }
+        }
+      },
+      "/ai/text/translate/languages": {
+        "get": {
+          "summary": "Get list of supported languages",
+          "description": "Will return an array of supported languages",
+          "responses": {
+            "200": {
+              "description": "List of supported languages",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "iso_code": {
+                      "type": "string",
+                      "description": "Service provider id",
+                      "example": "he"
+                    },
+                    "intento_code": {
+                      "type": "string",
+                      "description": "Service provider name",
+                      "example": "he"
+                    },
+                    "client_code": {
+                      "type": "string",
+                      "description": "Service provider logo",
+                      "example": "hebr"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Something went wrong"
+            }
+          }
+        }
+      },
+      "/ai/text/translate/languages/{id}": {
+        "get": {
+          "summary": "Get full information on the supported language",
+          "description": "For a given language code (intento internal or client’s) will show full metadata",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Language id",
+              "default": "he",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Full description",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "iso_name": {
+                      "type": "string",
+                      "example": "Hebrew (modern)"
+                    },
+                    "native_name": {
+                      "type": "string",
+                      "example": "עברית"
+                    },
+                    "intento_code": {
+                      "type": "string",
+                      "example": "he"
+                    },
+                    "iso_639_1_code": {
+                      "type": "string",
+                      "example": "heb"
+                    },
+                    "iso_639_2t_code": {
+                      "type": "string",
+                      "example": "heb"
+                    },
+                    "iso_639_2b_code": {
+                      "type": "string",
+                      "example": "heb"
+                    },
+                    "iso_639_3_code": {
+                      "type": "string",
+                      "example": "heb"
+                    },
+                    "client_code": {
+                      "type": "string",
+                      "example": "hebr"
+                    },
+                    "provider_codes": {
+                      "type": "object",
+                      "example": {
+                        "ai.text.translate.google.translate_api.2-0": "iw"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Something went wrong"
+            }
+          }
+        }
+      }
     },
     "definitions": {
-        "Response": {
+      "Response": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "description": "Translated text",
+            "allOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "type": "array"
+              }
+            ]
+          },
+          "service": {
+            "description": "Service information regarding the intent fulfillment",
             "type": "object",
             "properties": {
-                "results": {
-                    "description": "Translated text",
-                    "allOf": [
-                        {
-                            "type": "string"
-                        }, 
-                        {
-                            "items": [
-                                {
-                                    "type": "string"
-                                }
-                            ], 
-                            "type": "array"
-                        }
-                    ]
-                },
-                "service": {
-                    "description": "Service information regarding the intent fulfillment",
-                    "type": "object",
-                    "properties": {
-                        "provider": {
-                            "description": "Service provider that fulfilled the intent",
-                            "type": "object",
-                            "properties": {
-                                "id": {
-                                    "description": "Service provider ID on the Intento Platform",
-                                    "type": "string"
-                                },
-                                "name": {
-                                    "description": "Service provider print name",
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
+              "provider": {
+                "description": "Service provider that fulfilled the intent",
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "description": "Service provider ID on the Intento Platform",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Service provider print name",
+                    "type": "string"
+                  }
                 }
-            },
-            "example": {
-                "results": "La API de econom\u00eda (interfaz de programaci\u00f3n de aplicaciones de la econom\u00eda) es un t\u00e9rmino general que describe la manera de interfaces de programaci\u00f3n de aplicaciones (Api) puede afectar positivamente la organizaci\u00f3n de la rentabilidad . Una API es una interfaz de cliente para los productos de tecnolog\u00eda que permite a los componentes de software para comunicarse.", 
-                "service": {
-                    "provider": {
-                        "id": "ai.text.translate.yandex.translate_api.1-5", 
-                        "name": "Yandex"
-                    }
-                }
+              }
             }
+          }
+        },
+        "example": {
+          "results": "La API de economía (interfaz de programación de aplicaciones de la economía) es un término general que describe la manera de interfaces de programación de aplicaciones (Api) puede afectar positivamente la organización de la rentabilidad . Una API es una interfaz de cliente para los productos de tecnología que permite a los componentes de software para comunicarse.",
+          "service": {
+            "provider": {
+              "id": "ai.text.translate.yandex.translate_api.1-5",
+              "name": "Yandex"
+            }
+          }
         }
+      }
     },
     "produces": [
-        "application/json"
-    ], 
+      "application/json"
+    ],
     "schemes": [
-        "https"
-    ], 
+      "https"
+    ],
     "swagger": "2.0"
-}
+  }
