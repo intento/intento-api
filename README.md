@@ -416,6 +416,26 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/langu
 }
 ```
 
+## Setting your own language codes
+
+To define your aliases to language codes, send a POST request to Intento API at https://api.inten.to/settings/languages. After 60 seconds, you can start using them.
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/settings/languages' --data '{"aliasforen":"en"}'
+{
+    "aliasforen": "en"
+}
+```
+
+Settings can be retrieved using the GET request
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/settings/languages'
+{
+    "aliasforen": "en"
+}
+```
+
 ## :lock: Using a service provider with your own keys
 
 Intento supports two modes of using 3rd party services: 
