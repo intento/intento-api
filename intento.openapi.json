@@ -295,6 +295,16 @@
         "get": {
           "summary": "Get list of supported languages",
           "description": "Will return an array of supported languages",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "locale",
+              "required": false,
+              "description": "Locale",
+              "default": "ru",
+              "type": "string"
+            }
+          ],
           "responses": {
             "200": {
               "description": "List of supported languages",
@@ -307,6 +317,10 @@
                       "type": "string",
                       "description": "Service provider id",
                       "example": "he"
+                    },
+                    "native_name": {
+                      "type": "string",
+                      "example": "иврит"
                     },
                     "intento_code": {
                       "type": "string",
@@ -340,6 +354,14 @@
               "description": "Language id",
               "default": "he",
               "type": "string"
+            },
+            {
+              "in": "query",
+              "name": "locale",
+              "required": false,
+              "description": "Locale",
+              "default": "ru",
+              "type": "string"
             }
           ],
           "responses": {
@@ -356,7 +378,7 @@
                     },
                     "native_name": {
                       "type": "string",
-                      "example": "עברית"
+                      "example": "иврит"
                     },
                     "intento_code": {
                       "type": "string",
