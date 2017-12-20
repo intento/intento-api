@@ -318,7 +318,7 @@
                       "description": "Service provider id",
                       "example": "he"
                     },
-                    "native_name": {
+                    "name": {
                       "type": "string",
                       "example": "иврит"
                     },
@@ -376,7 +376,7 @@
                       "type": "string",
                       "example": "Hebrew (modern)"
                     },
-                    "native_name": {
+                    "name": {
                       "type": "string",
                       "example": "иврит"
                     },

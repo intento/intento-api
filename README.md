@@ -369,7 +369,7 @@ The response contains a list of the metadata fields and values available for the
 Will return an array of supported languages, for each language:
 
 * iso name
-* native name (if `locale` parameter is provided)
+* localized name (if `locale` parameter is provided)
 * intento code
 * client code (if the client calling the method has its own codes)
  
@@ -381,7 +381,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/langu
 [
   {
     "iso_name": "Hebrew (modern)",
-    "native_name": "иврит",
+    "name": "иврит",
     "intento_code": "he",
     "client_code": "hebr"
   }
@@ -393,7 +393,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/langu
 For a given language code (intento internal or client’s) will show full metadata:
 
 * iso name
-* native name (if `locale` parameter is provided)
+* localized name (if `locale` parameter is provided)
 * intento code
 * iso codes (ones which are applicable)
 * providers’ codes (which map to this internal code)
@@ -406,7 +406,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/langu
 ```
 {
   "iso_name": "Hebrew (modern)",
-  "native_name": "иврит",
+  "name": "иврит",
   "intento_code": "he",
   "iso_639_1_code": "he",
   "iso_639_2t_code": "heb",
