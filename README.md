@@ -369,7 +369,7 @@ The response contains a list of the metadata fields and values available for the
 Will return an array of supported languages, for each language:
 
 * iso name
-* localized name (if `locale` parameter is provided), can be `null` if there is no localization
+* localized name (if `locale` parameter is provided); if there is no localized name, `null` is returned
 * intento code
 * client code (if the client calling the method has its own codes)
  
@@ -393,7 +393,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/langu
 For a given language code (intento internal or client’s) will show full metadata:
 
 * iso name
-* localized name (if `locale` parameter is provided), can be `null` if there is no localization
+* localized name (if `locale` parameter is provided); if there is no localized name, `null` is returned
 * intento code
 * iso codes (ones which are applicable)
 * providers’ codes (which map to this internal code)
