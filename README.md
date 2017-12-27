@@ -361,7 +361,7 @@ The response contains a list of the metadata fields and values available for the
 Will return an array of supported languages, for each language:
 
 * iso name
-* localized name (if `locale` parameter is provided), can be `null` if there is no localization
+* localized name (if `locale` parameter is provided); if there is no localized name, `null` is returned
 * intento code
 * client code (if the client calling the method has its own codes)
  
@@ -385,7 +385,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/langu
 For a given language code (intento internal or client’s) will show full metadata:
 
 * iso name
-* localized name (if `locale` parameter is provided), can be `null` if there is no localization
+* localized name (if `locale` parameter is provided); if there is no localized name, `null` is returned
 * intento code
 * iso codes (ones which are applicable)
 * providers’ codes (which map to this internal code)
@@ -517,7 +517,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 ### :lock: Failover mode
 Both for smart routing mode and basic mode, a failover is supported. By default, the failover is off, thus when the selected provider fails, an error is returned. To enable the failover mode, set the `service.failover` to `true`. By default, failover is governed by the default bidding strategy (`best`). To control this behavior, another bidding strategy may be specified via `service.bidding` parameter. Alternatively, you may specify a list of providers to consider for the failover (`service.failover_list`). This option overrides the bidding strategy for the failover procedure.
 
-In the following example we set the provider, but specify the bidding strategy to control the failover:
+In the following example we set the provider, but specify the list of alternatives to control the failover:
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
