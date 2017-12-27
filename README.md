@@ -293,32 +293,24 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=
   {
     "id": "ai.text.translate.baidu.translate_api",
     "name": "Baidu Translate API",
-    "symmetric": [],
-    "pairs": [],
     "score": 0,
     "price": 0
   },
   {
     "id": "ai.text.translate.google.translate_api.2-0",
     "name": "Google Cloud Translation API",
-    "symmetric": [],
-    "pairs": [],
     "score": 0,
     "price": 0
   },
   {
     "id": "ai.text.translate.yandex.translate_api.1-5",
     "name": "Yandex Translate API",
-    "symmetric": [],
-    "pairs": [],
     "score": 0,
     "price": 0
   },
   {
     "id": "ai.text.translate.systran.translation_api.1-0-0",
     "name": "SYSTRAN REST Translation API",
-    "symmetric": [],
-    "pairs": [],
     "score": 0,
     "price": 0
   }
@@ -369,17 +361,19 @@ The response contains a list of the metadata fields and values available for the
 Will return an array of supported languages, for each language:
 
 * iso name
+* localized name (if `locale` parameter is provided); if there is no localized name, `null` is returned
 * intento code
 * client code (if the client calling the method has its own codes)
  
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/languages'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/languages?locale=ru'
 ```
 
 ```
 [
   {
     "iso_name": "Hebrew (modern)",
+    "name": "иврит",
     "intento_code": "he",
     "client_code": "hebr"
   }
@@ -391,19 +385,20 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/langu
 For a given language code (intento internal or client’s) will show full metadata:
 
 * iso name
-* native name
+* localized name (if `locale` parameter is provided); if there is no localized name, `null` is returned
 * intento code
 * iso codes (ones which are applicable)
 * providers’ codes (which map to this internal code)
 * client code (if the client calling the method has its own codes)
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/languages/he'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/languages/he?locale=ru'
 ```
 
 ```
 {
   "iso_name": "Hebrew (modern)",
+  "name": "иврит",
   "intento_code": "he",
   "iso_639_1_code": "he",
   "iso_639_2t_code": "heb",
@@ -523,7 +518,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 ### :lock: Failover mode
 Both for smart routing mode and basic mode, a failover is supported. By default, the failover is off, thus when the selected provider fails, an error is returned. To enable the failover mode, set the `service.failover` to `true`. By default, failover is governed by the default bidding strategy (`best`). To control this behavior, another bidding strategy may be specified via `service.bidding` parameter. Alternatively, you may specify a list of providers to consider for the failover (`service.failover_list`). This option overrides the bidding strategy for the failover procedure.
 
-In the following example we set the provider, but specify the bidding strategy to control the failover:
+In the following example we set the provider, but specify the list of alternatives to control the failover:
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
