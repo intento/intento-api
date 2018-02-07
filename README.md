@@ -97,6 +97,17 @@ The response contains the translated text and a service information:
 }
 ```
 
+If the provider doesn't have capabilities (e.g. bulk support or language pairs) to process request, 413 error will be returned:
+
+```sh
+{
+    "error": {
+        "code": 413,
+        "message": "Provider ai.text.translate.promt.cloud_api.1-0 constraint(s) violated: bulk (Bulk mode support)"
+    }
+}
+```
+
 ## Translation domains
 
 Currently we have a rudimentary support of the translation domains (`category`) with the main purpose to support choice between Statistical Nachine Translation and Neural Machine Translation for Microsoft Translation Text API (for Microsoft Translation, the default mode is NMT - `"category": "generalnn"`). 
@@ -317,10 +328,10 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=
 ]
 ```
 
-Besides source and target language, service providers may be filtered by support of specific translation domains (`domain`), bulk translate option (`bulk`) and available billing via Intento (`billing`). Note that usually specific domains are supported for a small number of language pairs, thus it's better to supply the language pair altogether:
+Besides source and target language, service providers may be filtered by support of specific bulk translate option (`bulk`) and language detection option (`lang_detect`):
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es&domain=patent&bulk=true'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es&lang_detect=true&bulk=true'
 ```
 
 ## Getting information about a provider
