@@ -9,9 +9,9 @@ This is a human-friendly manual to the Intento API. The interactive API Referenc
 Intento API provides a uniform intent-based access to cognitive services from multiple providers, available at the Intento Service Platform. The intent is a basic action (like `translate`). 
 
 Currently, the following intents are available:
-* Dictionary `ai.text.dictionary`
-* Text translation `ai.text.translate`
-* Sentiment analysis `ai.text.sentiment`
+* [Dictionary][ai.text.dictionary] `ai.text.dictionary`
+* [Text translation][ai.text.translate] `ai.text.translate`
+* [Sentiment analysis][ai.text.sentiment] `ai.text.sentiment`
  
 Intent APIs are accessed via the base path. That said, API for the Machine Translation intent (ai.text.translate) is available at `/ai/text/translate`.
 
@@ -260,6 +260,6 @@ or
 }
 ```
 
-[ai.text.translate]: <ai.text.translate.MD>
-[ai.text.dictionary]: <ai.text.dictionary.MD>
-[ai.text.sentiment]: <ai.text.sentiment.MD>
+[ai.text.translate]: <ai.text.translate.md>
+[ai.text.dictionary]: <ai.text.dictionary.md>
+[ai.text.sentiment]: <ai.text.sentiment.md>
