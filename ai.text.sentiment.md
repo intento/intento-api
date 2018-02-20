@@ -10,7 +10,7 @@ To analyze a text for sentiments, send a POST request to Intento API at https://
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/sentiment' -d '{
  "context": {
   "text": "We love this trail and make the trip every year. The views are breathtaking and well worth the hike!",
-  "to": "en"
+  "lang": "en"
  },
  "service": {
   "provider": "ai.text.sentiment.meaningcloud.sentiment_analysis_api.2-1"
