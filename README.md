@@ -58,7 +58,7 @@ Error responses usually include a JSON document in the response body, which cont
 Error codes:
 
 * `400` -- Provider-related errors. 
-* `401` -- Intento: Required parameter is missing
+* `401` -- Intento: Auth key is missing
 * `403` -- Intento: Auth key is invalid 
 * `404` -- Intento: Intent/Provider not found
 * `413` -- Intento: Request entity too large
