@@ -49,7 +49,7 @@ If the provider doesn't have capabilities (e.g. language pairs) to process reque
 
 ## Getting available providers
 
-To get a list of available Machine Translation providers, send a GET request to https://api.inten.to/ai/text/dictionary. 
+To get a list of available Dictionary providers, send a GET request to https://api.inten.to/ai/text/dictionary. 
 
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/dictionary'
