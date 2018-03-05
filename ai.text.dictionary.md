@@ -87,6 +87,54 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/dictionary?from
 ]
 ```
 
+## Getting information about a provider
+
+To get information about a provider with a given ID, send a GET request to https://api.inten.to/ai/text/dictionary/PROVIDER_ID. 
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/dictionary/ai.text.dictionary.yandex.dictionary_api.1-0'
+```
+
+The response contains a list of the metadata fields and values available for the provider:
+
+```sh
+{
+  "id": "ai.text.dictionary.yandex.dictionary_api.1-0",
+  "name": "Yandex",
+  "logo": "https://inten.to/static/img/api/ynd_dictionary.png",
+  "billing": true,
+  "languages": {
+    "symmetric": [],
+    "pairs": [
+      {
+        "from": "be",
+        "to": "be"
+      },
+      {
+        "from": "be",
+        "to": "ru"
+      },
+      {
+        "from": "bg",
+        "to": "ru"
+      },
+      {
+        "from": "cs",
+        "to": "en"
+      },
+      {
+        "from": "cs",
+        "to": "ru"
+      },
+      {
+        "from": "da",
+        "to": "en"
+      }
+      ...
+    ]
+  }
+}
+```
 
 ## Supported languages
 

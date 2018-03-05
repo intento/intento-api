@@ -130,6 +130,96 @@ The response contains the analyzed text and a service information:          ↑
 ]
 ```
 
+## Getting available providers
+
+To get a list of available Sentiment providers, send a GET request to https://api.inten.to/ai/text/sentiment. 
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/sentiment'
+```
+ 
+The response contains a list of the providers available for given constraints with an information on pricing etc:
+
+```sh
+[
+  {
+    "id": "ai.text.sentiment.ibm.natural_language_understanding",
+    "name": "IBM Watson Natural Language Understanding",
+    "score": 0,
+    "price": 0,
+    "lang": [
+      "en"
+    ]
+  },
+  {
+    "id": "ai.text.sentiment.microsoft.text_analytics_api.2-0",
+    "name": "Microsoft Text Analytics API",
+    "score": 0,
+    "price": 0,
+    "lang": [
+      "en"
+    ]
+  }
+]
+```
+
+### Advanced usage
+
+The list of providers may be further constrained by adding desired parameter values to the GET request:
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/sentiment?lang=en'
+```
+
+```sh
+[
+  {
+    "id": "ai.text.sentiment.ibm.natural_language_understanding",
+    "name": "IBM Watson Natural Language Understanding",
+    "score": 0,
+    "price": 0
+  },
+  {
+    "id": "ai.text.sentiment.microsoft.text_analytics_api.2-0",
+    "name": "Microsoft Text Analytics API",
+    "score": 0,
+    "price": 0
+  }
+]
+```
+
+Besides source language, service providers may be filtered by support of specific bulk option (`bulk`) and language detection option (`lang_detect`):
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/sentiment?lang=en&lang_detect=true&bulk=true'
+```
+
+## Getting information about a provider
+
+To get information about a provider with a given ID, send a GET request to https://api.inten.to/ai/text/sentiment/PROVIDER_ID. 
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/sentiment/ai.text.sentiment.microsoft.text_analytics_api.2-0'
+```
+
+The response contains a list of the metadata fields and values available for the provider:
+
+```sh
+{
+  "id": "ai.text.sentiment.microsoft.text_analytics_api.2-0",
+  "name": "Microsoft",
+  "logo": "https://inten.to/static/img/api/mcs_translate.png",
+  "billing": true,
+  "languages": {
+    "lang": [
+      "en"
+    ]
+  },
+  "lang_detect": false,
+  "bulk": false
+}
+```
+
 ### :lock: Enrichment mode
 In the enrichment mode, the Intento API tries to obtain as much information from the text as possible. Some providers do perform subjectivity analysis, others can detect irony, others support aspect-based sentiments. By aggregating results from several providers Intento can provide more information in a single call to the Intento API.
 
