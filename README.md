@@ -97,6 +97,48 @@ Proceed to the following links for more details and examples on how to use a par
 
 ## Advanced usage
 
+### :lock: Multi mode
+In the multi mode, the request is performed using a list of providers. The mode is activated by passing an array of provider identificators.
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+ "context": {
+  "text": "A sample text",
+  "to": "es"
+ },
+ "service": {
+  "provider": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"]
+ }
+}'
+```
+ 
+The response contains the translated text and a service information:          ↑
+
+```sh
+[
+{
+ "results": ["Un ejemplo de texto"],
+ "meta": {},
+ "service": {
+  "provider": {
+   "id": "ai.text.translate.google.translate_api.2-0",
+   "name": "Google Cloud Translation API"
+  }
+ }
+},
+{
+ "results": ["Un texto de ejemplo"],
+ "meta": {},
+ "service": {
+  "provider": {
+   "id": "ai.text.translate.yandex.translate_api.1-5",
+   "name": "Yandex Translate API"
+  }
+ }
+}
+]
+```
+
 ### :lock: Using a service provider with your own keys
 
 Intento supports two modes of using 3rd party services: 
@@ -104,14 +146,16 @@ Intento supports two modes of using 3rd party services:
 * full proxy: 3rd party service used via Intento and paid to the Intento (available for some of the services).
 * tech proxy: 3rd party service used via our user's own credentials and billed towards the user's account at the third-party service (available for all services).
 
-In the tech proxy mode, the custom credentials are passed in the `auth` service field. Auth object structure is different for different providers and may be obtained together with other provider details by sending GET request for this provider:
+In the tech proxy mode, the custom credentials are passed in the `auth` service field. `auth` field is a dictionary with keys equal to provider IDs you want to use your own key(s) with, and values set to a list of keys for the specified provider. There could be more than one key for the provider in the case you want to work with a pool of keys (more on this advanced feature later).
+
+Auth object structure is different for different providers and may be obtained together with other provider details by sending GET request for this provider:
 
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?provider=ai.text.translate.google.translate_api.2-0'
 [{
     "id": "ai.text.translate.google.translate_api.2-0",
     "name": "Google Cloud Translation API",
-    "auth": {api_key: ""},
+    "auth": {key: ""},
     "bulk_mode": true,
     "score": 0,
     "price": 0
@@ -125,9 +169,15 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
   "to": "es"
  },
  "service": {
-  "provider": "ai.text.translate.google.translate_api.2-0",
+  "provider": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"]
   "auth": {
-   "api_key": YOUR_GOOGLE_KEY
+   "ai.text.translate.google.translate_api.2-0": [
+     { "key": YOUR_GOOGLE_KEY }
+   ],
+   "ai.text.translate.yandex.translate_api.1-5": [
+     { "key": YOUR_YANDEX_KEY1 },
+     { "key": YOUR_YANDEX_KEY2 }
+   ]
   }
  }
 }'
