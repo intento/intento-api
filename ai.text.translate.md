@@ -108,49 +108,6 @@ The response contains the translated texts and a service information:
 }
 ```
 
-### :lock: Multi mode
-In the multi mode, the translation of the text is performed using a list of providers. The mode is activated by passing an array of provider identificators.
-
-```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
- "context": {
-  "text": "A sample text",
-  "to": "es"
- },
- "service": {
-  "provider": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"]
- }
-}'
-```
- 
-The response contains the translated text and a service information:          ↑
-
-```sh
-[
-{
- "results": ["Un ejemplo de texto"],
- "meta": {},
- "service": {
-  "provider": {
-   "id": "ai.text.translate.google.translate_api.2-0",
-   "name": "Google Cloud Translation API"
-  }
- }
-},
-{
- "results": ["Un texto de ejemplo"],
- "meta": {},
- "service": {
-  "provider": {
-   "id": "ai.text.translate.yandex.translate_api.1-5",
-   "name": "Yandex Translate API"
-  }
- }
-}
-]
-```
-
-
 ### :lock: Language detection mode
 If the "from" parameter is omitted many providers allow automatic source language detection and return results of the detection. 
 
