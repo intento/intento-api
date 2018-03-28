@@ -169,14 +169,10 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
   "to": "es"
  },
  "service": {
-  "provider": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"],
+  "provider": "ai.text.translate.google.translate_api.2-0",
   "auth": {
    "ai.text.translate.google.translate_api.2-0": [
      { "key": "YOUR_GOOGLE_KEY" }
-   ],
-   "ai.text.translate.yandex.translate_api.1-5": [
-     { "key": "YOUR_YANDEX_KEY1" },
-     { "key": "YOUR_YANDEX_KEY2" }
    ]
   }
  }
