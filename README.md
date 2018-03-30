@@ -139,7 +139,7 @@ The response contains the translated text and a service information:          â†
 ]
 ```
 
-### :lock: Using a service provider with your own keys
+### Using a service provider with your own keys
 
 Intento supports two modes of using 3rd party services: 
 
@@ -179,13 +179,13 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
 }'
 ```
 
-### :lock: Smart routing
+### Smart routing
 
 Intento provides the smart routing feature, so that the translation request is automatically routed to the best provider. The best provider is determined based on the following information:
 - apriori benchmark on the standard dataset
 - provider usage statistics, collected by Intento, including user feedback signals (the post-editing complexity for Machine Translation).
 
-#### :lock: Basic smart routing
+#### Basic smart routing
 To use the smart routing, just omit the `service.provider` parameter:
 
 ```sh
@@ -208,7 +208,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 }
 ```
 
-#### :lock: Specifying the bidding strategy
+#### Specifying the bidding strategy
 By default, when the provider is missing, requests are routed to a provider with the best expected price/performance ratio. This behavior may be controlled by specifying the desired bidding strategy in the `service.bidding` parameter. Supported values are:
 * `best` (default)
 * `best_quality` - the best expected quality regardless of the price
@@ -227,7 +227,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 }'
 ```
 
-### :lock: Failover mode
+### Failover mode
 Both for smart routing mode and basic mode, a failover is supported. By default, the failover is off, thus when the selected provider fails, an error is returned. To enable the failover mode, set the `service.failover` to `true`. By default, failover is governed by the default bidding strategy (`best`). To control this behavior, another bidding strategy may be specified via `service.bidding` parameter. Alternatively, you may specify a list of providers to consider for the failover (`service.failover_list`). This option overrides the bidding strategy for the failover procedure.
 
 In the following example we set the provider, but specify the list of alternatives to control the failover:
