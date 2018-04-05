@@ -3,6 +3,7 @@
 ## Overview
 
 This is a human-friendly manual to the Intento API. The interactive API Reference is available at https://intento.github.io.
+To get an API key, reach us at hello@inten.to.
 
 ### Intents
 
