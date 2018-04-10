@@ -70,6 +70,7 @@ Error codes:
 * `413` -- Intento: Capabilities mismatch for the chosen provider (too long text, unsupported languages, etc)
 * `429` -- Intento: API rate limit exceeded
 * `500` -- Intento: Internal error
+* `501` -- Intento: Not implemented. The server lacks the ability to fulfil the request. Will be implemented in future.
 * `502` -- Intento: Gateway timeout
 
 ## Basic usage
