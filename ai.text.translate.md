@@ -108,7 +108,7 @@ The response contains the translated texts and a service information:
 }
 ```
 
-### :lock: Language detection mode
+### Language detection mode
 If the "from" parameter is omitted many providers allow automatic source language detection and return results of the detection. 
 
 If such information is available from a provider, it is returned in the "meta" section of the response:
