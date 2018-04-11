@@ -154,14 +154,25 @@ Auth object structure is different for different providers and may be obtained t
 
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0'
-[{
-    "id": "ai.text.translate.google.translate_api.2-0",
-    "name": "Google Cloud Translation API",
-    "auth": {key: ""},
-    "bulk_mode": true,
-    "score": 0,
-    "price": 0
-  }]
+{
+  "id": "ai.text.translate.google.translate_api.2-0",
+  "name": "Google Cloud Translation API",
+  "logo": "https://inten.to/img/api/ggl_translate.png",
+  "auth": {"key": "YOUR_KEY"},
+  "billing": true,
+  "bulk": true,
+  "languages": {
+   "symmetric": [
+       "gu","gd","ga","gl","lb"
+    ],
+   "pairs": [
+     [
+       ["en", "de"],
+       ["fr", "en"] 
+     ]
+   ]
+  }
+}
 ```
 
 ```sh
