@@ -98,45 +98,61 @@ Proceed to the following links for more details and examples on how to use a par
 ## Advanced usage
 
 ### :lock: Multi mode
-In the multi mode, the request is performed using a list of providers. The mode is activated by passing an array of provider identificators.
+In the multi mode, the request is performed using lists of providers texts. 
+The mode is activated by passing ```async``` key.
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
  "context": {
-  "text": "A sample text",
+  "text": [
+    "A sample text1",
+    "A sample text2",
+   ],
   "to": "es"
  },
  "service": {
   "provider": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"]
- }
+ },
+ "async": "true"
 }'
 ```
  
-The response contains the translated text and a service information:          ↑
-
-```sh
-[
+The response contains guid of the operation:
+```json
 {
- "results": ["Un ejemplo de texto"],
- "meta": {},
- "service": {
-  "provider": {
-   "id": "ai.text.translate.google.translate_api.2-0",
-   "name": "Google Cloud Translation API"
-  }
- }
-},
-{
- "results": ["Un texto de ejemplo"],
- "meta": {},
- "service": {
-  "provider": {
-   "id": "ai.text.translate.yandex.translate_api.1-5",
-   "name": "Yandex Translate API"
-  }
- }
+  "name": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda"
 }
-]
+```
+Wait approximately 30 seconds for processing to complete. To retrieve the result of the operation, make a GET request to the ```https://api.inten.to/operations/translate/```
+
+```json
+{
+  "name": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda",
+  "done": true,
+  "response": 
+      [
+        {
+         "results": ["Translated sample text1", "Translated sample text2"],
+         "meta": {},
+         "service": {
+          "provider": {
+           "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+           "name": "Microsoft Translator API"
+          }
+         }
+        },
+        {
+         "results": ["Translated sample text1", "Translated sample text2"],
+         "meta": {},
+         "service": {
+          "provider": {
+           "id": "ai.text.translate.yandex.translate_api.1-5",
+           "name": "Yandex Translate API"
+          }
+         }
+        }      
+       ]
+}
 ```
 
 ### Using a service provider with your own keys
