@@ -123,7 +123,8 @@ The response contains guid of the operation:
   "name": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda"
 }
 ```
-Wait approximately 30 seconds for processing to complete. To retrieve the result of the operation, make a GET request to the ```https://api.inten.to/operations/translate/```
+Wait approximately 30 seconds for processing to complete. To retrieve the result of the operation, 
+make a GET request to the ```https://api.inten.to/operations/translate/YOUR_OPERATION_GUID```
 
 ```json
 {
@@ -154,7 +155,7 @@ Wait approximately 30 seconds for processing to complete. To retrieve the result
        ]
 }
 ```
-If operation is not completed the value if ```done``` is false
+If operation is not completed the value of ```done``` is false. Wait and make request later.
 
 ```json
 {
