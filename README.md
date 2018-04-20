@@ -160,7 +160,7 @@ If operation is not completed the value of ```done``` is false. Wait and make re
 ```json
 {
     "name": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda",
-    "done": true,
+    "done": false,
     "response": null
 }
 ```
