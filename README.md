@@ -98,7 +98,7 @@ Proceed to the following links for more details and examples on how to use a par
 ## Advanced usage
 
 ### :lock: Multi mode
-In the multi mode, the request is performed using lists of providers texts. 
+In the multi mode, the request is performed using list of providers and list of texts. 
 The mode is activated by passing ```async``` key.
 
 ```sh
@@ -154,6 +154,16 @@ Wait approximately 30 seconds for processing to complete. To retrieve the result
        ]
 }
 ```
+If operation is not completed the value if ```done``` is false
+
+```json
+{
+    "name": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda",
+    "done": true,
+    "response": null
+}
+```
+
 
 ### Using a service provider with your own keys
 
