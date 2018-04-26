@@ -81,13 +81,13 @@ To translate a text, send a POST request to Intento API at https://api.inten.to/
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
- "context": {
-  "text": "A sample text",
-  "to": "es"
- },
- "service": {
-  "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
- }
+    "context": {
+        "text": "A sample text",
+        "to": "es"
+    },
+    "service": {
+        "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+    }
 }'
 ```
 
@@ -100,46 +100,133 @@ Proceed to the following links for more details and examples on how to use a par
 ## Advanced usage
 
 ### :lock: Multi mode
-In the multi mode, the request is performed using a list of providers. The mode is activated by passing an array of provider identificators.
+In the multi mode, the request is performed using a list of providers. 
+The mode is activated by passing an array of provider's identificators.
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
- "context": {
-  "text": "A sample text",
-  "to": "es"
- },
- "service": {
-  "provider": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"]
- }
+    "context": {
+        "text": "A sample text",
+        "to": "es"
+    },
+    "service": {
+        "provider": [
+            "ai.text.translate.google.translate_api.2-0",
+            "ai.text.translate.yandex.translate_api.1-5"
+        ]
+    }
 }'
 ```
- 
-The response contains the translated text and a service information:          ↑
 
-```sh
-[
+Response:
+
+```json
 {
- "results": ["Un ejemplo de texto"],
- "meta": {},
- "service": {
-  "provider": {
-   "id": "ai.text.translate.google.translate_api.2-0",
-   "name": "Google Cloud Translation API"
-  }
- }
-},
-{
- "results": ["Un texto de ejemplo"],
- "meta": {},
- "service": {
-  "provider": {
-   "id": "ai.text.translate.yandex.translate_api.1-5",
-   "name": "Yandex Translate API"
-  }
- }
+    "response": [
+        {
+            "results": [
+                "Un texto de ejemplo"
+            ],
+            "meta": {},
+            "service": {
+                "provider": {
+                    "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+                    "name": "Microsoft Translator API"
+                }
+            }
+        },
+        {
+            "results": [
+                "Un texto de ejemplo"            
+            ],
+            "meta": {},
+            "service": {
+                "provider": {
+                    "id": "ai.text.translate.yandex.translate_api.1-5",
+                    "name": "Yandex Translate API"
+                }
+            }
+        }
+    ]
 }
-]
 ```
+
+### :lock: Async mode
+If the server responded with a status of 413 (Request Entity Too Large), then the request data is too large for the synchronous processing. In this case, you should switch to the asynchronous mode by setting ```service.async``` to ```true```.
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+    "context": {
+        "text": [
+            "A sample text1",
+            "A sample text2"
+        ],
+        "to": "es"
+    },
+    "service": {
+        "provider": [
+            "ai.text.translate.google.translate_api.2-0",
+            "ai.text.translate.yandex.translate_api.1-5"
+        ],
+        "async": true
+    }
+}'
+```
+
+The response contains ```id``` of the operation:
+
+```json
+{
+    "id": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda"
+}
+```
+Wait for processing to complete. To retrieve the result of the operation, 
+make a GET request to the ```https://api.inten.to/operations/YOUR_OPERATION_ID```.
+TTL of the resource is 30 days.
+
+```json
+{
+    "id": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda",
+    "done": true,
+    "response": [
+        {
+            "results": [
+                "Un texto de ejemplo 1",
+                "Un texto de ejemplo 2"
+            ],
+            "meta": {},
+            "service": {
+                "provider": {
+                    "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+                    "name": "Microsoft Translator API"
+                }
+            }
+        },
+        {
+            "results": [
+                "Un texto de ejemplo 1",
+                "Un texto de ejemplo 2"
+            ],
+            "meta": {},
+            "service": {
+                "provider": {
+                    "id": "ai.text.translate.yandex.translate_api.1-5",
+                    "name": "Yandex Translate API"
+                }
+            }
+        }
+    ]
+}
+```
+If the operation is not completed the value of ```done``` is false. Wait and make request later.
+
+```json
+{
+    "id": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda",
+    "done": false,
+    "response": null
+}
+```
+
 
 ### Using a service provider with your own keys
 
@@ -148,47 +235,60 @@ Intento supports two modes of using 3rd party services:
 * full proxy: 3rd party service used via Intento and paid to the Intento (available for some of the services).
 * tech proxy: 3rd party service used via our user's own credentials and billed towards the user's account at the third-party service (available for all services).
 
-In the tech proxy mode, the custom credentials are passed in the `auth` service field. `auth` field is a dictionary with keys equal to provider IDs you want to use your own key(s) with, and values set to a list of keys for the specified provider. There could be more than one key for the provider in the case you want to work with a pool of keys (more on this advanced feature later).
+In the tech proxy mode, the custom credentials are passed in the `auth` service field. `auth` field is a dictionary, it's keys are provider IDs. For each ID specify your own key(s) you want to use and values set to a list of keys for the specified provider. There could be more than one key for the provider in the case you want to work with a pool of keys (more on this advanced feature later).
 
 Auth object structure is different for different providers and may be obtained together with other provider details by sending GET request for this provider:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0'
-{
-  "id": "ai.text.translate.google.translate_api.2-0",
-  "name": "Google Cloud Translation API",
-  "logo": "https://inten.to/img/api/ggl_translate.png",
-  "auth": {"key": "YOUR_KEY"},
-  "billing": true,
-  "bulk": true,
-  "languages": {
-   "symmetric": [
-       "gu","gd","ga","gl","lb"
-    ],
-   "pairs": [
-     [
-       ["en", "de"],
-       ["fr", "en"] 
-     ]
-   ]
-  }
-}
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0' -d '{
+    "id": "ai.text.translate.google.translate_api.2-0",
+    "name": "Google Cloud Translation API",
+    "logo": "https://inten.to/img/api/ggl_translate.png",
+    "auth": {
+        "key": "YOUR_KEY"
+    },
+    "billing": true,
+    "bulk": true,
+    "languages": {
+        "symmetric": [
+            "gu",
+            "gd",
+            "ga",
+            "gl",
+            "lb"
+        ],
+        "pairs": [
+            [
+                [
+                    "en",
+                    "de"
+                ],
+                [
+                    "fr",
+                    "en"
+                ]
+            ]
+        ]
+    }
+}'
 ```
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate' -d '{
- "context": {
- "text": "A sample text",
-  "to": "es"
- },
- "service": {
-  "provider": "ai.text.translate.google.translate_api.2-0",
-  "auth": {
-   "ai.text.translate.google.translate_api.2-0": [
-     { "key": "YOUR_GOOGLE_KEY" }
-   ]
-  }
- }
+    "context": {
+        "text": "A sample text",
+        "to": "es"
+    },
+    "service": {
+        "provider": "ai.text.translate.google.translate_api.2-0",
+        "auth": {
+            "ai.text.translate.google.translate_api.2-0": [
+                {
+                    "key": "YOUR_GOOGLE_KEY"
+                }
+            ]
+        }
+    }
 }'
 ```
 
@@ -203,21 +303,25 @@ To use the smart routing, just omit the `service.provider` parameter:
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
- "context": {
- "text": "A sample text",
-  "to": "es"
- }
+    "context": {
+        "text": "A sample text",
+        "to": "es"
+    }
 }'
-
+```
+Response:
+```json
 {
- "results": ["Un texto de ejemplo"],
- "meta": {},
- "service": {
-  "provider": {
-   "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-   "name": "Microsoft Translator API"
-  }
- }
+    "results": [
+        "Un texto de ejemplo"
+    ],
+    "meta": {},
+    "service": {
+        "provider": {
+            "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+            "name": "Microsoft Translator API"
+        }
+    }
 }
 ```
 
@@ -230,13 +334,13 @@ By default, when the provider is missing, requests are routed to a provider with
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
- "context": {
- "text": "A sample text",
-  "to": "es"
- },
- "service": {
-  "bidding": "best_quality"
- }
+    "context": {
+        "text": "A sample text",
+        "to": "es"
+    },
+    "service": {
+        "bidding": "best_quality"
+    }
 }'
 ```
 
@@ -247,15 +351,18 @@ In the following example we set the provider, but specify the list of alternativ
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
- "context": {
- "text": "A sample text",
-  "to": "es"
- },
- "service": {
-  "provider": "ai.text.translate.microsoft.translator_text_api.2-0",
-  "failover": true,
-  "failover_list": ["ai.text.translate.google.translate_api.2-0", "ai.text.translate.yandex.translate_api.1-5"]
- }
+    "context": {
+        "text": "A sample text",
+        "to": "es"
+    },
+    "service": {
+        "provider": "ai.text.translate.microsoft.translator_text_api.2-0",
+        "failover": true,
+        "failover_list": [
+            "ai.text.translate.google.translate_api.2-0",
+            "ai.text.translate.yandex.translate_api.1-5"
+        ]
+    }
 }'
 ```
 
@@ -266,14 +373,16 @@ For each translation, Intento returns its unique id in `service.id` field:
 
 ```json
 {
- "results": ["Un texto de ejemplo"],
- "service": {
-  "id": "AVsAnRaMhIu3DcCXPJYY",
-  "provider": {
-   "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-   "name": "Microsoft Translator API"
-  }
- }
+    "results": [
+        "Un texto de ejemplo"
+    ],
+    "service": {
+        "id": "AVsAnRaMhIu3DcCXPJYY",
+        "provider": {
+            "id": "ai.text.translate.microsoft.translator_text_api.2-0",
+            "name": "Microsoft Translator API"
+        }
+    }
 }
 ```
 
@@ -281,11 +390,11 @@ This id may be used to send back the translation quality feedback:
 
 ```sh
 curl -XPUT -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
- "id": "AVsAnRaMhIu3DcCXPJYY",
- "feedback": {
-  "type": "raw",
-  "value": "A better text"
- }
+    "id": "AVsAnRaMhIu3DcCXPJYY",
+    "feedback": {
+        "type": "raw",
+        "value": "A better text"
+    }
 }'
 ```
 
@@ -302,20 +411,20 @@ The feedback signals sent back to Intento are used to fine-tune smart routing fo
 To control this process, a user may specify the session as a `service.session` object with arbitrary string fields. We assume that sessions form some sort of hierarchy and do our best to infer it from the session data sent to Intento. Possible sessions may include: 
 
 ```json
-{ 
-  "translator": "John Reed",
-  "author": "Leo Tolstoy",
-  "project": "War and Peace",
-  "document": "Chapter one" 
+{
+    "translator": "John Reed",
+    "author": "Leo Tolstoy",
+    "project": "War and Peace",
+    "document": "Chapter one"
 }
 ```
 
 or 
 
 ```json
-{ 
-  "author": "Leo Tolstoy",
-  "project": "Anna Karenina" 
+{
+    "author": "Leo Tolstoy",
+    "project": "Anna Karenina"
 }
 ```
 
