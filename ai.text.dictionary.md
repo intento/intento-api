@@ -1,4 +1,4 @@
-﻿# ai.text.dictionary
+# ai.text.dictionary
 
 This is an intent to get meanings of text in selected language.
 
@@ -32,7 +32,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/dictionary' 
 }'
 ```
 
-The response contains the dictionary results grouped by part of speech and a service information:
+The response contains the dictionary results grouped by part of speech and a service information. Parts of speech are formatted in snake_case style:
 
 ```json
 {
