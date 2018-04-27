@@ -59,7 +59,7 @@ Intento uses the standard HTTP error reporting format for the JSON API. Successf
 
 ### Authentication and keys
 
-Currently, we use the token-based authentication via headers (more on that below). If this is inconvenient for you, let us know. We always strive to support all use-cases our clients have in mind.
+Currently, we use the token-based authentication via headers (more on that [below](#authentication)). If this is inconvenient for you, let us know. We always strive to support all use-cases our clients have in mind.
 
 We enable cross-origin resource sharing support for our API so that you can use it right from the web application. However, be careful with your access keys. If you think your access credentials are compromised, let us know. We will give you new credentials and consult on how to take care of them.
 
@@ -69,7 +69,7 @@ Third-party services may be paid via Intento (the default scenario) or via your 
 
 ## Authentication
 
-We use the key-based authentication. Each request to intento API should pass an access key in header “apikey” as demonstrated in the examples below.
+We use the token-based authentication. Each request to intento API should pass an access key in header `apikey` as demonstrated in the examples below.
 
 For each account, we provide two keys, a real key and a sandbox one. Requests performed with the real key are actually fulfilled via third-party services and billed towards your account. Usage limits for real keys are governed by the subscription tier you have. Requests performed with the sandbox key are intended for testing purposes and return some sample responses. Usage limits for sandbox keys are quite low, let us know if anything is wrong with that.
 
@@ -272,7 +272,13 @@ In the tech proxy mode, the custom credentials are passed in the `auth` service 
 Auth object structure is different for different providers and may be obtained together with other provider details by sending GET request for this provider:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0' -d '{
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0'
+```
+
+Response:
+
+```json
+{
     "id": "ai.text.translate.google.translate_api.2-0",
     "name": "Google Cloud Translation API",
     "logo": "https://inten.to/img/api/ggl_translate.png",
