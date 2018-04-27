@@ -95,17 +95,17 @@ Error codes:
 - `401` -- Intento: Auth key is missing
 - `403` -- Intento: Auth key is invalid
 - `404` -- Intento: Intent/Provider not found
-- `413` -- Intento: Capabilities mismatch for the chosen provider (too long text, -nsupported languages, etc)
+- `413` -- Intento: Capabilities mismatch for the chosen provider (too long text, unsupported languages, etc)
 - `429` -- Intento: API rate limit exceeded
 - `500` -- Intento: Internal error
-- `501` -- Intento: Not implemented. The server lacks the ability to fulfil the -equest. Will be implemented in future.
+- `501` -- Intento: Not implemented. The server lacks the ability to fulfil the rquest. Will be implemented in future.
 - `502` -- Intento: Gateway timeout
 
 ## Basic usage
 
 A simple example of how to use Intento API.
 
-To translate a text, send a POST request to Intento API at [api.inten.to/ai/text/translate](https://api.inten.to/ai/text/translate). Specify the source text, the target language and the desired translation provider in JSON body of the request as in the following example:
+To translate a text, send a POST request to Intento API at [https://api.inten.to/ai/text/translate](https://api.inten.to/ai/text/translate). Specify the source text, the target language and the desired translation provider in JSON body of the request as in the following example:
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
@@ -182,7 +182,7 @@ Response:
 
 ### :lock: Async mode
 
-If the server responded with a status of 413 (Request Entity Too Large), then the request data is too large for the synchronous processing. In this case, you should switch to the asynchronous mode by setting ```service.async``` to ```true```.
+If the server responded with a status of 413 (Request Entity Too Large), then the request data is too large for the synchronous processing. In this case, you should switch to the asynchronous mode by setting `service.async` to `true`.
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
@@ -203,7 +203,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 }'
 ```
 
-The response contains ```id``` of the operation:
+The response contains `id` of the operation:
 
 ```json
 {
@@ -212,7 +212,7 @@ The response contains ```id``` of the operation:
 ```
 
 Wait for processing to complete. To retrieve the result of the operation,
-make a GET request to the ```https://api.inten.to/operations/YOUR_OPERATION_ID```.
+make a GET request to the `https://api.inten.to/operations/YOUR_OPERATION_ID`.
 TTL of the resource is 30 days.
 
 ```json
@@ -259,7 +259,6 @@ If the operation is not completed the value of `done` is false. Wait and make re
     "response": null
 }
 ```
-
 
 ### Using a service provider with your own keys
 
