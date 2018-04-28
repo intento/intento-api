@@ -74,7 +74,7 @@ If the provider doesn't have capabilities (e.g. does not support a specific lang
 We provide a bulk fulfillment mode to process an array of texts at once. The mode is activated by sending an array of strings to the `context.text` parameter. The bulk mode is supported for some of the providers (you can check the capability called "bulk").
 
 ```sh
-curl -XPOST -H "apikey: YOUR_API_KEY" "$HOST/ai/text/sentiment" -d '{
+curl -XPOST -H "apikey: YOUR_API_KEY" "https://api.inten.to/ai/text/sentiment" -d '{
     "context": {
         "text": [
             "We love this shop!",
