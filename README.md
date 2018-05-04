@@ -330,6 +330,27 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
 }'
 ```
 
+Response:
+
+```json
+{
+    "results": [
+        "Un texto de muestra"
+    ],
+    "meta": {
+        "detected_source_language": [
+            "en"
+        ]
+    },
+    "service": {
+        "provider": {
+            "id": "ai.text.translate.google.translate_api.2-0",
+            "name": "Google Cloud Translation API"
+        }
+    }
+}
+```
+
 ### Smart routing
 
 Intento provides the smart routing feature, so that the translation request is automatically routed to the best provider. The best provider is determined based on the following information:
