@@ -257,44 +257,72 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of available providers",
+                        "description": "Information about a specified provider",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "properties": {
-                                            "id": {
-                                                "type": "string",
-                                                "description": "Service provider id",
-                                                "example": "ai.text.translate.google.translate_api.2-0"
-                                            },
-                                            "name": {
-                                                "type": "string",
-                                                "description": "Service provider name",
-                                                "example": "Google Cloud Translation API"
-                                            },
-                                            "logo": {
-                                                "type": "string",
-                                                "description": "Service provider logo",
-                                                "example": "https://inten.to/img/api/ggl_translate.png"
-                                            },
-                                            "languages": {
-                                                "description": "Supported languages",
-                                                "type": "object",
-                                                "example": {
-                                                    "symmetric": [
-                                                        "en",
-                                                        "es"
-                                                    ],
-                                                    "pairs": [
-                                                        [
-                                                            "en",
-                                                            "de"
-                                                        ]
-                                                    ]
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "description": "Service provider id",
+                                            "example": "ai.text.translate.google.translate_api.2-0"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Service provider name",
+                                            "example": "Google Cloud Translation API"
+                                        },
+                                        "logo": {
+                                            "type": "string",
+                                            "description": "Service provider logo",
+                                            "example": "https://inten.to/img/api/ggl_translate.png"
+                                        },
+                                        "languages": {
+                                            "description": "Supported languages",
+                                            "type": "object",
+                                            "properies": {
+                                                "symmetric": {
+                                                    "description": "Translation is available in both directions",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "format": "iso639code"
+                                                    }
+                                                },
+                                                "pairs": {
+                                                    "description": "Translation is available in a specified direction",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "from": {
+                                                                "type": "string",
+                                                                "format": "iso639code"
+                                                            },
+                                                            "to": {
+                                                                "type": "string",
+                                                                "format": "iso639code"
+                                                            }
+                                                        }
+                                                    }
                                                 }
+                                            },
+                                            "example": {
+                                                "symmetric": [
+                                                    "en",
+                                                    "es"
+                                                ],
+                                                "pairs": [
+                                                    {
+                                                        "from": "en",
+                                                        "to": "de"
+                                                    },
+                                                    {
+                                                        "from": "fr",
+                                                        "to": "en"
+                                                    }
+                                                ]
                                             }
                                         }
                                     }
