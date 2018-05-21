@@ -314,16 +314,14 @@ The response contains a list of the metadata fields and values available for the
             "lb"
         ],
         "pairs": [
-            [
-                [
-                    "en",
-                    "de"
-                ],
-                [
-                    "fr",
-                    "en"
-                ]
-            ]
+            {
+                "from": "en",
+                "to": "de"
+            },
+            {
+                "from": "fr",
+                "to": "en"
+            }
         ]
     }
 }
