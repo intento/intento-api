@@ -17,7 +17,7 @@
         "/ai/text/translate": {
             "get": {
                 "summary": "Get a list of available service providers",
-                "description": "Get a list of available service provider identifiers for this intent. If context parameters are specified, the reponse contains only providers that meet all restrictions implied by the context (conjunction)",
+                "description": "Get a list of available service provider identifiers for this intent. If context parameters are specified, the response contains only providers that meet all restrictions implied by the context (conjunction)",
                 "parameters": [
                     {
                         "in": "query",
@@ -41,9 +41,9 @@
                     },
                     {
                         "in": "query",
-                        "name": "domain",
+                        "name": "category",
                         "required": false,
-                        "description": "Translation domain",
+                        "description": "Translation domain <a href='https://github.com/intento/intento-api/ai.text.translation.md#translation-domains'>check out docs</a>",
                         "schema": {
                             "type": "string"
                         }
@@ -193,7 +193,13 @@
                                             "bidding": {
                                                 "description": "Policy to select the provider if it is not specified. The default value is 'auto'",
                                                 "type": "string",
-                                                "default": "auto"
+                                                "enum": [
+                                                    "best",
+                                                    "best_quality",
+                                                    "best_price",
+                                                    "random"
+                                                ],
+                                                "default": "best"
                                             },
                                             "multiple_translations": {
                                                 "description": "Return multiple translations for a single text",
@@ -251,44 +257,72 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of available providers",
+                        "description": "Information about a specified provider",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "properties": {
-                                            "id": {
-                                                "type": "string",
-                                                "description": "Service provider id",
-                                                "example": "ai.text.translate.google.translate_api.2-0"
-                                            },
-                                            "name": {
-                                                "type": "string",
-                                                "description": "Service provider name",
-                                                "example": "Google Cloud Translation API"
-                                            },
-                                            "logo": {
-                                                "type": "string",
-                                                "description": "Service provider logo",
-                                                "example": "https://inten.to/img/api/ggl_translate.png"
-                                            },
-                                            "languages": {
-                                                "description": "Supported languages",
-                                                "type": "object",
-                                                "example": {
-                                                    "symmetric": [
-                                                        "en",
-                                                        "es"
-                                                    ],
-                                                    "pairs": [
-                                                        [
-                                                            "en",
-                                                            "de"
-                                                        ]
-                                                    ]
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "description": "Service provider id",
+                                            "example": "ai.text.translate.google.translate_api.2-0"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Service provider name",
+                                            "example": "Google Cloud Translation API"
+                                        },
+                                        "logo": {
+                                            "type": "string",
+                                            "description": "Service provider logo",
+                                            "example": "https://inten.to/img/api/ggl_translate.png"
+                                        },
+                                        "languages": {
+                                            "description": "Supported languages",
+                                            "type": "object",
+                                            "properies": {
+                                                "symmetric": {
+                                                    "description": "Translation is available in both directions",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "format": "iso639code"
+                                                    }
+                                                },
+                                                "pairs": {
+                                                    "description": "Translation is available in a specified direction",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "from": {
+                                                                "type": "string",
+                                                                "format": "iso639code"
+                                                            },
+                                                            "to": {
+                                                                "type": "string",
+                                                                "format": "iso639code"
+                                                            }
+                                                        }
+                                                    }
                                                 }
+                                            },
+                                            "example": {
+                                                "symmetric": [
+                                                    "en",
+                                                    "es"
+                                                ],
+                                                "pairs": [
+                                                    {
+                                                        "from": "en",
+                                                        "to": "de"
+                                                    },
+                                                    {
+                                                        "from": "fr",
+                                                        "to": "en"
+                                                    }
+                                                ]
                                             }
                                         }
                                     }

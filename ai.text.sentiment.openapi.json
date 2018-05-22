@@ -1,0 +1,539 @@
+{
+    "openapi": "3.0.0",
+    "externalDocs": {
+        "url": "https://api.inten.to"
+    },
+    "security": [
+        {
+            "APIKeyHeader": []
+        }
+    ],
+    "info": {
+        "description": "This is an intent to analyze the sentiment of the provided text.",
+        "title": "ai.text.sentiment",
+        "version": "1.0"
+    },
+    "paths": {
+        "/ai/text/sentiment": {
+            "get": {
+                "summary": "Get a list of available service providers for the sentiment analysis",
+                "description": "Get a list of available service provider identifiers for this intent. If context parameters are specified, the response contains only providers that meet all restrictions implied by the context (conjunction)",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "lang",
+                        "required": false,
+                        "description": "Source language",
+                        "schema": {
+                            "$ref": "#/components/schemas/LanguageCode"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "bulk",
+                        "required": false,
+                        "description": "Bulk analysis option",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "lang_detect",
+                        "required": false,
+                        "description": "Language detection option",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "domain",
+                        "required": false,
+                        "description": ":lock: Sentiment category / domain support",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of the providers available for given constraints with an information on pricing, etc.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProviderList"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Analyze the sentiment of the provided text.",
+                "description": "Analyzes the sentiment of the provided text.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AnalysisRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "The processed text and a service information.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AnalysisResult"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/ai/text/sentiment/{id}": {
+            "get": {
+                "summary": "Get information about a provider",
+                "description": "The response contains a list of the metadata fields and values available for the provider",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Provider id",
+                        "schema": {
+                            "type": "string",
+                            "example": "ai.text.sentiment.microsoft.text_analytics_api.2-0"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Information about a specified provider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Provider"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/ai/text/sentiment/languages": {
+            "get": {
+                "summary": "Get list of supported languages",
+                "description": "Will return an array of supported languages",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "locale",
+                        "required": false,
+                        "description": "Locale",
+                        "schema": {
+                            "type": "string",
+                            "default": "ru"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of supported languages",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LanguageList"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/ai/text/sentiment/languages/{id}": {
+            "get": {
+                "summary": "Get full information on the supported language",
+                "description": "For a given language code (intento internal or client’s) will show full metadata",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Language id",
+                        "schema": {
+                            "type": "string",
+                            "default": "he"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "locale",
+                        "required": false,
+                        "description": "Locale",
+                        "schema": {
+                            "type": "string",
+                            "default": "ru"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Full description",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Language"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "https://api.inten.to/"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "APIKeyHeader": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "apikey"
+            }
+        },
+        "schemas": {
+            "LanguageCode": {
+                "type": "string",
+                "format": "iso639code"
+            },
+            "AnalysisRequest": {
+                "type": "object",
+                "example": {
+                    "context": {
+                        "text": "We love this trail and make the trip every year. The views are breathtaking and well worth the hike!",
+                        "lang": "en"
+                    }
+                },
+                "required": [
+                    "context"
+                ],
+                "properties": {
+                    "context": {
+                        "description": "Input data for the intent fulfillment",
+                        "type": "object",
+                        "required": [
+                            "text"
+                        ],
+                        "properties": {
+                            "text": {
+                                "description": "Text to perform sentiment analysis",
+                                "allOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "description": ":lock: Multi mode",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                ]
+                            },
+                            "lang": {
+                                "description": "Source language",
+                                "$ref": "#/components/schemas/LanguageCode",
+                                "default": "auto"
+                            },
+                            "category": {
+                                "description": ":lock: Sentiment analysis domain",
+                                "type": "string",
+                                "enum": [
+                                    "general",
+                                    "generalnn"
+                                ],
+                                "default": "auto"
+                            }
+                        }
+                    },
+                    "service": {
+                        "description": "Service parameters related to the Intento Platform: I/O formats etc",
+                        "type": "object",
+                        "properties": {
+                            "provider": {
+                                "description": "Provider identificator to use for the request. A list of the available providers is returned by the GET request. If not specified, the provider is selected according to the bidding policy",
+                                "type": "string"
+                            },
+                            "bidding": {
+                                "description": "Policy to select the provider if it is not specified. The default value is 'auto'",
+                                "type": "string",
+                                "enum": [
+                                    "best",
+                                    "best_quality",
+                                    "best_price",
+                                    "random"
+                                ],
+                                "default": "best"
+                            },
+                            "input_format": {
+                                "description": "Input text content type",
+                                "type": "string",
+                                "enum": [
+                                    "text/plain",
+                                    "text/html"
+                                ],
+                                "default": "auto"
+                            },
+                            "output_format": {
+                                "description": "Output text content type",
+                                "type": "string",
+                                "enum": [
+                                    "text/plain",
+                                    "text/html"
+                                ],
+                                "default": "auto"
+                            },
+                            "pretty_print": {
+                                "description": "Human-friendly output",
+                                "type": "boolean",
+                                "default": false
+                            }
+                        }
+                    }
+                }
+            },
+            "AnalysisResponse": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "description": "Sentiment analysis information",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "sentiment_label": {
+                                    "type": "string"
+                                },
+                                "sentiment_score": {
+                                    "type": "number"
+                                },
+                                "sentiment_confidence": {
+                                    "type": "number"
+                                },
+                                "sentiment_subjectivity": {
+                                    "type": "string"
+                                },
+                                "agreement": {
+                                    "type": "bool"
+                                },
+                                "irony": {
+                                    "type": "bool"
+                                }
+                            }
+                        }
+                    },
+                    "service": {
+                        "description": "Service information regarding the intent fulfillment",
+                        "type": "object",
+                        "properties": {
+                            "provider": {
+                                "description": "Service provider that fulfilled the intent",
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "description": "Service provider ID on the Intento Platform",
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "description": "Service provider print name",
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "results": [
+                        {
+                            "sentiment_label": "positive",
+                            "sentiment_score": 1.0,
+                            "sentiment_confidence": 1.0,
+                            "sentiment_subjectivity": "subjective",
+                            "agreement": true,
+                            "irony": false
+                        }
+                    ],
+                    "meta": {},
+                    "service": {
+                        "provider": {
+                            "id": "ai.text.sentiment.meaningcloud.sentiment_analysis_api.2-1",
+                            "name": "MeaningCloud Sentiment Analysis API"
+                        }
+                    }
+                }
+            },
+            "Provider": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Service provider id",
+                        "example": "ai.text.sentiment.microsoft.text_analytics_api.2-0"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Service provider name",
+                        "example": "Microsoft"
+                    },
+                    "logo": {
+                        "type": "string",
+                        "description": "Service provider logo url",
+                        "example": "https://inten.to/static/img/api/mcs_translate.png"
+                    },
+                    "languages": {
+                        "description": "Supported languages",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LanguageCode"
+                        },
+                        "example": {
+                            "lang": [
+                                "en",
+                                "es"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ProviderList": {
+                "description": "List of providers",
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string",
+                            "description": "Service provider id",
+                            "example": "ai.text.sentiment.ibm.natural_language_understanding"
+                        },
+                        "name": {
+                            "type": "string",
+                            "description": "Service provider print name",
+                            "example": "IBM Watson Natural Language Understanding"
+                        },
+                        "score": {
+                            "type": "number",
+                            "description": "Estimated performance score in (0,1]"
+                        },
+                        "price": {
+                            "type": "number",
+                            "description": "Estimated price per 1 million characters, USD"
+                        },
+                        "lang": {
+                            "description": "List of supported languages",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/LanguageCode"
+                            }
+                        }
+                    }
+                }
+            },
+            "Language": {
+                "type": "object",
+                "properties": {
+                    "iso_name": {
+                        "type": "string",
+                        "example": "Hebrew (modern)"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "иврит"
+                    },
+                    "intento_code": {
+                        "type": "string",
+                        "example": "he"
+                    },
+                    "iso_639_1_code": {
+                        "type": "string",
+                        "example": "heb"
+                    },
+                    "iso_639_2t_code": {
+                        "type": "string",
+                        "example": "heb"
+                    },
+                    "iso_639_2b_code": {
+                        "type": "string",
+                        "example": "heb"
+                    },
+                    "iso_639_3_code": {
+                        "type": "string",
+                        "example": "heb"
+                    },
+                    "client_code": {
+                        "type": "string",
+                        "example": "hebr"
+                    },
+                    "provider_codes": {
+                        "type": "object",
+                        "example": {
+                            "ai.text.sentiment.google.sentiment_api.2-0": "iw"
+                        }
+                    }
+                }
+            },
+            "LanguageList": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "iso_code": {
+                            "type": "string",
+                            "description": "Service provider id",
+                            "example": "he"
+                        },
+                        "name": {
+                            "type": "string",
+                            "example": "иврит"
+                        },
+                        "intento_code": {
+                            "type": "string",
+                            "description": "Service provider name",
+                            "example": "he"
+                        },
+                        "client_code": {
+                            "type": "string",
+                            "description": "Service provider logo",
+                            "example": "hebr"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

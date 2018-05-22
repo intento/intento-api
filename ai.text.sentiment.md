@@ -179,7 +179,7 @@ To get a list of available Sentiment providers, send a GET request to [https://a
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/sentiment'
 ```
 
-The response contains a list of the providers available for given constraints with an information on pricing etc:
+The response contains a list of the providers available for given constraints with an information on pricing, etc.:
 
 ```json
 [
