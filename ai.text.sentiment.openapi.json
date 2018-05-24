@@ -91,7 +91,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AnalysisResult"
+                                    "$ref": "#/components/schemas/AnalysisResponse"
                                 }
                             }
                         }
