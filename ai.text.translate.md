@@ -18,6 +18,7 @@ This is an intent to translate text from one language to another.
 - [All language settings](#all-language-settings)
 - [:lock: Custom Translation Models](#lock-custom-translation-models)
     - [:lock: Migrating custom models between providers](#lock-migrating-custom-models-between-providers)
+- [Content processing](#content-processing)
 
 <!-- /TOC -->
 
@@ -433,3 +434,60 @@ TBD
 ### :lock: Migrating custom models between providers
 
 TBD
+
+
+## Content processing
+
+Sometimes it's more convenient to preprocess or postprocess text after translation, e.g. eliminate spaces before punctuation. You can easily delegate it to Intento API with `processing` tag. This tag includes a set of rules.  
+
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+    "context": {
+        "text": "A sample text",
+        "to": "es"
+    },
+    "service": {
+        "provider": "ai.text.translate.microsoft.translator_text_api.2-0",
+        "processing": {
+            "pre": [
+                "punctuation_set"
+            ],
+            "post": [
+                "punctuation_set"
+            ]
+        }
+    }
+}'
+```
+
+More information about sets and rules can be found at `https://api.inten.to/settings/processing-rules`. Each rule has a clear `description` what exactly it does. 
+
+```json
+{
+    "results": {
+        "punctuation_set": [
+            {
+                "language": "Generic",
+                "exception": "None",
+                "intent_type": "ai.text",
+                "description": "Remove space(s) before period or comma",
+                "rule": {
+                    "type": "regex",
+                    "pattern": {
+                        "search": "(\\S)\\s+(\\.|,|\\u3002)",
+                        "replace": "$1$2"
+                    },
+                    "params": {
+                        "dotall": "false",
+                        "ignorecase": "true",
+                        "multiline": "false",
+                        "unicode": "true"
+                    }
+                }
+            },
+            ...
+        ]
+    }
+}
+```
