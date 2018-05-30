@@ -19,6 +19,7 @@ This is an intent to translate text from one language to another.
 - [:lock: Custom Translation Models](#lock-custom-translation-models)
     - [:lock: Migrating custom models between providers](#lock-migrating-custom-models-between-providers)
 - [Supported formats](#supported-formats)
+    - [List of providers supporting a specified format](#list-of-providers-supporting-a-specified-format)
 - [Content processing](#content-processing)
 
 <!-- /TOC -->
@@ -328,8 +329,8 @@ The response contains a list of the metadata fields and values available for the
         ]
     },
     "auth": {
-		"key": "YOUR_KEY"
-	}
+        "key": "YOUR_KEY"
+    }
 }
 ```
 
@@ -440,23 +441,22 @@ TBD
 
 TBD
 
-
 ## Supported formats
 
-By default the translation engines process input texts as a plain text and do not take tags into account. Many providers support text formats other than plain text. Currently supported formats are: `text` (is the default, plain text), `html`, `xml`. 
+By default the translation engines process input texts as a plain text and do not take tags into account. Many providers support text formats other than plain text. Currently supported formats are: `text` (is the default, plain text), `html`, `xml`.
 
 To translate a text using a specified format just add a `format` field into `context` parameters:
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
-  "context": {
-    "text": "<p>A <div>sample</div> text</p>",
-    "to": "ru",
-    "format": "html"
-  },
-  "service": {
-    "provider" : "ai.text.translate.google.translate_api.2-0"
-  }
+    "context": {
+        "text": "<p>A <div>sample</div> text</p>",
+        "to": "ru",
+        "format": "html"
+    },
+    "service": {
+        "provider": "ai.text.translate.google.translate_api.2-0"
+    }
 }'
 ```
 
@@ -464,16 +464,16 @@ The response contains the translated text with preserved formatting:
 
 ```json
 {
-	"results": ["<p> <div> \u043e\u0431\u0440\u0430\u0437\u0435\u0446 </div> \u0442\u0435\u043a\u0441\u0442 </p>"],
-	"meta": {
-		"detected_source_language": ["en"]
-	},
-	"service": {
-		"provider": {
-			"id": "ai.text.translate.google.translate_api.2-0",
-			"name": "Google Cloud Translation API"
-		}
-	}
+    "results": ["<p> <div> \u043e\u0431\u0440\u0430\u0437\u0435\u0446 </div> \u0442\u0435\u043a\u0441\u0442 </p>"],
+    "meta": {
+        "detected_source_language": ["en"]
+    },
+    "service": {
+        "provider": {
+            "id": "ai.text.translate.google.translate_api.2-0",
+            "name": "Google Cloud Translation API"
+        }
+    }
 }
 
 ```
@@ -490,29 +490,27 @@ Response:
 
 ```json
 [
-{
-	"id": "ai.text.translate.microsoft.translator_text_api.3-0",
-	"name": "Microsoft Translator API v3.0",
-	"score": 0,
-	"price": 0
-}, 
-{
-	"id": "ai.text.translate.google.translate_api.2-0",
-	"name": "Google Cloud Translation API",
-	"score": 0,
-	"price": 0
-},
-...
+    {
+        "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+        "name": "Microsoft Translator API v3.0",
+        "score": 0,
+        "price": 0
+    },
+    {
+        "id": "ai.text.translate.google.translate_api.2-0",
+        "name": "Google Cloud Translation API",
+        "score": 0,
+        "price": 0
+    },
+    ...
 ]
 ```
 
 You can see formats supported by a provider in the results of a GET request (see [Getting information about a provider](#getting-information-about-a-provider)). The field "format" contains a list of supported text formats.
 
-
 ## Content processing
 
-Sometimes it's more convenient to preprocess or postprocess text after translation, e.g. eliminate spaces before punctuation. You can easily delegate it to Intento API with `processing` tag. This tag includes a set of rules.  
-
+Sometimes it's more convenient to preprocess or postprocess text after translation, e.g. eliminate spaces before punctuation. You can easily delegate it to Intento API with `processing` tag. This tag includes a set of rules.
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
@@ -534,7 +532,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 }'
 ```
 
-More information about sets and rules can be found at `https://api.inten.to/settings/processing-rules`. Each rule has a clear `description` what exactly it does. 
+More information about sets and rules can be found at `https://api.inten.to/settings/processing-rules`. Each rule has a clear `description` what exactly it does.
 
 ```json
 {

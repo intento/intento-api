@@ -1,0 +1,165 @@
+{
+    "openapi": "3.0.0",
+    "externalDocs": {
+        "url": "https://github.com/intento/intento-api"
+    },
+    "security": [
+        {
+            "APIKeyHeader": []
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://api.inten.to/"
+        }
+    ],
+    "info": {
+        "description": "Customer's settings.",
+        "title": "settings",
+        "version": "1.0"
+    },
+    "paths": {
+        "/settings/processing-rules": {
+            "get": {
+                "summary": "Get a list of available text-processing rules",
+                "description": "Sometimes it's more convenient to preprocess or postprocess text after translation, e.g. eliminate spaces before punctuation.",
+                "responses": {
+                    "200": {
+                        "description": "List of available rules",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProcessingRulesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "APIKeyHeader": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "apikey"
+            }
+        },
+        "schemas": {
+            "ProcessingRule": {
+                "example": {
+                    "type": "regex",
+                    "pattern": {
+                        "search": "(\\S)\\s+(\\.|,|\\u3002)",
+                        "replace": "$1$2"
+                    },
+                    "params": {
+                        "dotall": "false",
+                        "ignorecase": "true",
+                        "multiline": "false",
+                        "unicode": "true"
+                    }
+                },
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "pattern": {
+                        "type": "object",
+                        "properties": {
+                            "search": {
+                                "type": "string"
+                            },
+                            "replace": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "params": {
+                        "type": "object",
+                        "properties": {
+                            "dotall": {
+                                "type": "string"
+                            },
+                            "ignorecase": {
+                                "type": "string"
+                            },
+                            "multiline": {
+                                "type": "string"
+                            },
+                            "unicode": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "ProcessingRuleSet": {
+                "type": "object",
+                "properties": {
+                    "language": {
+                        "type": "string"
+                    },
+                    "exception": {
+                        "type": "string"
+                    },
+                    "intent_type": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "rule": {
+                        "$ref": "#/components/schemas/ProcessingRule"
+                    }
+                }
+            },
+            "ProcessingRulesResponse": {
+                "example": {
+                    "results": {
+                        "punctuation_set": [
+                            {
+                                "language": "Generic",
+                                "exception": "None",
+                                "intent_type": "ai.text",
+                                "description": "Remove space(s) before period or comma",
+                                "rule": {
+                                    "type": "regex",
+                                    "pattern": {
+                                        "search": "(\\S)\\s+(\\.|,|\\u3002)",
+                                        "replace": "$1$2"
+                                    },
+                                    "params": {
+                                        "dotall": "false",
+                                        "ignorecase": "true",
+                                        "multiline": "false",
+                                        "unicode": "true"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "type": "object",
+                "properties": {
+                    "result": {
+                        "type": "object",
+                        "properties": {
+                            "punctuation_set": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/ProcessingRuleSet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

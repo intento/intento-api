@@ -1,11 +1,16 @@
 {
     "openapi": "3.0.0",
     "externalDocs": {
-        "url": "https://api.inten.to"
+        "url": "https://github.com/intento/intento-api"
     },
     "security": [
         {
             "APIKeyHeader": []
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://api.inten.to/"
         }
     ],
     "info": {
@@ -55,6 +60,21 @@
                         "description": "Bulk translate option",
                         "schema": {
                             "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "format",
+                        "required": false,
+                        "description": "Supported input format",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "text",
+                                "html",
+                                "xml"
+                            ],
+                            "default": "text"
                         }
                     },
                     {
@@ -109,13 +129,23 @@
             "post": {
                 "summary": "Translates a text string from one language to another",
                 "description": "Translates a text string from one language to another",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TranslateRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Translated text",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Response"
+                                    "$ref": "#/components/schemas/TranslateResponse"
                                 }
                             }
                         }
@@ -123,119 +153,6 @@
                     "400": {
                         "description": "Something went wrong"
                     }
-                },
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "example": {
-                                    "context": {
-                                        "text": "API economy (application programming interface economy) is a general term that describes the way application programming interfaces (APIs) can positively affect an organization's profitability . An API is a customer interface for technology products that allows software components to communicate.",
-                                        "to": "es"
-                                    }
-                                },
-                                "required": [
-                                    "context"
-                                ],
-                                "properties": {
-                                    "context": {
-                                        "description": "Input data for the intent fulfillment",
-                                        "type": "object",
-                                        "required": [
-                                            "text",
-                                            "to"
-                                        ],
-                                        "properties": {
-                                            "text": {
-                                                "description": "Text to translate",
-                                                "allOf": [
-                                                    {
-                                                        "type": "string"
-                                                    },
-                                                    {
-                                                        "items": {
-                                                            "type": "string"
-                                                        },
-                                                        "type": "array"
-                                                    }
-                                                ]
-                                            },
-                                            "to": {
-                                                "description": "Target language",
-                                                "format": "iso639code",
-                                                "type": "string"
-                                            },
-                                            "from": {
-                                                "description": "Source language",
-                                                "format": "iso639code",
-                                                "type": "string",
-                                                "default": "auto"
-                                            },
-                                            "category": {
-                                                "description": "Translation domain",
-                                                "type": "string",
-                                                "enum": [
-                                                    "general"
-                                                ],
-                                                "default": "auto"
-                                            }
-                                        }
-                                    },
-                                    "service": {
-                                        "description": "Service parameters related to the Intento Platform: I/O formats etc",
-                                        "type": "object",
-                                        "properties": {
-                                            "provider": {
-                                                "description": "Provider identificator to use for the request. A list of the available providers is returned by the GET request. If not specified, the provider is selected according to the bidding policy",
-                                                "type": "string"
-                                            },
-                                            "bidding": {
-                                                "description": "Policy to select the provider if it is not specified. The default value is 'auto'",
-                                                "type": "string",
-                                                "enum": [
-                                                    "best",
-                                                    "best_quality",
-                                                    "best_price",
-                                                    "random"
-                                                ],
-                                                "default": "best"
-                                            },
-                                            "multiple_translations": {
-                                                "description": "Return multiple translations for a single text",
-                                                "type": "boolean",
-                                                "default": false
-                                            },
-                                            "input_format": {
-                                                "description": "Input text content type",
-                                                "type": "string",
-                                                "enum": [
-                                                    "text/plain",
-                                                    "text/html"
-                                                ],
-                                                "default": "auto"
-                                            },
-                                            "output_format": {
-                                                "description": "Output text content type",
-                                                "type": "string",
-                                                "enum": [
-                                                    "text/plain",
-                                                    "text/html"
-                                                ],
-                                                "default": "auto"
-                                            },
-                                            "pretty_print": {
-                                                "description": "Human-friendly output",
-                                                "type": "boolean",
-                                                "default": false
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
                 }
             }
         },
@@ -281,7 +198,7 @@
                                         "languages": {
                                             "description": "Supported languages",
                                             "type": "object",
-                                            "properies": {
+                                            "properties": {
                                                 "symmetric": {
                                                     "description": "Translation is available in both directions",
                                                     "type": "array",
@@ -480,11 +397,6 @@
             }
         }
     },
-    "servers": [
-        {
-            "url": "https://api.inten.to/"
-        }
-    ],
     "components": {
         "securitySchemes": {
             "APIKeyHeader": {
@@ -494,7 +406,125 @@
             }
         },
         "schemas": {
-            "Response": {
+            "TranslateRequest": {
+                "type": "object",
+                "example": {
+                    "context": {
+                        "text": "API economy (application programming interface economy) is a general term that describes the way application programming interfaces (APIs) can positively affect an organization's profitability . An API is a customer interface for technology products that allows software components to communicate.",
+                        "to": "es"
+                    }
+                },
+                "required": [
+                    "context"
+                ],
+                "properties": {
+                    "context": {
+                        "description": "Input data for the intent fulfillment",
+                        "type": "object",
+                        "required": [
+                            "text",
+                            "to"
+                        ],
+                        "properties": {
+                            "text": {
+                                "description": "Text to translate",
+                                "allOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    }
+                                ]
+                            },
+                            "to": {
+                                "description": "Target language",
+                                "format": "iso639code",
+                                "type": "string"
+                            },
+                            "from": {
+                                "description": "Source language",
+                                "format": "iso639code",
+                                "type": "string",
+                                "default": "auto"
+                            },
+                            "format": {
+                                "description": "Input format",
+                                "type": "string",
+                                "enum": [
+                                    "text",
+                                    "html",
+                                    "xml"
+                                ],
+                                "default": "text"
+                            },
+                            "category": {
+                                "description": "Translation domain",
+                                "type": "string",
+                                "enum": [
+                                    "general"
+                                ],
+                                "default": "auto"
+                            }
+                        }
+                    },
+                    "service": {
+                        "description": "Service parameters related to the Intento Platform: I/O formats etc",
+                        "type": "object",
+                        "properties": {
+                            "provider": {
+                                "description": "Provider identificator to use for the request. A list of the available providers is returned by the GET request. If not specified, the provider is selected according to the bidding policy",
+                                "type": "string"
+                            },
+                            "bidding": {
+                                "description": "Policy to select the provider if it is not specified. The default value is 'auto'",
+                                "type": "string",
+                                "enum": [
+                                    "best",
+                                    "best_quality",
+                                    "best_price",
+                                    "random"
+                                ],
+                                "default": "best"
+                            },
+                            "multiple_translations": {
+                                "description": "Return multiple translations for a single text",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "processing": {
+                                "description": "Makes the result prettier according to specified rule sets",
+                                "type": "object",
+                                "properties": {
+                                    "pre": {
+                                        "description": "Pre-processing rule names. Find available with /settings/processing-rules end point",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "post": {
+                                        "description": "Post-processing rule names. Find available with /settings/processing-rules end point",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "pretty_print": {
+                                "description": "Human-friendly output",
+                                "type": "boolean",
+                                "default": false
+                            }
+                        }
+                    }
+                }
+            },
+            "TranslateResponse": {
                 "type": "object",
                 "properties": {
                     "results": {
@@ -504,10 +534,10 @@
                                 "type": "string"
                             },
                             {
+                                "type": "array",
                                 "items": {
                                     "type": "string"
-                                },
-                                "type": "array"
+                                }
                             }
                         ]
                     },
