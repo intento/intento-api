@@ -59,6 +59,21 @@
                     },
                     {
                         "in": "query",
+                        "name": "format",
+                        "required": false,
+                        "description": "Supported input format",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "text",
+                                "html",
+                                "xml"
+                            ],
+                            "default": "text"
+                        }
+                    },
+                    {
+                        "in": "query",
                         "name": "billing",
                         "required": false,
                         "description": "Billing avaliable via Intento",
@@ -172,14 +187,23 @@
                                                 "type": "string",
                                                 "default": "auto"
                                             },
+                                            "format": {
+                                                "description": "Input format",
+                                                "type": "string",
+                                                "enum": [
+                                                    "text",
+                                                    "html",
+                                                    "xml"
+                                                ],
+                                                "default": "text"
+                                            },
                                             "category": {
                                                 "description": "Translation domain",
                                                 "type": "string",
                                                 "enum": [
                                                     "general"
                                                 ],
-                                                "default": "auto"
-                                            }
+                                                "default": "auto"                                            }
                                         }
                                     },
                                     "service": {
