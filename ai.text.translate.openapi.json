@@ -1,11 +1,16 @@
 {
     "openapi": "3.0.0",
     "externalDocs": {
-        "url": "https://api.inten.to"
+        "url": "https://github.com/intento/intento-api"
     },
     "security": [
         {
             "APIKeyHeader": []
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://api.inten.to/"
         }
     ],
     "info": {
@@ -193,7 +198,7 @@
                                         "languages": {
                                             "description": "Supported languages",
                                             "type": "object",
-                                            "properies": {
+                                            "properties": {
                                                 "symmetric": {
                                                     "description": "Translation is available in both directions",
                                                     "type": "array",
@@ -392,11 +397,6 @@
             }
         }
     },
-    "servers": [
-        {
-            "url": "https://api.inten.to/"
-        }
-    ],
     "components": {
         "securitySchemes": {
             "APIKeyHeader": {

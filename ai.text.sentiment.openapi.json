@@ -1,11 +1,16 @@
 {
     "openapi": "3.0.0",
     "externalDocs": {
-        "url": "https://api.inten.to"
+        "url": "https://github.com/intento/intento-api"
     },
     "security": [
         {
             "APIKeyHeader": []
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://api.inten.to/"
         }
     ],
     "info": {
@@ -212,11 +217,6 @@
             }
         }
     },
-    "servers": [
-        {
-            "url": "https://api.inten.to/"
-        }
-    ],
     "components": {
         "securitySchemes": {
             "APIKeyHeader": {
