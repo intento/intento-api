@@ -16,7 +16,9 @@ This is an intent to translate text from one language to another.
     - [Full information on a supported language](#full-information-on-a-supported-language)
 - [Setting your own language codes](#setting-your-own-language-codes)
 - [All language settings](#all-language-settings)
-- [:lock: Custom Translation Models](#lock-custom-translation-models)
+- [Custom Translation Models](#lock-custom-translation-models)
+    - [Using previously trained custom models](#using-previously-trained-custom-models)
+    - [:lock: Training custom models](#lock-training-custom-models)
     - [:lock: Migrating custom models between providers](#lock-migrating-custom-models-between-providers)
 - [Supported formats](#supported-formats)
     - [List of providers supporting a specified format](#list-of-providers-supporting-a-specified-format)
@@ -427,13 +429,40 @@ Response:
 }
 ```
 
-## :lock: Custom Translation Models
+## Custom Translation Models
 
 Some of the MT services allow for fine-tuning of the translation models. Using the Intento API you may have an access to the models you've already trained in the past or train new ones based on the data you have, for example:
 
 - glossaries / term bases,
 - parallel corpuses,
 - monolingual corpuses
+
+### Using previously trained custom models
+
+Right now we support using custom models trained with IBM Watson Language Translator Service (`ai.text.translate.ibm-language-translator`) and Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.2-0`). Both are SMT. More providers to come!
+
+For using a custom model trained with these services just pass the model id in the "category" parameter with your own credentials (because other users do not have access to your models):
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+    "context": {
+        "text": "Hallo Welt",
+        "from": "de",
+        "to": "en",
+        "category": "cccccccc-cccc-cccc-cccc-cccccccc"
+    },
+    "service": {
+        "provider" : "ai.text.translate.ibm-language-translator",
+        "auth": {
+            "ai.text.translate.ibm-language-translator": [
+                {"user" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx", "password" : "xxxxxxxx"}
+            ]
+        }
+    }
+}'
+```
+
+### :lock: Training custom models
 
 TBD
 
