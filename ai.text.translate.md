@@ -16,7 +16,7 @@ This is an intent to translate text from one language to another.
     - [Full information on a supported language](#full-information-on-a-supported-language)
 - [Setting your own language codes](#setting-your-own-language-codes)
 - [All language settings](#all-language-settings)
-- [Custom Translation Models](#lock-custom-translation-models)
+- [Custom Translation Models](#custom-translation-models)
     - [Using previously trained custom models](#using-previously-trained-custom-models)
     - [:lock: Training custom models](#lock-training-custom-models)
     - [:lock: Migrating custom models between providers](#lock-migrating-custom-models-between-providers)
