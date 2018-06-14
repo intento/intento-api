@@ -18,7 +18,7 @@ In case you don't have a key to use Intento API, please register here [console.i
 - [Basic usage](#basic-usage)
 - [Advanced usage](#advanced-usage)
     - [:lock: Multi mode](#lock-multi-mode)
-    - [:lock: Async mode](#lock-async-mode)
+    - [Async mode](#async-mode)
     - [Using a service provider with your own keys](#using-a-service-provider-with-your-own-keys)
     - [Smart routing](#smart-routing)
         - [Basic smart routing](#basic-smart-routing)
@@ -180,7 +180,7 @@ Response:
 }
 ```
 
-### :lock: Async mode
+### Async mode
 
 If the server responded with a status of 413 (Request Entity Too Large), then the request data is too large for the synchronous processing. In this case, you should switch to the asynchronous mode by setting `service.async` to `true`.
 
