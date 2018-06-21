@@ -79,11 +79,14 @@ The following limits apply to the production keys:
 
 - Requests per second: 100
 - Requests per month: 1,000,000
-- Data per request: 4MB
+- Data per request: 100MB
+- Provider specific limits
 
 Remaining limits are returned with a response in headers: `X-RateLimit-Remaining-second`, `X-RateLimit-Remaining-month`
 
 When the limits as exceeded, Intento API will return a HTTP error 429 (see below).
+
+In case if your request exceeds limits you can use [the async mode](https://github.com/intento/intento-api#async-mode). The current approach to handling the oversized requests [is described in a separate document](https://github.com/intento/intento-api/blob/master/processing-oversized-requests.md).
 
 ## Errors
 
@@ -182,7 +185,7 @@ Response:
 
 ### Async mode
 
-If the server responded with a status of 413 (Request Entity Too Large), then the request data is too large for the synchronous processing. In this case, you should switch to the asynchronous mode by setting `service.async` to `true`.
+If the server responded with a status of 413 (Request Entity Too Large), then the request data is too large for the synchronous processing. In this case, you should switch to the asynchronous mode by setting `service.async` to `true`. The current approach to handling the oversized requests [is described in a separate document](https://github.com/intento/intento-api/blob/master/processing-oversized-requests.md).
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
