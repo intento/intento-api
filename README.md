@@ -194,7 +194,8 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
             "A sample text1",
             "A sample text2"
         ],
-        "to": "es"
+        "to": "es",
+        "from": en
     },
     "service": {
         "provider": [
