@@ -56,6 +56,34 @@ The response contains the dictionary results grouped by part of speech and a ser
 }
 ```
 
+The response can contains empty json key if some dictionary results do not contain part of speech:
+
+```json
+{
+    "results": [
+        {
+            "": [
+                "Apple"
+            ],
+            "noun": [
+                "\u044f\u0431\u043b\u043e\u043a\u043e"
+            ],
+            "adjective": [
+                "\u044f\u0431\u043b\u043e\u0447\u043d\u044b\u0439"
+            ]
+        }
+    ],
+    "meta": {
+    },
+    "service": {
+        "provider": {
+            "id": "ai.text.dictionary.yandex.dictionary_api.1-0",
+            "name": "Yandex Dictionary API"
+        }
+    }
+}
+```
+ 
 If the provider doesn't have capabilities (e.g. language pairs) to process request, 413 error will be returned:
 
 ```json
