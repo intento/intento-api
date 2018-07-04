@@ -56,7 +56,7 @@ The response contains the dictionary results grouped by part of speech and a ser
 }
 ```
 
-The response can contains empty json key if some dictionary results do not contain part of speech:
+The response can contain an empty json key if some dictionary results do not contain part of speech:
 
 ```json
 {
