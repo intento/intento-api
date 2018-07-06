@@ -439,7 +439,7 @@ Some of the MT services allow for fine-tuning of the translation models. Using t
 
 ### Using previously trained custom models
 
-Right now we support using custom models trained with IBM Watson Language Translator Service (`ai.text.translate.ibm-language-translator`) and Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.2-0`). Both are SMT. More providers to come!
+Right now we support using custom models trained with two SMT engines: IBM Watson Language Translator Service (`ai.text.translate.ibm-language-translator`) and Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.2-0`), and two NMT engines: IBM Watson Language Translator Service v3 (`ai.text.translate.ibm-language-translator-v3`) and Microsoft Translator API v3.0 (`ai.text.translate.microsoft.translator_text_api.3-0`). More providers to come!
 
 For using a custom model trained with these services just pass the model id in the "category" parameter with your own credentials (because other users do not have access to your models):
 
