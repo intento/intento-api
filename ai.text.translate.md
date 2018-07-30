@@ -515,6 +515,9 @@ The response contains the translated text with preserved formatting:
 
 ```
 
+
+Note that some MT engines eliminate newline characters from the text. If you rely on the linebreaks e.g. to separate segments, we suggest to split the input text by linebreaks, send all lines of the input text as an array via the bulk request (link) and merge the resulting array of translations.
+
 ### List of providers supporting a specified format
 
 You can filter providers supporting a specified format in the same way as for other capabilities ([Filtering providers by capabilities](#filtering-providers-by-capabilities)). The following call will return a list of providers supporting HTML format:
