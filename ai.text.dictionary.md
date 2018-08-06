@@ -20,7 +20,7 @@ This is an intent to get meanings of text in selected language.
 To dictionary a text, send a POST request to Intento API at [https://api.inten.to/ai/text/dictionary](https://api.inten.to/ai/text/dictionary). Specify the source text, source and target languages and the desired provider in JSON body of the request as in the following example:
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/dictionary' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/dictionary' -d '{
     "context": {
         "text": "kick",
         "from": "en",
