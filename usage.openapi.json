@@ -1,0 +1,311 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "These API provides access to data stored in internal database for analysis, dashboards and other purposes.\nIt returns a list of data (counts, text lengths) filters.\n",
+    "version" : "1.0.0",
+    "title" : "UsageAPI"
+  },
+  "paths" : {
+    "/intento" : {
+      "post" : {
+        "summary" : "Get statistics for API calls to Intento API",
+        "operationId" : "addPet",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Data"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid input"
+          },
+          "403" : {
+            "description" : "Necessary admin permissions"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Input"
+        }
+      }
+    },
+    "/provider" : {
+      "post" : {
+        "summary" : "Get statistics for API calls to Intento API",
+        "operationId" : "addPet",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Data"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid input"
+          },
+          "403" : {
+            "description" : "Necessary admin permissions"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Input"
+        }
+      }
+    },
+    "/distinct" : {
+      "post" : {
+        "summary" : "Get possible values for segment parameters",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Data"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid input"
+          },
+          "403" : {
+            "description" : "Necessary admin permissions"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Distinct"
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Input" : {
+        "type" : "object",
+        "properties" : {
+          "range" : {
+            "$ref" : "#/components/schemas/Range"
+          },
+          "group" : {
+            "$ref" : "#/components/schemas/Group"
+          },
+          "filter" : {
+            "$ref" : "#/components/schemas/Filter"
+          }
+        }
+      },
+      "Range" : {
+        "type" : "object",
+        "properties" : {
+          "from" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "to" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "bucket" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Group" : {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "enum" : [ "intent", "provider", "status" ]
+        }
+      },
+      "Filter" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Intent"
+        }, {
+          "$ref" : "#/components/schemas/Provider"
+        }, {
+          "$ref" : "#/components/schemas/Status"
+        } ]
+      },
+      "Intent" : {
+        "type" : "object",
+        "properties" : {
+          "intent" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "Provider" : {
+        "type" : "object",
+        "properties" : {
+          "provider" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "Status" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "GroupIntent" : {
+        "type" : "object",
+        "properties" : {
+          "intent" : {
+            "type" : "string"
+          }
+        }
+      },
+      "GroupProvider" : {
+        "type" : "object",
+        "properties" : {
+          "provider" : {
+            "type" : "string"
+          }
+        }
+      },
+      "GroupStatus" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ResponseGroup" : {
+        "anyOf" : [ {
+          "$ref" : "#/components/schemas/GroupIntent"
+        }, {
+          "$ref" : "#/components/schemas/GroupProvider"
+        }, {
+          "$ref" : "#/components/schemas/GroupStatus"
+        } ]
+      },
+      "Items" : {
+        "type" : "object",
+        "properties" : {
+          "timestamp" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "group" : {
+            "$ref" : "#/components/schemas/ResponseGroup"
+          },
+          "metrics" : {
+            "type" : "object",
+            "properties" : {
+              "requests" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "items" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "symbols" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "errors" : {
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          }
+        }
+      },
+      "Data" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Items"
+            }
+          }
+        }
+      },
+      "Distinct" : {
+        "type" : "object",
+        "properties" : {
+          "range" : {
+            "$ref" : "#/components/schemas/Range"
+          },
+          "filter" : {
+            "$ref" : "#/components/schemas/Filter"
+          },
+          "fields" : {
+            "$ref" : "#/components/schemas/Group"
+          }
+        }
+      }
+    },
+    "requestBodies" : {
+      "Input" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Input"
+            }
+          }
+        },
+        "required" : true
+      },
+      "Distinct" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Distinct"
+            }
+          }
+        },
+        "required" : true
+      }
+    },
+    "securitySchemes" : {
+      "api_key" : {
+        "type" : "apiKey",
+        "in" : "header",
+        "name" : "apikey"
+      }
+    }
+  }
+}
