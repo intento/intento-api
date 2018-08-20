@@ -1,0 +1,126 @@
+{
+  "openapi": "3.0.0",
+  "externalDocs": {
+    "url": "https://github.com/intento/intento-api#async-mode"
+  },
+  "security": [
+    {
+      "APIKeyHeader": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.inten.to/"
+    }
+  ],
+  "info": {
+    "description": "Retrieving results of async requests to the Intento API",
+    "title": "operations",
+    "version": "1.0"
+  },
+  "paths": {
+    "/operations/{id}": {
+      "get": {
+        "summary": "Get results of an async job",
+        "description": "API requests can be made in the async mode. In this case operation id will be returned.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Async job id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Results of an async job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncJobResults"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Invalid operation_id value",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "apikey"
+      }
+    },
+    "schemas": {
+      "AsyncJobResults": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "done": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "object"
+          },
+          "response": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SuccessJobResult"
+            }
+          }
+        }
+      },
+      "SuccessJobResult": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "error": {
+            "code": 401,
+            "message": "Authorization required"
+          }
+        }
+      }
+    }
+  }
+}
