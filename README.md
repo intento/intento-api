@@ -74,6 +74,9 @@ Intento Service Platform provides additional feature for useful work.
 Currently, the following features are available:
 
 - [Usage API][usage.md] - to get usage statistics about all calls to the API
+- [Score API](https://github.com/intento/intento-api/blob/master/score.md) - a set of API methods to calculate reference-based scores (such as BLEU) on user input
+- Evaluation API - to evaluate third-party API models
+
 
 
 ## Authentication
