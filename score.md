@@ -1,4 +1,4 @@
-# Score API
+# Score API (beta)
 
 Score API is a collection of endpoints for calculating standard AI performance metrics on user-provided inputs.
 
