@@ -15,7 +15,7 @@ To compare a machine translation with a reference translation, send a POST reque
 
 
 ```sh
-curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d {
+curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d '{
     "data": {
         "items": [
             "A sample text",
@@ -39,7 +39,7 @@ curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d
     ],
     "itemize": false,
     "async": true
-}
+}'
 ```
 
 The response contains id of the operation:
