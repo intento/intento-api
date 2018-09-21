@@ -19,6 +19,7 @@ In case you don't have a key to use Intento API, please register here [console.i
 - [Advanced usage](#advanced-usage)
     - [:lock: Multi mode](#lock-multi-mode)
     - [Async mode](#async-mode)
+        - [Errors](#async-errors)
     - [Using a service provider with your own keys](#using-a-service-provider-with-your-own-keys)
     - [Smart routing](#smart-routing)
         - [Basic smart routing](#basic-smart-routing)
@@ -102,7 +103,7 @@ In case if your request exceeds limits you can use [the async mode](https://gith
 
 ## Errors
 
-Error responses usually include a JSON document in the response body, which contains information about the error.
+Error responses usually include a JSON document in the response body, which contains information about the error. [In async mode](#async-errors), response also includes a specific position of the error. 
 
 Error codes:
 
@@ -203,16 +204,14 @@ If the server responded with a status of 413 (Request Entity Too Large), then th
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
     "context": {
         "text": [
-            "A sample text1",
-            "A sample text2"
+           "Large text corpus"
         ],
         "to": "es",
         "from": en
     },
     "service": {
         "provider": [
-            "ai.text.translate.google.translate_api.2-0",
-            "ai.text.translate.yandex.translate_api.1-5"
+            "ai.text.translate.microsoft.translator_text_api.2-0"
         ],
         "async": true
     }
@@ -238,8 +237,7 @@ TTL of the resource is 30 days.
     "response": [
         {
             "results": [
-                "Un texto de ejemplo 1",
-                "Un texto de ejemplo 2"
+                "Translated large text corpus"
             ],
             "meta": {},
             "service": {
@@ -248,21 +246,9 @@ TTL of the resource is 30 days.
                     "name": "Microsoft Translator API"
                 }
             }
-        },
-        {
-            "results": [
-                "Un texto de ejemplo 1",
-                "Un texto de ejemplo 2"
-            ],
-            "meta": {},
-            "service": {
-                "provider": {
-                    "id": "ai.text.translate.yandex.translate_api.1-5",
-                    "name": "Yandex Translate API"
-                }
-            }
         }
-    ]
+    ],
+    "error": null
 }
 ```
 
@@ -272,7 +258,63 @@ If the operation is not completed the value of `done` is false. Wait and make re
 {
     "id": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda",
     "done": false,
-    "response": null
+    "response": null,
+    "error": null
+}
+```
+#### Async errors
+
+If the operation encountered an error during fulfillment, you would see a response with partial result and error. This result contains successfully fulfilled elements of the initial request and nulls where the error occurred. More information about the cause of the problem you can find in an error object. The object contains a list of failed requests with corresponding error responses. For more convenient mapping there is an item key and a position key in the object. The `item` key is an index of the element in the initial request array. And the `position` key is an index of the element in the [sub-array](https://github.com/intento/intento-api/blob/master/processing-oversized-requests.md). Here is an example of the operation which failed:
+
+```json
+{
+    "id": "72eaec95-da77-463c-877a-def06b357888",
+    "done": true,
+    "response": [
+        {
+            "results": [
+                "Translated response 1",
+                "Translated response 2",
+                null,
+                "Translated response 4"
+            ],
+            "meta": {
+                "detected_source_language": [
+                    "en"
+                ]
+            },
+            "service": {
+                "provider": {
+                    "id": "provider_id",
+                    "name": "Provider Name"
+                }
+            }
+        }
+    ],
+    "error": {
+        "type": "AsyncSecondaryError",
+        "reason": "One or more of async operations return an error",
+        "data": [
+            {
+                "item": 3,
+                "position": 0,
+                "error": true,
+                "request": {
+                    "url": "https://api.inten.to/ai/text/translate/",
+                    "method": "POST",
+                    "body": "{\"context\": {\"from\": \"ru\", \"to\": \"en\", \"text\": \"Непереведенный ответ 3\"}, \"service\": {\"provider\": [\"provider_id\"]}}"
+                },
+                "response": {
+                    "body": {
+                        "error": {
+                            "code": 413,
+                            "message": "Provider provider_id constraint(s) violated: Constraint violated for parameter text: max-item-length=10, passed value length=22"
+                        }
+                    }
+                }
+            }
+        ]
+    }
 }
 ```
 
