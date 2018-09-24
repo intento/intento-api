@@ -299,6 +299,7 @@ If the operation encountered an error during fulfillment, you would see a respon
                 "item": 3,
                 "position": 0,
                 "error": true,
+                "provider_id": "provider_id",
                 "request": {
                     "url": "https://api.inten.to/ai/text/translate/",
                     "method": "POST",
