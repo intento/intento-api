@@ -8,8 +8,11 @@ To compare a machine translation with a reference translation, send a POST reque
 **Scores:**
 
 - [hlepor](https://github.com/aaronlifenghan/aaron-project-hlepor)
-- bleu-corpus
-
+- [bleu-corpus](https://github.com/moses-smt/mosesdecoder/blob/master/scripts/generic/multi-bleu-detok.perl)
+- [bleu-sentence](https://github.com/odashi/mteval)
+- [ribes](http://www.kecl.ntt.co.jp/icl/lirg/ribes/)
+- [ter](https://github.com/jhclark/tercom)
+- [sacrebleu](https://github.com/awslabs/sockeye/tree/3cca0c3ec397fbcb4c0ff0f51487e29338f53614/sockeye_contrib/sacrebleu)
 
 #### Basic usage:
 
