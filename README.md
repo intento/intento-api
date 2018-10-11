@@ -21,6 +21,7 @@ In case you don't have a key to use Intento API, please register here [console.i
     - [Async mode](#async-mode)
         - [Errors](#async-errors)
     - [Using a service provider with your own keys](#using-a-service-provider-with-your-own-keys)
+        - [Delegated credentials](#delegated-credentials)
     - [Smart routing](#smart-routing)
         - [Basic smart routing](#basic-smart-routing)
         - [Specifying the bidding strategy](#specifying-the-bidding-strategy)
@@ -409,6 +410,40 @@ Response:
     }
 }
 ```
+
+#### Delegated credentials
+
+Some providers do not provide fixed static credentials like API-keys or username/password pair but require you to use temporary tokens instead (like Google AutoML). So it imposes some extra work when using your own credentials -- you have to regenerate these temporary credentials by yourself and provide them with each request to Intento. You have to know when you need to regenerate a token, or we let you know when we cannot fulfill a request using a provided token (because it was expired), so you can catch this situation, regenerate a token by yourself and continue using Intento API.
+
+It is not very handy, because some tokens expire just after an hour, so you have to regenerate them each hour. Even if this process can be automated it takes much extra work: you need to catch this particular situation, regenerate a token, resend a bunch of requests which happen to be called with the expired token. The situation becomes harder when you run large async jobs that could take more time than a token lifetime. In this situation a part of such request will fail, so you need to split your requests into smaller parts or resubmit failed tasks with a new token. It is painful.
+
+We provide a much more convenient and hassle-free way to work with temporary credentials. You can provide us with all the required information to generate temporary tokens ([delegate us the required credentials](delegated_credentials.md) and choose a name for it, the `credential_id`), and we take care of the whole process, automatically regenerating tokens when it's needed and substituting an actual token in the request to a provider. You pass a credential id (which is constant now), and we do all the job with translating it to always-working tokens.
+
+A request with delegated credentials looks like this:
+
+```sh
+curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+    "context": {
+        "text": "epigenetics markers for treatment in a hospital setting ...",
+        "from": "en",
+        "to": "pt",
+        "category": "projects/automl-196010/locations/us-central1/models/8254482168020221643"
+    },
+    "service": {
+        "provider": "ai.text.translate.google.automl_api.v1beta1",
+        "auth": {
+            "ai.text.translate.google.automl_api.v1beta1": [
+                {
+                    "credential_id": "credentials_for_project_274"
+                }
+            ]
+        }
+    }
+}'
+```
+
+Here is the [instruction on how to create your own delegated credentials for different providers](delegated_credentials.md). Right now this mode is supported only for `ai.text.translate.google.automl_api.v1beta1`.
+
 
 ### Smart routing
 
