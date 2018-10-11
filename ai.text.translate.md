@@ -439,17 +439,19 @@ Some of the MT services allow for fine-tuning of the translation models. Using t
 
 ### Using previously trained custom models
 
-Right now we support using custom models trained with two SMT engines:
-- IBM Watson Language Translator Service (`ai.text.translate.ibm-language-translator`)
-- Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.2-0`)
+Right now we support custom models for these providers:
+- (SMT) IBM Watson Language Translator Service (`ai.text.translate.ibm-language-translator`). This engine is deprecated and will no longer be available after October 4, 2018.
+- (SMT) Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.2-0`). This engine is deprecated since April 30, 2018 and will be discontinued on April 30, 2019.
+- (NMT) IBM Watson Language Translator Service v3 (`ai.text.translate.ibm-language-translator-v3`).
+- (NMT) Microsoft Translator API v3.0 (`ai.text.translate.microsoft.translator_text_api.3-0`).
+- (NMT) Google AutoML Translation API (v1beta1) (`ai.text.translate.google.automl_api.v1beta1`).
+- ModernMT Enterprise Edition (`ai.text.translate.modernmt.enterprise`).
+- Tilde Machine Translation API (`ai.text.translate.tilde.machine_translation_api`).
 
-and two NMT engines:
-- IBM Watson Language Translator Service v3 (`ai.text.translate.ibm-language-translator-v3`)
-- Microsoft Translator API v3.0 (`ai.text.translate.microsoft.translator_text_api.3-0`).
 
 More providers to come!
 
-For using a custom model trained with these services just pass the model id in the "category" parameter with your own credentials (because other users do not have access to your models):
+For using a custom model trained with these services just pass the model id in the `category` parameter with your own credentials (because other users do not have access to your models):
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
