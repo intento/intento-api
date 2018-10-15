@@ -451,7 +451,7 @@ Right now we support custom models for these providers:
 
 More providers to come!
 
-For using a custom model trained with these services just pass the model id in the `category` parameter with your own credentials (because other users do not have access to your models):
+For using a custom model trained with these services just pass the model id in the `category` parameter with your [own credentials](https://github.com/intento/intento-api#using-a-service-provider-with-your-own-keys) (because other users do not have access to your models):
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
