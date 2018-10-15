@@ -42,19 +42,11 @@ You can limit access rights for the service account to only perform predictions 
 
 #### 4. Download a service account key file (in JSON).
 
-#### 5. Upload the service account credentials to Intento.
+Save the JSON file with a service account credentials.
 
-Right now it is possible using Intento API and curl commands, later we’ll add it into the user interface. Or you can send us the service account key file, and we’ll do it for you.
+#### 5. Send your service account credentials to Intento.
 
-#### 6. Get a list of available delegated credentials.
-
-`curl -XGET -H "apikey: $YOUR_API_KEY" "https://api.inten.to/delegated_credentials"`
-
-If you didn’t add any delegated credentials before, so the list is empty:
-
-`[]`
-
-#### 7. Send your service account credentials to Intento.
+Right now it is possible to add delegated credentials using Intento API and curl commands, later we’ll add it into the user interface. Or you can send us the service account key file, and we’ll do it for you.
 
 Choose a name for the credentials (you will use this name in the requests to let the system know which credentials to use) and put it into `credential_id` field.
 
@@ -86,7 +78,9 @@ curl -XPOST -H "apikey: $YOUR_API_KEY" "https://api.inten.to/delegated_credentia
 
 Intento API just returns the copy of your request if there were no errors.
 
-#### 8. Check the credential is added:
+#### 6. Check the credential is added:
+
+Get a list of available delegated credentials.
 
 ```
 curl -XGET -H "apikey: $YOUR_API_KEY" "https://api.inten.to/delegated_credentials"
@@ -103,7 +97,12 @@ curl -XGET -H "apikey: $YOUR_API_KEY" "https://api.inten.to/delegated_credential
 ]
 ```
 
-#### 9. Wait 1 minute for our system to take the credential and run a regular token generation process for it. 
+If you didn’t add any delegated credentials, the result is an empty list:
+
+`[]`
+
+
+#### 7. Wait 1 minute for our system to take the credential and run a regular token generation process for it. 
 
 The fields `temporary_credentials`, `temporary_credentials_created_at`, `temporary_credentials_expiry_at` will become non-empty:
 
@@ -124,7 +123,7 @@ curl -XGET -H "apikey: $YOUR_API_KEY" "https://api.inten.to/delegated_credential
 ]
 ```
 
-#### 10. Now you can call Google passing it the credential_id.
+#### 8. Now you can call Google passing it the credential_id.
 
 Intento automatically uses the most recent token to call the Google API:
 
@@ -147,9 +146,9 @@ curl -XPOST -H "apikey: $YOUR_API_KEY" "$HOST/ai/text/translate" -d '
 }'
 ```
 
-#### 11. That’s all. Everything will work.
+That’s all. Everything will work.
 
-#### 12. You can delete your credentials by their id if you do not longer need them:
+#### 9. You can delete your credentials by their id if you do not longer need them:
 
 ```
 curl -XDELETE -H "apikey: $YOUR_API_KEY" "https://api.inten.to/delegated_credentials/credentials_for_project_x"
