@@ -19,6 +19,34 @@
     "version": "1.0"
   },
   "paths": {
+    "/operations/": {
+      "get": {
+        "summary": "Get an async job list",
+        "description": "API requests can be made in the async mode. In this case operation id will be returned.",
+        "responses": {
+          "200": {
+            "description": "List of the latest async jobs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncJobList"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Invalid operation_id value",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/operations/{id}": {
       "get": {
         "summary": "Get results of an async job",
@@ -68,6 +96,147 @@
       }
     },
     "schemas": {
+      "AsyncJobList": {
+        "type": "object",
+        "properties": {
+          "prev": {
+            "example": "created_at__lt=1540484919.9632",
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "count": {
+            "example": 15,
+            "type": "integer"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Job"
+            }
+          }
+        }
+      },
+      "Job": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "aaa-bbb-ccc",
+            "type": "string"
+          },
+          "error": {
+            "$ref": "#/components/schemas/JobError"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/JobMeta"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "in_progress",
+              "success",
+              "partial_success",
+              "failure"
+            ]
+          },
+          "type": {
+            "example": "translate",
+            "type": "string"
+          },
+          "created_at_ts": {
+            "example": 1540494125.22744,
+            "type": "number"
+          },
+          "finished_at_ts": {
+            "example": 1540494125.22744,
+            "type": "number"
+          }
+        }
+      },
+      "JobMeta": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "example": "en",
+            "type": "string"
+          },
+          "to": {
+            "example": "de",
+            "type": "string"
+          },
+          "size": {
+            "example": 1234,
+            "type": "integer"
+          },
+          "providers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JobMetaProvider"
+            }
+          }
+        }
+      },
+      "JobMetaProvider": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "vendor": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "JobError": {
+        "type": "object"
+      },
+      "JobFullError": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JobFullErrorItem"
+            }
+          }
+        }
+      },
+      "JobFullErrorItem": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "integer"
+          },
+          "position": {
+            "type": "integer"
+          },
+          "error": {
+            "type": "boolean"
+          },
+          "provider_id": {
+            "type": "string"
+          },
+          "request": {
+            "type": "object"
+          },
+          "response": {
+            "type": "object"
+          }
+        }
+      },
       "AsyncJobResults": {
         "type": "object",
         "properties": {
@@ -78,7 +247,7 @@
             "type": "boolean"
           },
           "error": {
-            "type": "object"
+            "$ref": "#/components/schemas/JobFullError"
           },
           "response": {
             "type": "array",
@@ -95,6 +264,25 @@
             "type": "array",
             "items": {
               "type": "string"
+            }
+          },
+          "meta": {
+            "type": "object"
+          },
+          "service": {
+            "type": "object",
+            "properties": {
+              "provider": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         }
