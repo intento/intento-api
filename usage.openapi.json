@@ -1,310 +1,419 @@
 {
-  "openapi" : "3.0.0",
-  "info" : {
-    "description" : "These API provides access to data stored in internal database for analysis, dashboards and other purposes.\nIt returns a list of data (counts, text lengths) filters.\n",
-    "version" : "1.0.0",
-    "title" : "UsageAPI"
+  "openapi": "3.0.0",
+  "externalDocs": {
+    "url": "https://github.com/intento/intento-api/blob/master/usage.md"
   },
-  "paths" : {
-    "/intento" : {
-      "post" : {
-        "summary" : "Get statistics for API calls to Intento API",
-        "operationId" : "addPet",
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Data"
+  "security": [
+    {
+      "APIKeyHeader": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.inten.to/usage"
+    }
+  ],
+  "info": {
+    "description": "This is an intent to get usage statistics about all calls to the API.\n",
+    "title": "Usage API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/intento": {
+      "post": {
+        "summary": "Get statistics for API calls to Intento API",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Data"
                   }
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Invalid input"
+          "400": {
+            "description": "Invalid JSON structure"
           },
-          "403" : {
-            "description" : "Necessary admin permissions"
+          "401": {
+            "description": "Intento: Auth key is missing"
+          },
+          "403": {
+            "description": "Intento: Auth key is invalid"
+          },
+          "500": {
+            "description": "Intento: Internal error"
           }
         },
-        "security" : [ {
-          "api_key" : [ ]
-        } ],
-        "requestBody" : {
-          "$ref" : "#/components/requestBodies/Input"
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Input"
         }
       }
     },
-    "/provider" : {
-      "post" : {
-        "summary" : "Get statistics for API calls to Intento API",
-        "operationId" : "addPet",
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Data"
+    "/provider": {
+      "post": {
+        "summary": "Get statistics for API calls to providers",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Data"
                   }
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Invalid input"
+          "400": {
+            "description": "Invalid JSON structure"
           },
-          "403" : {
-            "description" : "Necessary admin permissions"
+          "401": {
+            "description": "Intento: Auth key is missing"
+          },
+          "403": {
+            "description": "Intento: Auth key is invalid"
+          },
+          "500": {
+            "description": "Intento: Internal error"
           }
         },
-        "security" : [ {
-          "api_key" : [ ]
-        } ],
-        "requestBody" : {
-          "$ref" : "#/components/requestBodies/Input"
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Input"
         }
       }
     },
-    "/distinct" : {
-      "post" : {
-        "summary" : "Get possible values for segment parameters",
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Data"
-                  }
+    "/distinct": {
+      "post": {
+        "summary": "This API endpoint helps to find out what intents or providers were used at least once during specified (in `range`) period of time",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DistinctResponse"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Invalid input"
+          "400": {
+            "description": "Invalid JSON structure"
           },
-          "403" : {
-            "description" : "Necessary admin permissions"
+          "401": {
+            "description": "Intento: Auth key is missing"
+          },
+          "403": {
+            "description": "Intento: Auth key is invalid"
+          },
+          "500": {
+            "description": "Intento: Internal error"
           }
         },
-        "security" : [ {
-          "api_key" : [ ]
-        } ],
-        "requestBody" : {
-          "$ref" : "#/components/requestBodies/Distinct"
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Distinct"
         }
       }
     }
   },
-  "components" : {
-    "schemas" : {
-      "Input" : {
-        "type" : "object",
-        "properties" : {
-          "range" : {
-            "$ref" : "#/components/schemas/Range"
+  "components": {
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "apikey"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "properties": {
+          "range": {
+            "$ref": "#/components/schemas/Range"
           },
-          "group" : {
-            "$ref" : "#/components/schemas/Group"
+          "group": {
+            "$ref": "#/components/schemas/Group"
           },
-          "filter" : {
-            "$ref" : "#/components/schemas/Filter"
+          "filter": {
+            "$ref": "#/components/schemas/Filter"
           }
         }
       },
-      "Range" : {
-        "type" : "object",
-        "properties" : {
-          "from" : {
-            "type" : "integer",
-            "format" : "int64"
+      "Range": {
+        "example": {},
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "integer"
           },
-          "to" : {
-            "type" : "integer",
-            "format" : "int64"
+          "from": {
+            "type": "integer",
+            "format": "int64"
           },
-          "bucket" : {
-            "type" : "string"
+          "to": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "bucket": {
+            "type": "string"
           }
         }
       },
-      "Group" : {
-        "type" : "array",
-        "items" : {
-          "type" : "string",
-          "enum" : [ "intent", "provider", "status" ]
+      "Group": {
+        "example": [
+          "provider"
+        ],
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "intent",
+            "provider",
+            "status"
+          ]
         }
       },
-      "Filter" : {
-        "allOf" : [ {
-          "$ref" : "#/components/schemas/Intent"
-        }, {
-          "$ref" : "#/components/schemas/Provider"
-        }, {
-          "$ref" : "#/components/schemas/Status"
-        } ]
+      "Filter": {
+        "example": {},
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Intent"
+          },
+          {
+            "$ref": "#/components/schemas/Provider"
+          },
+          {
+            "$ref": "#/components/schemas/Status"
+          }
+        ]
       },
-      "Intent" : {
-        "type" : "object",
-        "properties" : {
-          "intent" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
+      "Intent": {
+        "type": "object",
+        "properties": {
+          "intent": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         }
       },
-      "Provider" : {
-        "type" : "object",
-        "properties" : {
-          "provider" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
+      "Provider": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         }
       },
-      "Status" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
+      "Status": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         }
       },
-      "GroupIntent" : {
-        "type" : "object",
-        "properties" : {
-          "intent" : {
-            "type" : "string"
+      "GroupIntent": {
+        "type": "object",
+        "properties": {
+          "intent": {
+            "type": "string"
           }
         }
       },
-      "GroupProvider" : {
-        "type" : "object",
-        "properties" : {
-          "provider" : {
-            "type" : "string"
+      "GroupProvider": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string"
           }
         }
       },
-      "GroupStatus" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "type" : "string"
+      "GroupStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
           }
         }
       },
-      "ResponseGroup" : {
-        "anyOf" : [ {
-          "$ref" : "#/components/schemas/GroupIntent"
-        }, {
-          "$ref" : "#/components/schemas/GroupProvider"
-        }, {
-          "$ref" : "#/components/schemas/GroupStatus"
-        } ]
-      },
-      "Items" : {
-        "type" : "object",
-        "properties" : {
-          "timestamp" : {
-            "type" : "integer",
-            "format" : "int64"
+      "ResponseGroup": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/GroupIntent"
           },
-          "group" : {
-            "$ref" : "#/components/schemas/ResponseGroup"
+          {
+            "$ref": "#/components/schemas/GroupProvider"
           },
-          "metrics" : {
-            "type" : "object",
-            "properties" : {
-              "requests" : {
-                "type" : "integer",
-                "format" : "int64"
+          {
+            "$ref": "#/components/schemas/GroupStatus"
+          }
+        ]
+      },
+      "Items": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "group": {
+            "$ref": "#/components/schemas/ResponseGroup"
+          },
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "requests": {
+                "type": "integer",
+                "format": "int64"
               },
-              "items" : {
-                "type" : "integer",
-                "format" : "int64"
+              "items": {
+                "type": "integer",
+                "format": "int64"
               },
-              "symbols" : {
-                "type" : "integer",
-                "format" : "int64"
+              "symbols": {
+                "type": "integer",
+                "format": "int64"
               },
-              "errors" : {
-                "type" : "integer",
-                "format" : "int64"
+              "errors": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          "errors": {
+            "type": "object",
+            "properties": {
+              "client": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "example": 0,
+                    "type": "integer",
+                    "format": "int64"
+                  }
+                }
+              },
+              "intento": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "example": 0,
+                    "type": "integer",
+                    "format": "int64"
+                  }
+                }
+              },
+              "provider": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "example": 0,
+                    "type": "integer",
+                    "format": "int64"
+                  }
+                }
               }
             }
           }
         }
       },
-      "Data" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Items"
+      "Data": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "example": "OK",
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Items"
             }
           }
         }
       },
-      "Distinct" : {
-        "type" : "object",
-        "properties" : {
-          "range" : {
-            "$ref" : "#/components/schemas/Range"
+      "Distinct": {
+        "type": "object",
+        "properties": {
+          "range": {
+            "$ref": "#/components/schemas/Range"
           },
-          "filter" : {
-            "$ref" : "#/components/schemas/Filter"
+          "filter": {
+            "$ref": "#/components/schemas/Filter"
           },
-          "fields" : {
-            "$ref" : "#/components/schemas/Group"
+          "fields": {
+            "$ref": "#/components/schemas/Group"
+          }
+        }
+      },
+      "DistinctResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "example": "OK",
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "intent": {
+                "type": "array",
+                "items": {
+                  "example": "ai.text.sentiment",
+                  "type": "string"
+                }
+              },
+              "provider": {
+                "type": "array",
+                "items": {
+                  "example": "ai.text.sentiment.some_name.some_version",
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
     },
-    "requestBodies" : {
-      "Input" : {
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/Input"
+    "requestBodies": {
+      "Input": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Input"
             }
           }
         },
-        "required" : true
+        "required": true
       },
-      "Distinct" : {
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/Distinct"
+      "Distinct": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Distinct"
             }
           }
         },
-        "required" : true
-      }
-    },
-    "securitySchemes" : {
-      "api_key" : {
-        "type" : "apiKey",
-        "in" : "header",
-        "name" : "apikey"
+        "required": true
       }
     }
   }
