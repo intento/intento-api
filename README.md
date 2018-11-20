@@ -326,18 +326,20 @@ If the operation encountered an error during fulfillment, you would see a respon
 Intento do not keep payload in logs, but in some cases it may be useful for debugging. Saving data in logs can be controlled using the boolean flag `trace`.
 
 There are three ways to set the `trace` flag:
-- request header
-- request arguments
-- request body in `service`
+#### request header
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' -H 'trace: true' 'https://api.inten.to/ai/text/translate' -d {
 ...
 }
-
+```
+#### request arguments
+```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate?trace=true' -d {
 ...
 }
-
+```
+#### request body in `service`
+```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' -H 'trace: true' 'https://api.inten.to/ai/text/translate' -d {
     "context": {
         "text": "A sample text",
