@@ -1,6 +1,6 @@
 # ai.text.classify
 
-Converts text in one language from one script to another script.
+Text content classification.
 
 <!-- TOC depthFrom:2 -->
 
@@ -17,14 +17,13 @@ Converts text in one language from one script to another script.
 
 ## Basic usage
 
-To classify a text, send a POST request to Intento API at [https://api.inten.to/ai/text/classify](https://api.inten.to/ai/text/classify). Specify the source text, source languages and the desired provider in JSON body of the request as in the following example:
+To classify a text, send a POST request to Intento API at [https://api.inten.to/ai/text/classify](https://api.inten.to/ai/text/classify). Specify the source text, the source language and the desired provider in JSON body of the request as in the following example:
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/classify' -d '{
     "context": {
-        "text": "I want to book a flight ticket to Moscow",
-        "lang": "en",
-        "format": "text"
+        "text": "...",
+        "lang": "en"
     },
     "service": {
         "provider": "ai.text.classify.ibm.natural_language_understanding"
@@ -32,7 +31,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/classify' -d
 }'
 ```
 
-The response contains the classify results grouped by part of speech and a service information. Parts of speech are formatted in snake_case style:
+The response contains the classify results:
 
 ```json
 {
@@ -52,7 +51,7 @@ If the provider doesn't have capabilities (e.g. language) to process request, 41
 {
   "error": {
     "code": 413,
-    "message": "Provider ai.text.classify.microsoft.translator_text_api.3-0 constraint(s) violated: fromscript (Specifies the script used by the input text.), language (Specifies the language of the text to convert from one script to another.), toscript (Specifies the output script.)"
+    "message": "Provider ai.text.classify.ibm.natural_language_understanding constraint(s) violated."
   },
   "request_id": "..."
 }
@@ -60,7 +59,7 @@ If the provider doesn't have capabilities (e.g. language) to process request, 41
 
 ## Getting available providers
 
-To get a list of available Dictionary providers, send a GET request to [https://api.inten.to/ai/text/classify](https://api.inten.to/ai/text/classify).
+To get a list of available providers, send a GET request to [https://api.inten.to/ai/text/classify](https://api.inten.to/ai/text/classify).
 
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/classify'
