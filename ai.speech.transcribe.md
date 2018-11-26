@@ -1,6 +1,6 @@
 # ai.speech.transcribe
 
-Text content classification.
+Transcribe a speech record into text.
 
 <!-- TOC depthFrom:2 -->
 
