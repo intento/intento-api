@@ -26,7 +26,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/image/ocr' -d '{
 }'
 ```
 
-The response contains the speech transcribe results:
+The response contains the results:
 
 ```json
 {
