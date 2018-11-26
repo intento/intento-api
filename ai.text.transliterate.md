@@ -1,6 +1,6 @@
 # ai.text.transliterate
 
-Converts text in one language from one script to another script.
+Converts a text from one script to another script (e.g. katakana to latin)
 
 <!-- TOC depthFrom:2 -->
 
