@@ -1,6 +1,6 @@
-# ai.text.dictionary
+# ai.text.detect-intent
 
-This is an intent to get meanings of text in selected language.
+Detect intent from text.
 
 <!-- TOC depthFrom:2 -->
 
@@ -17,67 +17,34 @@ This is an intent to get meanings of text in selected language.
 
 ## Basic usage
 
-To dictionary a text, send a POST request to Intento API at [https://api.inten.to/ai/text/dictionary](https://api.inten.to/ai/text/dictionary). Specify the source text, source and target languages and the desired provider in JSON body of the request as in the following example:
+To detect-intent a text, send a POST request to Intento API at [https://api.inten.to/ai/text/detect-intent](https://api.inten.to/ai/text/detect-intent). Specify the source text, source and target languages and the desired provider in JSON body of the request as in the following example:
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/dictionary' -d '{
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/detect-intent' -d '{
     "context": {
-        "text": "kick",
-        "from": "en",
-        "to": "ru"
+        "text": "I want to book a flight ticket to Moscow",
+        "lang": "ru"
     },
     "service": {
-        "provider": "ai.text.dictionary.yandex.dictionary_api.1-0"
+        "provider": "ai.text.detect-intent.yandex.dictionary_api.1-0"
     }
 }'
 ```
 
-The response contains the dictionary results grouped by part of speech and a service information. Parts of speech are formatted in snake_case style:
+The response contains the detect-intent results grouped by part of speech and a service information. Parts of speech are formatted in snake_case style:
 
 ```json
 {
     "results": [
         {
-            "noun": [
-                "пинок"
-            ],
-            "verb": [
-                "пинать"
-            ]
+            "intent": "bookflight",
+            "score": 0.9984499216079712
         }
     ],
     "meta": {},
     "service": {
         "provider": {
-            "id": "ai.text.dictionary.yandex.dictionary_api.1-0",
-            "name": "Yandex Dictionary API"
-        }
-    }
-}
-```
-
-The response can contain an empty json key if some dictionary results do not contain part of speech:
-
-```json
-{
-    "results": [
-        {
-            "": [
-                "Apple"
-            ],
-            "noun": [
-                "яблоко"
-            ],
-            "adjective": [
-                "яблочный"
-            ]
-        }
-    ],
-    "meta": {
-    },
-    "service": {
-        "provider": {
-            "id": "ai.text.dictionary.yandex.dictionary_api.1-0",
+            "id": "ai.text.detect-intent.yandex.dictionary_api.1-0",
             "name": "Yandex Dictionary API"
         }
     }
@@ -90,17 +57,17 @@ If the provider doesn't have capabilities (e.g. language pairs) to process reque
 {
     "error": {
         "code": 413,
-        "message": "Provider ai.text.dictionary.yandex.dictionary_api.1-0 constraint(s) violated: from (Source language)"
+        "message": "Provider ai.text.detect-intent.yandex.dictionary_api.1-0 constraint(s) violated: from (Source language)"
     }
 }
 ```
 
 ## Getting available providers
 
-To get a list of available Dictionary providers, send a GET request to [https://api.inten.to/ai/text/dictionary](https://api.inten.to/ai/text/dictionary).
+To get a list of available Dictionary providers, send a GET request to [https://api.inten.to/ai/text/detect-intent](https://api.inten.to/ai/text/detect-intent).
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/dictionary'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/detect-intent'
 ```
 
 The response contains a list of the providers available for given constraints with an information on pricing etc:
@@ -108,8 +75,8 @@ The response contains a list of the providers available for given constraints wi
 ```json
 [
     {
-        "id": "ai.text.dictionary.yandex.dictionary_api.1-0",
-        "name": "Yandex dictionary API",
+        "id": "ai.text.detect-intent.yandex.dictionary_api.1-0",
+        "name": "Yandex detect-intent API",
         "score": 0,
         "price": 0
     }
@@ -121,7 +88,7 @@ The response contains a list of the providers available for given constraints wi
 The list of providers may be further constrained by adding desired parameter values to the GET request:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/dictionary?from=en&to=es'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/detect-intent?from=en&to=es'
 ```
 
 Response:
@@ -129,8 +96,8 @@ Response:
 ```json
 [
     {
-        "id": "ai.text.dictionary.yandex.dictionary_api.1-0",
-        "name": "Yandex dictionary API",
+        "id": "ai.text.detect-intent.yandex.dictionary_api.1-0",
+        "name": "Yandex detect-intent API",
         "score": 0,
         "price": 0
     }
@@ -139,17 +106,17 @@ Response:
 
 ## Getting information about a provider
 
-To get information about a provider with a given ID, send a GET request to `https://api.inten.to/ai/text/dictionary/PROVIDER_ID`.
+To get information about a provider with a given ID, send a GET request to `https://api.inten.to/ai/text/detect-intent/PROVIDER_ID`.
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/dictionary/ai.text.dictionary.yandex.dictionary_api.1-0'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/detect-intent/ai.text.detect-intent.yandex.dictionary_api.1-0'
 ```
 
 The response contains a list of the metadata fields and values available for the provider:
 
 ```json
 {
-    "id": "ai.text.dictionary.yandex.dictionary_api.1-0",
+    "id": "ai.text.detect-intent.yandex.dictionary_api.1-0",
     "name": "Yandex",
     "logo": "https://inten.to/static/img/api/ynd_dictionary.png",
     "billing": true,
@@ -198,7 +165,7 @@ Will return an array of supported languages, for each language:
 - client code (if the client calling the method has its own codes)
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/dictionary/languages?locale=ru'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/detect-intent/languages?locale=ru'
 ```
 
 Response:
@@ -226,7 +193,7 @@ For a given language code (intento internal or client’s) will show full metada
 - client code (if the client calling the method has its own codes)
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/dictionary/languages/he?locale=ru'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/detect-intent/languages/he?locale=ru'
 ```
 
 Response:
