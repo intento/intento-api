@@ -103,7 +103,7 @@ Response:
 To get information about a provider with a given ID, send a GET request to `https://api.inten.to/ai/image/ocr/PROVIDER_ID`.
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/image/ocr/ai.image.ocr.google.cloud_vision_annotate_api.1-0'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/image/ocr/ai.image.ocr.google.cloud_vision_api.1-1'
 ```
 
 The response contains a list of the metadata fields and values available for the provider:
