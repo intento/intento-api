@@ -78,7 +78,7 @@ The response contains a list of the providers available for given constraints:
 The list of providers may be further constrained by adding desired parameter values to the GET request:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/image/ocr?language=ru'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/image/ocr'
 ```
 
 Response:
