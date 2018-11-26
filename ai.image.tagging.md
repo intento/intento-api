@@ -1,6 +1,6 @@
 # ai.image.tagging
 
-Image tagging generates a list of words, or tags, that are relevant to the content of the supplied image.
+Image tagging generates a list of words or tags that are relevant to the content of the supplied image.
 
 <!-- TOC depthFrom:2 -->
 
