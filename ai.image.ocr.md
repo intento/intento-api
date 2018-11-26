@@ -111,10 +111,18 @@ The response contains a list of the metadata fields and values available for the
 ```json
 {
     "id": "ai.image.ocr.google.cloud_vision_api.1-1",
-    "name": "Google Cloud",
+    "vendor": "Google Cloud",
+    "logo": "https://inten.to/static/img/api/ggl_vision.png",
+    "billing": true,
     "description": "Vision API",
+    "production": true,
+    "integrated": false,
+    "billable": true,
     "own_auth": true,
     "stock_model": true,
     "custom_model": false,
+    "auth": {
+        "key": "YOUR_KEY"
+    }
 }
 ```
