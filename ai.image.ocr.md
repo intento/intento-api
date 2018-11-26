@@ -110,7 +110,7 @@ The response contains a list of the metadata fields and values available for the
 
 ```json
 {
-    "id": "ai.image.ocr.google.cloud_vision_annotate_api.1-0",
+    "id": "ai.image.ocr.google.cloud_vision_api.1-1",
     "name": "Google Cloud",
     "description": "Vision API",
     "own_auth": true,
