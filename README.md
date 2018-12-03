@@ -20,6 +20,7 @@ In case you don't have a key to use Intento API, please register here [console.i
     - [:lock: Multi mode](#lock-multi-mode)
     - [Async mode](#async-mode)
         - [Errors](#async-errors)
+    - [Debug mode](#debug-mode)
     - [Using a service provider with your own keys](#using-a-service-provider-with-your-own-keys)
         - [Delegated credentials](#delegated-credentials)
     - [Smart routing](#smart-routing)
@@ -319,6 +320,41 @@ If the operation encountered an error during fulfillment, you would see a respon
     }
 }
 ```
+
+### Debug mode
+
+Intento do not keep payload in logs, but in some cases it may be useful for debugging. Saving data in logs can be controlled using the boolean flag `trace`.
+
+There are three ways to set the `trace` flag:
+#### request header
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' -H 'trace: true' 'https://api.inten.to/ai/text/translate' -d {
+...
+}
+```
+#### request arguments
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate?trace=true' -d {
+...
+}
+```
+#### request body in `service`
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' -H 'trace: true' 'https://api.inten.to/ai/text/translate' -d {
+    "context": {
+        "text": "A sample text",
+        "to": "es"
+    },
+    "service": {
+        "provider": [
+            "ai.text.translate.google.translate_api.2-0"
+        ],
+        "trace": true
+    }
+}
+```
+
+If flag do not set or set `false` we do not keep user payload in logs. Flag name is case insensitive.
 
 ### Using a service provider with your own keys
 
