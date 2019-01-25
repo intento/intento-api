@@ -93,8 +93,9 @@ curl -XGET -H "apikey: $YOUR_API_KEY" "https://api.inten.to/delegated_credential
         "credential_type": "google_service_account",
         "created_at": "2018-07-09 11:15:29.959298+00:00",
         "temporary_credentials": null,
-        "temporary_credentials_created_at": "None",
-        "temporary_credentials_expiry_at": "None"
+        "temporary_credentials_created_at": null,
+        "temporary_credentials_expiry_at": null,
+        "error_message": null
     }
 ]
 ```
@@ -119,10 +120,13 @@ curl -XGET -H "apikey: $YOUR_API_KEY" "https://api.inten.to/delegated_credential
             "access_token": "ya29.c.ElrzBU_TmUy47vsnNLXlV1bCZZZZqqidANzT-vEt_BZFFmN1gKj75sJVzLoYTKeHKBNfm7ff7nlNvKMjjD3TwZiUh6sSoZZOX1pqq_G6NllWDazz9fmmLl8W0"
         },
         "temporary_credentials_created_at": "2018-07-09 15:54:58.311881+00:00",
-        "temporary_credentials_expiry_at": "2018-07-09 16:54:58.310336+00:00"
+        "temporary_credentials_expiry_at": "2018-07-09 16:54:58.310336+00:00",
+        "error_message": null
     }
 ]
 ```
+
+If any error happens during generating a token (it can happen if you passed invalid secret credentials, using the wrong format or if your service account is disabled), the message will appear in the `error_message` field.
 
 #### 8. Now you can call Google passing it the credential_id
 
@@ -157,5 +161,5 @@ That’s all. Everything will work.
 ```sh
 curl -XDELETE -H "apikey: $YOUR_API_KEY" "https://api.inten.to/delegated_credentials/credentials_for_project_x"
 
-OK
+{"status": "OK"}
 ```
