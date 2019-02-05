@@ -12,6 +12,7 @@ In case you don't have a key to use Intento API, please register here [console.i
     - [Error handling](#error-handling)
     - [Authentication and keys](#authentication-and-keys)
     - [Paying for services](#paying-for-services)
+    - [Additional feature](#additional-feature)
 - [Authentication](#authentication)
 - [Usage limits](#usage-limits)
 - [Errors](#errors)
@@ -19,8 +20,11 @@ In case you don't have a key to use Intento API, please register here [console.i
 - [Advanced usage](#advanced-usage)
     - [:lock: Multi mode](#lock-multi-mode)
     - [Async mode](#async-mode)
-        - [Errors](#async-errors)
+        - [Async errors](#async-errors)
     - [Debug mode](#debug-mode)
+        - [request header](#request-header)
+        - [request arguments](#request-arguments)
+        - [request body in `service`](#request-body-in-service)
     - [Using a service provider with your own keys](#using-a-service-provider-with-your-own-keys)
         - [Delegated credentials](#delegated-credentials)
     - [Smart routing](#smart-routing)
@@ -80,8 +84,6 @@ Currently, the following features are available:
 - [Score API](https://github.com/intento/intento-api/blob/master/score.md) - a set of API methods to calculate reference-based scores (such as BLEU) on user input
 - Evaluation API - to evaluate third-party API models
 
-
-
 ## Authentication
 
 We use the token-based authentication. Each request to intento API should pass an access key in header `apikey` as demonstrated in the examples below.
@@ -105,7 +107,7 @@ In case if your request exceeds limits you can use [the async mode](https://gith
 
 ## Errors
 
-Error responses usually include a JSON document in the response body, which contains information about the error. [In async mode](#async-errors), response also includes a specific position of the error. 
+Error responses usually include a JSON document in the response body, which contains information about the error. [In async mode](#async-errors), response also includes a specific position of the error.
 
 Error codes:
 
@@ -264,6 +266,7 @@ If the operation is not completed the value of `done` is false. Wait and make re
     "error": null
 }
 ```
+
 #### Async errors
 
 If the operation encountered an error during fulfillment, you would see a response with partial result and error. This result contains successfully fulfilled elements of the initial request and nulls where the error occurred. More information about the cause of the problem you can find in an error object. The object contains a list of failed requests with corresponding error responses. For more convenient mapping there is an item key and a position key in the object. The `item` key is an index of the element in the initial request array. And the `position` key is an index of the element in the [sub-array](https://github.com/intento/intento-api/blob/master/processing-oversized-requests.md). Here is an example of the operation which failed:
@@ -326,19 +329,25 @@ If the operation encountered an error during fulfillment, you would see a respon
 Intento do not keep payload in logs, but in some cases it may be useful for debugging. Saving data in logs can be controlled using the boolean flag `trace`.
 
 There are three ways to set the `trace` flag:
+
 #### request header
+
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' -H 'trace: true' 'https://api.inten.to/ai/text/translate' -d {
 ...
 }
 ```
+
 #### request arguments
+
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate?trace=true' -d {
 ...
 }
 ```
+
 #### request body in `service`
+
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' -H 'trace: true' 'https://api.inten.to/ai/text/translate' -d {
     "context": {
@@ -453,7 +462,9 @@ Some providers do not provide fixed static credentials like API-keys or username
 
 It is not very handy, because some tokens expire just after an hour, so you have to regenerate them each hour. Even if this process can be automated it takes much extra work: you need to catch this particular situation, regenerate a token, resend a bunch of requests which happen to be called with the expired token. The situation becomes harder when you run large async jobs that could take more time than a token lifetime. In this situation a part of such request will fail, so you need to split your requests into smaller parts or resubmit failed tasks with a new token. It is painful.
 
-We provide a much more convenient and hassle-free way to work with temporary credentials. You can provide us with all the required information to generate temporary tokens ([delegate us the required credentials](delegated_credentials.md) and choose a name for it, the `credential_id`), and we take care of the whole process, automatically regenerating tokens when it's needed and substituting an actual token in the request to a provider. You pass a credential id (which is constant now), and we do all the job with translating it to always-working tokens.
+We provide a much more convenient and hassle-free way to work with temporary credentials. You can provide us with all the required information to generate temporary tokens. The fastest way to set up Google AutoML with Intento is our [Stored Credentials Manager](https://console.inten.to/credentials).
+
+Or ([delegate us the required credentials through the API](delegated_credentials.md) and choose a name for it, the `credential_id`), and we take care of the whole process, automatically regenerating tokens when it's needed and substituting an actual token in the request to a provider. You pass a credential id (which is constant now), and we do all the job with translating it to always-working tokens.
 
 A request with delegated credentials looks like this:
 
@@ -479,7 +490,6 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
 ```
 
 Here is the [instruction on how to create your own delegated credentials for different providers](delegated_credentials.md). Right now this mode is supported only for `ai.text.translate.google.automl_api.v1beta1`.
-
 
 ### Smart routing
 
