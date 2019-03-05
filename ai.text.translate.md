@@ -248,6 +248,14 @@ The response contains a list of the providers available for given constraints wi
 ]
 ```
 
+### Capabilities of providers in async mode
+
+Async translation mode grants additional translation capabilities, such as processing of HTML documents by providers that do not support HTML. Accordingly, the features of providers for this mode are slightly different. For example, the list of supported formats may include HTML for providers that do not support HTML. 
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?mode=async'
+```
+
 ### Filtering providers by capabilities
 
 The list of providers may be further constrained by adding desired parameter values to the GET request:
@@ -287,10 +295,15 @@ Response:
 ]
 ```
 
-Besides source and target language, service providers may be filtered by support of specific bulk translate option (`bulk`) and language detection option (`lang_detect`):
+Besides source and target language, service providers may be filtered by support of specific bulk translate option (`bulk`), language detection option (`lang_detect`) and supported format (`format`):
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es&lang_detect=true&bulk=true'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es&lang_detect=true&bulk=true&format=html'
+```
+It is important that when filtering by format for the asinc mode, the list of providers will be different, since more providers in this mode can work with HTML:
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?mode=async&format=html'
 ```
 
 ## Getting information about a provider
@@ -335,6 +348,13 @@ The response contains a list of the metadata fields and values available for the
     }
 }
 ```
+
+As well as for the request for the list of available providers, the parameter `mode=async` can be specified: 
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0?mode=async'
+```
+
 
 ## Supported languages
 
