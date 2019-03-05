@@ -301,7 +301,7 @@ Besides source and target language, service providers may be filtered by support
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es&lang_detect=true&bulk=true&format=html'
 ```
-It is important that when filtering by format for the asinc mode, the list of providers will be different, since more providers in this mode can work with HTML:
+It is important that when filtering by format for the async mode, the list of providers will be different, since more providers in this mode can work with HTML:
 
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?mode=async&format=html'
