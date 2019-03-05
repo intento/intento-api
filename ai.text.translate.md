@@ -9,6 +9,7 @@ This is an intent to translate text from one language to another.
     - [Bulk mode](#bulk-mode)
     - [Language detection mode](#language-detection-mode)
 - [Getting available providers](#getting-available-providers)
+    - [Capabilities of providers in async mode](#capabilities-of-providers-in-async-mode)
     - [Filtering providers by capabilities](#filtering-providers-by-capabilities)
 - [Getting information about a provider](#getting-information-about-a-provider)
 - [Supported languages](#supported-languages)
