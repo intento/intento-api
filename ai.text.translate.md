@@ -9,6 +9,7 @@ This is an intent to translate text from one language to another.
     - [Bulk mode](#bulk-mode)
     - [Language detection mode](#language-detection-mode)
 - [Getting available providers](#getting-available-providers)
+    - [Capabilities of providers in async mode](#capabilities-of-providers-in-async-mode)
     - [Filtering providers by capabilities](#filtering-providers-by-capabilities)
 - [Getting information about a provider](#getting-information-about-a-provider)
 - [Supported languages](#supported-languages)
@@ -21,6 +22,7 @@ This is an intent to translate text from one language to another.
     - [:lock: Training custom models](#lock-training-custom-models)
     - [:lock: Migrating custom models between providers](#lock-migrating-custom-models-between-providers)
 - [Supported formats](#supported-formats)
+    - [Supported formats in async mode](#supported-formats-in-async-mode)
     - [List of providers supporting a specified format](#list-of-providers-supporting-a-specified-format)
 - [Content processing](#content-processing)
 
@@ -248,6 +250,14 @@ The response contains a list of the providers available for given constraints wi
 ]
 ```
 
+### Capabilities of providers in async mode
+
+Async translation mode grants additional translation capabilities. All providers support [bulk](#bulk-mode) and HTML, XML formats in the async mode.
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?mode=async'
+```
+
 ### Filtering providers by capabilities
 
 The list of providers may be further constrained by adding desired parameter values to the GET request:
@@ -293,6 +303,18 @@ Besides source and target language, service providers may be filtered by support
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?from=en&to=es&lang_detect=true&bulk=true'
 ```
 
+It is important that when filtering by HTML/XML format in the async mode, the list of providers will be different, since all providers in this mode can work with HTML/XML:
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?mode=async&format=html'
+```
+
+And when filtering by bulk in the async mode, the list of providers will be different, all providers in this mode can work with bulk:
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?mode=async&bulk=true'
+```
+
 ## Getting information about a provider
 
 To get information about a provider with a given ID, send a GET request to `https://api.inten.to/ai/text/translate/PROVIDER_ID`.
@@ -334,6 +356,13 @@ The response contains a list of the metadata fields and values available for the
         "key": "YOUR_KEY"
     }
 }
+```
+
+As well as for the request for the list of available providers, the parameter `mode=async` can be specified:
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0?mode=async'
+
 ```
 
 ## Supported languages
@@ -440,6 +469,7 @@ Some of the MT services allow for fine-tuning of the translation models. Using t
 ### Using previously trained custom models
 
 Right now we support custom models for these providers:
+
 - (SMT) IBM Watson Language Translator Service (`ai.text.translate.ibm-language-translator`). This engine is deprecated and will no longer be available after October 4, 2018.
 - (SMT) Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.2-0`). This engine is deprecated since April 30, 2018 and will be discontinued on April 30, 2019.
 - (NMT) IBM Watson Language Translator Service v3 (`ai.text.translate.ibm-language-translator-v3`).
@@ -447,7 +477,6 @@ Right now we support custom models for these providers:
 - (NMT) Google AutoML Translation API (v1beta1) (`ai.text.translate.google.automl_api.v1beta1`).
 - ModernMT Enterprise Edition (`ai.text.translate.modernmt.enterprise`).
 - Tilde Machine Translation API (`ai.text.translate.tilde.machine_translation_api`).
-
 
 More providers to come!
 
@@ -517,8 +546,100 @@ The response contains the translated text with preserved formatting:
 
 ```
 
-
 Note that some MT engines eliminate newline characters from the text. If you rely on the linebreaks e.g. to separate segments, we suggest to split the input text by linebreaks, send all lines of the input text as an array via the bulk request (link) and merge the resulting array of translations.
+
+### Supported formats in async mode
+
+In addition to the provider's format support, we have built-in support for HTML and XML formats.
+
+#### HTML/XML formats
+
+If a provider doesn't support HTML/XML format, you can still translate HTML/XML input with this provider and get valid HTML translation. Note, that this is supported only in [async mode](https://github.com/intento/intento-api#async-mode).
+
+##### Overview
+
+For the HTML/XML format support, we transform an HTML document into a tree. Then we traverse the tree and get all the text content from tags. This procedure converts HTML/XML input into an array of text, which doesn't contain tags. We send this array for translation and insert back the response into the initial HTML input.
+
+##### Important notes
+
+- The HTML/XML format support fixes invalid HTML with missing opening or closing tags by adding missing one.
+- We send for translation only text content of tags (`<tagname>CONTENT</tagname>`).
+- We don't send for translation content of these tags:
+    - `area`
+    - `basefont`
+    - `datalist`
+    - `link`
+    - `meta`
+    - `noembed`
+    - `noframes`
+    - `param`
+    - `rp`
+    - `script`
+    - `source`
+    - `style`
+    - `template`
+    - `track`
+    - `noscript`
+
+Let's examine how it works. There is an HTML input:
+
+```html
+<html>
+<head>
+<title>Title of this HTML</title>
+</head>
+<body>
+<div id='tag1'>Hi!</div>
+<div id='tag2'>Buy!</div>
+</body>
+</html>
+```
+
+After conversion, there is three elements in the request for translation:
+
+```python
+[
+'Title of this HTML',
+'Hi!',
+'Buy!'
+]
+
+```
+
+It is worth mentioning that converting HTML to text may not work well with inline tags. Take this HTML for example:
+
+```html
+<body>
+<html>
+<head>
+<title></title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<p>The young Princess Bolkónskaya had brought some work in a gold-embroidered velvet bag.<br> Her pretty little upper lip, on which a delicate dark down was just perceptible, was too short for her teeth, but it lifted all the more sweetly, and was especially charming when she occasionally drew it down to meet the lower lip. <br>As is always the case<br> with a thoroughly attractive woman, her defect&mdash;the shortness of her upper lip and her half-open mouth&mdash;seemed to be her own special and peculiar form of beauty. Everyone brightened at the sight of this pretty young woman, so soon to become a mother, so full of life and health, and carrying her burden so lightly. Old men and dull dispirited young ones who <i>looked<i> at her, after being in her company and talking to her a little while, felt as if they too were becoming, like her, full of life and health. All who talked to her, and at each <span>word saw her bright smile</span> and the constant gleam of her white teeth, thought that they were in a specially amiable mood that day.</p>
+</body>
+</html>
+</body>
+</html>
+```
+
+After conversion there is nine items in the array:
+
+```python
+[
+'The young Princess Bolkónskaya had brought some work in a gold-embroidered velvet bag.',
+'Her pretty little upper lip, on which a delicate dark down was just perceptible, was too short for her teeth, but it lifted all the more sweetly, and was especially charming when she occasionally drew it down to meet the lower lip.',
+'As is always the case',
+' with a thoroughly attractive woman, her defect&mdash;the shortness of her upper lip and her half-open mouth&mdash;seemed to be her own special and peculiar form of beauty. Everyone brightened at the sight of this pretty young woman, so soon to become a mother, so full of life and health, and carrying her burden so lightly.',
+'Old men and dull dispirited young ones who ',
+'looked',
+'at her, after being in her company and talking to her a little while, felt as if they too were becoming, like her, full of life and health. All who talked to her, and at each ',
+'word saw her bright smile',
+' and the constant gleam of her white teeth, thought that they were in a specially amiable mood that day.'
+]
+```
+
+The first and the second items are produced after splitting by `<br>` tags. These elements seem fine. Next item 'As is...'  is not adequately extracted because the `<br>` tag is in the middle of a sentence. Instead of one element for the sentence, two are formed, each of which is a separate item in the array. As you can see, the following elements starting from the fifth are also extracted not correctly due to the `<i>` and `<span>` tags in the middle of sentences. To avoid such splittings, be sure that the inline tags do not divide a sentence.
 
 ### List of providers supporting a specified format
 
