@@ -2,7 +2,8 @@
 
 Score API is a collection of endpoints for calculating standard AI performance metrics on user-provided inputs.
 
-### Machine Translation
+## Machine Translation
+
 To compare a machine translation with a reference translation, send a POST request to `https://api.inten.to/evaluate/score`. Specify data context keys: `items` - results of the machine translation,  `reference` -  ground truth and language.  List one or more currently implemented score functions, using `ignore_errors` flag to return result no matter of previous errors. Note that evaluation endpoints are supported only in `async` mode.
 
 **Scores:**
@@ -15,8 +16,7 @@ To compare a machine translation with a reference translation, send a POST reque
 - [sacrebleu](https://github.com/awslabs/sockeye/tree/3cca0c3ec397fbcb4c0ff0f51487e29338f53614/sockeye_contrib/sacrebleu)
 - [rouge](https://github.com/pltrdy/rouge)
 
-#### Basic usage:
-
+### Basic usage
 
 ```sh
 curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d '{
@@ -47,10 +47,11 @@ curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d
 ```
 
 The response contains id of the operation:
+
+```json
+{ "id": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda" }
 ```
-{"id": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda"}
- ```
- 
+
 Wait for processing to complete. To retrieve the result of the operation, make a GET request to the `https://api.inten.to/operations/YOUR_OPERATION_ID`. TTL of the resource is 30 days.
 
 ```json

@@ -44,9 +44,17 @@ Intento API provides a uniform intent-based access to cognitive services from mu
 
 Currently, the following intents are available:
 
-- [Dictionary][ai.text.dictionary] `ai.text.dictionary`
-- [Text translation][ai.text.translate] `ai.text.translate`
-- [Sentiment analysis][ai.text.sentiment] `ai.text.sentiment`
+- Text
+    - [Text translation][ai.text.translate] `ai.text.translate`, [Demo][ai.text.translate.demo]
+    - [Sentiment analysis][ai.text.sentiment] `ai.text.sentiment`, [Demo][ai.text.sentiment.demo]
+    - [Dictionary][ai.text.dictionary] `ai.text.dictionary`, [Demo][ai.text.dictionary.demo]
+    - [Text classify][ai.text.classify] `ai.text.classify`, [Catalog][ai.text.classify.catalog]
+    - [Transliterate][ai.text.transliterate] `ai.text.transliterate`, [Demo][ai.text.transliterate.demo]
+- Image
+    - [Tag images](ai.image.tagging.md) `ai.image.tagging`, [Demo][ai.image.tagging.demo]
+    - [OCR][ai.image.ocr] `ai.image.ocr`, [Catalog][ai.image.ocr.catalog]
+- Speech
+    - [Transcribe Speech][ai.speech.transcribe] `ai.speech.transcribe`, [Catalog][ai.speech.transcribe.catalog]
 
 Intent APIs are accessed via the base path. That said, API for the Machine Translation intent (ai.text.translate) is available at `/ai/text/translate`.
 
@@ -81,7 +89,7 @@ Intento Service Platform provides additional feature for useful work.
 Currently, the following features are available:
 
 - [Usage API][usage.md] - to get usage statistics about all calls to the API
-- [Score API](https://github.com/intento/intento-api/blob/master/score.md) - a set of API methods to calculate reference-based scores (such as BLEU) on user input
+- [Score API][score.md] - a set of API methods to calculate reference-based scores (such as BLEU) on user input
 - Evaluation API - to evaluate third-party API models
 
 ## Authentication
@@ -103,7 +111,7 @@ Remaining limits are returned with a response in headers: `X-RateLimit-Remaining
 
 When the limits as exceeded, Intento API will return a HTTP error 429 (see below).
 
-In case if your request exceeds limits you can use [the async mode](https://github.com/intento/intento-api#async-mode). The current approach to handling the oversized requests [is described in a separate document](https://github.com/intento/intento-api/blob/master/processing-oversized-requests.md).
+In case if your request exceeds limits you can use [the async mode][async-mode]. The current approach to handling the oversized requests [is described in a separate document][processing-oversized-requests].
 
 ## Errors
 
@@ -141,9 +149,17 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 
 Proceed to the following links for more details and examples on how to use a particular intent.
 
-- [Text translation (ai.text.translate)][ai.text.translate]
-- [Dictionary (ai.text.dictionary)][ai.text.dictionary]
-- [Sentiment analysis (ai.text.sentiment)][ai.text.sentiment]
+- Text
+    - [Text translation][ai.text.translate] `ai.text.translate`
+    - [Sentiment analysis][ai.text.sentiment] `ai.text.sentiment`
+    - [Dictionary][ai.text.dictionary] `ai.text.dictionary`
+    - [Text classify](ai.text.classify.md) `ai.text.classify`
+    - [Transliterate](ai.text.transliterate.md) `ai.text.transliterate`
+- Image
+    - [Tag images](ai.image.tagging.md) `ai.image.tagging`
+    - [OCR](ai.image.ocr.md) `ai.image.ocr`
+- Speech
+    - [Transcribe Speech](ai.speech.transcribe.md) `ai.speech.transcribe`
 
 ## Advanced usage
 
@@ -269,7 +285,7 @@ If the operation is not completed the value of `done` is false. Wait and make re
 
 #### Async errors
 
-If the operation encountered an error during fulfillment, you would see a response with partial result and error. This result contains successfully fulfilled elements of the initial request and nulls where the error occurred. More information about the cause of the problem you can find in an error object. The object contains a list of failed requests with corresponding error responses. For more convenient mapping there is an item key and a position key in the object. The `item` key is an index of the element in the initial request array. And the `position` key is an index of the element in the [sub-array](https://github.com/intento/intento-api/blob/master/processing-oversized-requests.md). Here is an example of the operation which failed:
+If the operation encountered an error during fulfillment, you would see a response with partial result and error. This result contains successfully fulfilled elements of the initial request and nulls where the error occurred. More information about the cause of the problem you can find in an error object. The object contains a list of failed requests with corresponding error responses. For more convenient mapping there is an item key and a position key in the object. The `item` key is an index of the element in the initial request array. And the `position` key is an index of the element in the [sub-array][processing-oversized-requests]. Here is an example of the operation which failed:
 
 ```json
 {
@@ -464,7 +480,7 @@ It is not very handy, because some tokens expire just after an hour, so you have
 
 We provide a much more convenient and hassle-free way to work with temporary credentials. You can provide us with all the required information to generate temporary tokens. The fastest way to set up Google AutoML with Intento is our [Stored Credentials Manager](https://console.inten.to/credentials).
 
-Another option is to [delegate us the required credentials through the API](delegated_credentials.md), and we take care of the whole process, automatically regenerating tokens when it's needed and substituting an actual token in the request to a provider. You pass a credential id (which is constant now), and we do all the job with translating it to always-working tokens.
+Another option is to [delegate us the required credentials through the API][delegated_credentials], and we take care of the whole process, automatically regenerating tokens when it's needed and substituting an actual token in the request to a provider. You pass a credential id (which is constant now), and we do all the job with translating it to always-working tokens.
 
 A request with delegated credentials looks like this:
 
@@ -489,7 +505,7 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
 }'
 ```
 
-Here is the [instruction on how to create your own delegated credentials for different providers](delegated_credentials.md). Right now this mode is supported only for `ai.text.translate.google.automl_api.v1beta1`.
+Here is the [instruction on how to create your own delegated credentials for different providers][delegated_credentials]. Right now this mode is supported only for `ai.text.translate.google.automl_api.v1beta1`.
 
 ### Smart routing
 
@@ -640,4 +656,29 @@ or
 [ai.text.translate]: <ai.text.translate.md>
 [ai.text.dictionary]: <ai.text.dictionary.md>
 [ai.text.sentiment]: <ai.text.sentiment.md>
+[ai.text.classify]: <ai.text.classify.md>
+[ai.text.transliterate]: <ai.text.transliterate.md>
+[ai.image.tagging]: <ai.image.tagging.md>
+[ai.image.ocr]: <ai.image.ocr.md>
+[ai.speech.transcribe]: <ai.speech.transcribe.md>
 [usage.md]: <usage.md>
+[score.md]: <score.md>
+[delegated_credentials.md]: <delegated_credentials.md>
+[processing-oversized-requests]: <https://github.com/intento/intento-api/blob/master/processing-oversized-requests.md>
+[async-mode]: <https://github.com/intento/intento-api#async-mode>
+[ai.text.translate.demo]: <https://inten.to/api-platform/ai/text/translate#mt-demo>
+[ai.text.sentiment.demo]: <https://inten.to/api-platform/ai/text/sentiment#mt-demo>
+[ai.text.dictionary.demo]: <https://inten.to/api-platform/ai/text/dictionary#mt-demo>
+[ai.text.classify.demo]: <https://inten.to/api-platform/ai/text/classify#mt-demo>
+[ai.text.transliterate.demo]: <https://inten.to/api-platform/ai/text/transliterate#mt-demo>
+[ai.image.tagging.demo]: <https://inten.to/api-platform/ai/image/tagging#mt-demo>
+[ai.image.ocr.demo]: <https://inten.to/api-platform/ai/image/ocr#mt-demo>
+[ai.speech.transcribe.demo]: <https://inten.to/api-platform/ai/speech/transcribe#mt-demo>
+[ai.text.translate.catalog]: <https://inten.to/api-platform/ai/text/translate#mt-catalog>
+[ai.text.sentiment.catalog]: <https://inten.to/api-platform/ai/text/sentiment#mt-catalog>
+[ai.text.dictionary.catalog]: <https://inten.to/api-platform/ai/text/dictionary#mt-catalog>
+[ai.text.classify.catalog]: <https://inten.to/api-platform/ai/text/classify#mt-catalog>
+[ai.text.transliterate.catalog]: <https://inten.to/api-platform/ai/text/transliterate#mt-catalog>
+[ai.image.tagging.catalog]: <https://inten.to/api-platform/ai/image/tagging#mt-catalog>
+[ai.image.ocr.catalog]: <https://inten.to/api-platform/ai/image/ocr#mt-catalog>
+[ai.speech.transcribe.catalog]: <https://inten.to/api-platform/ai/speech/transcribe#mt-catalog>
