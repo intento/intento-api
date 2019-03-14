@@ -480,7 +480,7 @@ It is not very handy, because some tokens expire just after an hour, so you have
 
 We provide a much more convenient and hassle-free way to work with temporary credentials. You can provide us with all the required information to generate temporary tokens. The fastest way to set up Google AutoML with Intento is our [Stored Credentials Manager](https://console.inten.to/credentials).
 
-Another option is to [delegate us the required credentials through the API][delegated_credentials], and we take care of the whole process, automatically regenerating tokens when it's needed and substituting an actual token in the request to a provider. You pass a credential id (which is constant now), and we do all the job with translating it to always-working tokens.
+Another option is to [delegate us the required credentials through the API][delegated_credentials.md], and we take care of the whole process, automatically regenerating tokens when it's needed and substituting an actual token in the request to a provider. You pass a credential id (which is constant now), and we do all the job with translating it to always-working tokens.
 
 A request with delegated credentials looks like this:
 
@@ -505,7 +505,7 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
 }'
 ```
 
-Here is the [instruction on how to create your own delegated credentials for different providers][delegated_credentials]. Right now this mode is supported only for `ai.text.translate.google.automl_api.v1beta1`.
+Here is the [instruction on how to create your own delegated credentials for different providers][delegated_credentials.md]. Right now this mode is supported only for `ai.text.translate.google.automl_api.v1beta1`.
 
 ### Smart routing
 
