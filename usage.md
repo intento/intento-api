@@ -43,7 +43,8 @@ The response contains the list of buckets with statistics:
                 "requests": 100,
                 "items": 100,
                 "len": 3000,
-                "errors": 10
+                "errors": 10,
+                "words": 2
              }
         },
         ...
@@ -110,6 +111,7 @@ This request block contains the following fields:
 - `requests` - number of requests
 - `items` - number of data items processed (not equal to `requests` if batch requests are used)
 - `len` - size of items processed
+- `words` - number of words processed (for text intent)
 - `errors` - number of failed responses
 
 ### Errors
@@ -151,6 +153,7 @@ To do this one can add a `filter` object in a request. Valid `filter` keys are:
 - `intent` - by used intents like `ai.text.translate` or `ai.text.sentiment`
 - `client` - (for multi-key accounts) to choose a particular account; if no parameter present, the statistics is provided for all keys together.
 - `status` - by HTTP response codes like `200` or `4xx` (intended for error monitoring)
+- `lang_pair` - by language pair like `fr/en` or `en/es`
 
 Each value can be omitted. If specified, it should be a string or a list of strings.
 Detailed examples below.
@@ -209,6 +212,64 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
         "status": ["200", "3xx", "4xx", "5xx", "403"]
     }
 }'
+```
+
+## Grouping (`/usage/intento`)
+
+Usage statistics can be grouping by provider, intent or lang_pair.
+To do this one can add a `group` list in a request. Valid `group` values are:
+
+- provider
+- intent
+- lang_pair
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
+    "range": {
+        "from": 1529280000,
+        "to": 1529884800,
+        "bucket": "1day"
+    },
+    "group": [
+        "provider",
+        "intent"
+    ]
+}'
+```
+
+The response contains the list of buckets with statistics. Each bucket belongs to a specific `timestamp` and the set of parameters that were listed in the `group` :
+
+```json
+{
+    "data":[
+        {
+            "timestamp": 1529884800,
+            "group": {
+                "intent": "ai.text.translate",
+                "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+            },
+            "metrics": {
+                "requests": 100,
+                "items": 100,
+                "len": 3000,
+                "errors": 10,
+                "words": 2
+             }
+        },
+        ...
+        {
+            "timestamp": 1529280000,
+            "group": {
+                "intent": "ai.text.translate",
+                "provider": "ai.text.translate.amazon.translate"
+            },
+            "metrics": {
+                ...
+            }
+        },
+        ...
+    ]
+}
 ```
 
 ## Getting possible values for filter parameters (`/usage/distinct`)
