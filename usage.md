@@ -1,6 +1,6 @@
 # Usage API
 
-This is an intent to get usage statistics about all calls to the API.
+The `/usage` endpoint intended to get usage statistics about all calls to the API.
 
 <!-- TOC depthFrom:2 -->
 
@@ -17,6 +17,7 @@ This is an intent to get usage statistics about all calls to the API.
     - [Filtering by providers](#filtering-by-providers)
     - [Filtering by intents](#filtering-by-intents)
     - [Filtering by response status](#filtering-by-response-status)
+- [Grouping by features (`/usage/intento`)](#grouping-by-features-usageintento)
 - [Getting possible values for filter parameters (`/usage/distinct`)](#getting-possible-values-for-filter-parameters-usagedistinct)
 
 <!-- /TOC -->
@@ -31,7 +32,7 @@ To get usage statistics for the API, send a POST request to Usage API at [https:
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento'
 ```
 
-This request returns information for the last 12 days. Each bucket corresponds to a single day, the last bucket contains information on today usage.
+This request returns information for the last 12 days. Each bucket corresponds to a single day; the last bucket contains information on today usage.
 The response contains the list of buckets with statistics:
 
 ```json
@@ -43,8 +44,8 @@ The response contains the list of buckets with statistics:
                 "requests": 100,
                 "items": 100,
                 "len": 3000,
-                "errors": 10,
-                "words": 2
+                "words": 2,
+                "errors": 10
              }
         },
         ...
@@ -67,7 +68,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
 
 ### Specify a date/time range
 
-This example shows how to specify a particular date-time range: 10 items from a particular moment (datetime stamp in seconds, UTC timezone, check out [timezone converter](https://www.epochconverter.com/)).
+This example shows how to set a particular date-time range: 10 items from a specific moment (datetime stamp in seconds, UTC timezone, check out [timezone converter](https://www.epochconverter.com/)).
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
@@ -85,7 +86,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
 
 This field contains the following fields:
 
-- `items`: number of buckets in the result. All buckets are sorted by timestamp, ascending. Default value is `12`.
+- `items`: number of buckets in the result. All buckets are sorted by timestamp, ascending. The default value is `12`.
 - `to`: timestamp of the last bucket. An actual timestamp may differ because it aligned by bucket field. Default value: now
 - `from`: timestamp of the first bucket. An actual timestamp may differ because it aligned by bucket field.
 - `bucket`: width of each bucket. Default value: "1d"
@@ -96,7 +97,7 @@ You may specify:
 - `from` and `items` fields
 - `to` and `items` fields
 
-Values in the `from` and `to` fields are specified in seconds, UTC timezone (check out [timezone converter](https://www.epochconverter.com/)). Value aligned in accordance with the field bucket.
+Values in the `from` and `to` fields are in seconds, UTC timezone (check out [timezone converter](https://www.epochconverter.com/)). Values aligned by the field bucket.
 
 Possible values of the `bucket` field:
 
@@ -111,7 +112,7 @@ This request block contains the following fields:
 - `requests` - number of requests
 - `items` - number of data items processed (not equal to `requests` if batch requests are used)
 - `len` - size of items processed
-- `words` - number of words processed (for text intent)
+- `words` - number of words processed (for text intents)
 - `errors` - number of failed responses
 
 ### Errors
@@ -195,11 +196,12 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
 ### Filtering by response status
 
 For filtering segments by a response status, specify the `status` key in the request's `filter` block.
-Possible value of a 'status' filter:
+The `status` value should be a list of strings. Valid string values are:
 
 - an exact value of a status like `200` or `403`
-- enumerate value like `3xx` or `4xx` or `5xx` combining errors of the same type
-- any combination of previous options
+- enumerated value like `3xx` or `4xx` or `5xx` combining errors of the same type
+
+The `status` list may contain any combination of exact status values and enumerated status values.
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
@@ -214,14 +216,14 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
 }'
 ```
 
-## Grouping (`/usage/intento`)
+## Grouping by features (`/usage/intento`)
 
-Usage statistics can be grouping by provider, intent or lang_pair.
-To do this one can add a `group` list in a request. Valid `group` values are:
+One can group usage statistics by providers, intents or language pairs.
+To do this one can add a `group` parameter to a request. The `group` value should be a list of strings. Valid string values are:
 
-- provider
-- intent
-- lang_pair
+- `provider`
+- `intent`
+- `lang_pair`
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
@@ -237,7 +239,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
 }'
 ```
 
-The response contains the list of buckets with statistics. Each bucket belongs to a specific `timestamp` and the set of parameters that were listed in the `group` :
+The response contains the list of buckets with statistics. Each `bucket` describes metrics binded to a specific `timestamp`, every number in `metrics` is an aggregated value for a certain set of features, mentioned in the `group` parameter of the each element of the response:
 
 ```json
 {
@@ -288,6 +290,12 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/distinct' -d '
     ]
 }'
 ```
+
+The `fields` value should be a list of strings. Valid string values are:
+
+- `provider`
+- `intent`
+- `lang_pair`
 
 The response contains all possible values of mentioned fields during the period specified in `range`:
 
