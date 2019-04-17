@@ -1,10 +1,10 @@
 # Using delegated credentials
 
-The fastest way to set up Google AutoML with Intento is to use our [Stored Credentials Manager](https://console.inten.to/credentials).
-
 There are two ways how you can set up delegated credentials in Intento:
 1) In a convenient [user interface](https://console.inten.to/credentials) 
 2) Programatically via API - find instructions below in this document.
+
+The fastest way to set up Google AutoML with Intento is to use our [Stored Credentials Manager](https://console.inten.to/credentials).
 
 <!-- TOC depthFrom:2 depthTo:3 -->
 
