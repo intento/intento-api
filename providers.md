@@ -12,10 +12,11 @@
         - [`custom_model`](#custom_model)
         - [`delegated_credentials`](#delegated_credentials)
         - [`integrated`](#integrated)
-        - [`lang_detect`](#lang_detect)
+        - [`lang_detect` - an intent-specific flag](#lang_detect---an-intent-specific-flag)
         - [`own_auth`](#own_auth)
         - [`production`](#production)
         - [`stock_model`](#stock_model)
+        - [Filtering providers by capabilities](#filtering-providers-by-capabilities)
 
 <!-- /TOC -->
 
@@ -134,7 +135,7 @@ A typical response looks like this
 
 ## Technical info
 
-It may vary depending on the intent (for exmaple, translate intent or image tagging intent).
+It may vary depending on the intent (for example, translate intent or image tagging intent).
 
 **`languages`** (dictionary `{ 'symmetric': ['list', 'of', 'strings'], 'pairs': ['list', 'of', 'strings'] }`) - supportes languages if applicable to the intent.
 
@@ -171,7 +172,7 @@ Intento supports connecting accounts to this provider. For example to Google Aut
 
 Intento can route requests to a provider.
 
-### `lang_detect`
+### `lang_detect` - an intent-specific flag
 
 Machine translation, text classify and sentiment intents only.
 
@@ -188,3 +189,20 @@ A provider advertises their service as beta or preview.
 ### `stock_model`
 
 A provider can perform requests without uploading training data.
+
+### Filtering providers by capabilities
+
+One can get a list of providers, supporting these or that features (filtering not only by flags).
+Some of these features are intent-specific, so it is useful to check the "Filtering providers by capabilities" section in the certan intent doc. For example [Filtering providers by capabilities for Sentiment analysis](./ai.text.sentiment.md#filtering-providers-by-capabilities).
+
+One of the examples of how to filter by a feature, that is supported by all intents is filtering providers by capabilities in the async mode.
+The Intento async mode in general allows to use more providers. For example one can translate batches with Amazon Translate, while Amazon itself does not support such feature. Also translating html format is available for all providers while requesting Intento in the async mode.
+
+Compare responses on these two requests:
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate/?mode=async&format=html
+curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate/format=html
+```
+
+The first response will contain descriptions of 25 providers and the second one -- of 13 providers only.
