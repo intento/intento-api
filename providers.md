@@ -209,7 +209,7 @@ You can request, say, machine translation jobs or image recognition jobs in the 
 You can get a list of providers which support html in async mode with the following request:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate/format=html&mode=async
+curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate?format=html&mode=async
 ```
 
 Compare the response of this request with the response to the request without `mode=async` - you'll see significantly more providers in it.
