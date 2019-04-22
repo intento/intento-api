@@ -199,7 +199,7 @@ You can get a list of providers that support a specific feature.
 All providers supporting html can be filtered with a request:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate/format=html
+curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate?format=html
 ```
 
 ### Async mode
