@@ -8,7 +8,7 @@
     - [Flags](#flags)
         - [`billable`](#billable)
         - [`bulk`](#bulk)
-        - [`custom_glossary`](#custom_glossary)
+        - [`custom_glossary` - an intent-specific flag](#custom_glossary---an-intent-specific-flag)
         - [`custom_model`](#custom_model)
         - [`delegated_credentials`](#delegated_credentials)
         - [`integrated`](#integrated)
@@ -17,6 +17,7 @@
         - [`production`](#production)
         - [`stock_model`](#stock_model)
         - [Filtering providers by capabilities](#filtering-providers-by-capabilities)
+            - [Async mode](#async-mode)
 
 <!-- /TOC -->
 
@@ -154,9 +155,9 @@ If `billable:false`, one must pass their own keys to the provider.
 
 A provider supports bulk requests. In our async mode we have sophisticatd workaround for providers with `bulk: false`, so when using Intentio in async mode (in Web Tools for example) there is no need to worry about this flag.
 
-### `custom_glossary`
+### `custom_glossary` - an intent-specific flag
 
-Machine translation intent only.
+*Machine translation intent only.*
 
 A provider supports passing custom glossaries.
 
@@ -174,7 +175,7 @@ Intento can route requests to a provider.
 
 ### `lang_detect` - an intent-specific flag
 
-Machine translation, text classify and sentiment intents only.
+*Machine translation, text classify and sentiment intents only.*
 
 A provider supports language detection.
 
@@ -192,17 +193,23 @@ A provider can perform requests without uploading training data.
 
 ### Filtering providers by capabilities
 
-One can get a list of providers, supporting these or that features (filtering not only by flags).
-Some of these features are intent-specific, so it is useful to check the "Filtering providers by capabilities" section in the certan intent doc. For example [Filtering providers by capabilities for Sentiment analysis](./ai.text.sentiment.md#filtering-providers-by-capabilities).
+Intento providers support different features. Some of these features are common for all intents (like own auth support or stock model support), other features (like language detection) are intent-specific. So it is useful to check the "Filtering providers by capabilities" section for the certain intent. For example [Filtering providers by capabilities for Sentiment analysis](./ai.text.sentiment.md#filtering-providers-by-capabilities).
 
-One of the examples of how to filter by a feature, that is supported by all intents is filtering providers by capabilities in the async mode.
-The Intento async mode in general allows to use more providers. For example one can translate batches with Amazon Translate, while Amazon itself does not support such feature. Also translating html format is available for all providers while requesting Intento in the async mode.
-
-Compare responses on these two requests:
+You can get a list of providers that support a specific feature.
+All providers supporting html can be filtered with a request:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate/?mode=async&format=html
 curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate/format=html
 ```
 
-The first response will contain descriptions of 25 providers and the second one -- of 13 providers only.
+#### Async mode
+
+You can request, say, machine translation jobs or image recognition jobs in the [Intento async mode](./README.md#async-mode). It is not only a way to process large volumes of data, but also a way to use providers which do not support some features (like html format) by itself.
+
+You can get a list of providers which support html in async mode with the following request:
+
+```sh
+curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate/format=html&mode=async
+```
+
+Compare the response of this request with the response to the request without `mode=async` - you'll see significantly more providers in it.
