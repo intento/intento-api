@@ -16,8 +16,8 @@
         - [`own_auth`](#own_auth)
         - [`production`](#production)
         - [`stock_model`](#stock_model)
-        - [Filtering providers by capabilities](#filtering-providers-by-capabilities)
-            - [Async mode](#async-mode)
+    - [Filtering providers by capabilities](#filtering-providers-by-capabilities)
+        - [Async mode](#async-mode)
 
 <!-- /TOC -->
 
@@ -191,7 +191,7 @@ A provider advertises their service as beta or preview.
 
 A provider can perform requests without uploading training data.
 
-### Filtering providers by capabilities
+## Filtering providers by capabilities
 
 Intento providers support different features. Some of these features are common for all intents (like own auth support or stock model support), other features (like language detection) are intent-specific. So it is useful to check the "Filtering providers by capabilities" section for the certain intent. For example [Filtering providers by capabilities for Sentiment analysis](./ai.text.sentiment.md#filtering-providers-by-capabilities).
 
@@ -202,7 +202,7 @@ All providers supporting html can be filtered with a request:
 curl -H 'apikey: YOUR_INTENTO_KEY' https://api.inten.to/ai.text.translate/format=html
 ```
 
-#### Async mode
+### Async mode
 
 You can request, say, machine translation jobs or image recognition jobs in the [Intento async mode](./README.md#async-mode). It is not only a way to process large volumes of data, but also a way to use providers which do not support some features (like html format) by itself.
 
