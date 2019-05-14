@@ -37,7 +37,7 @@ The response contains the detect-language results:
         [
             {
                 "language": "en",
-                "confidence": 0.9444444179534912
+                "confidence": 1
             }
         ]
     ],
