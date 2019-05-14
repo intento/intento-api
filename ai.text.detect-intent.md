@@ -70,16 +70,25 @@ To get a list of available Dictionary providers, send a GET request to [https://
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/detect-intent'
 ```
 
-The response contains a list of the providers available for given constraints with an information on pricing etc:
+The response contains a list of the providers available for given constraints with an information on using custom models, etc.:
 
 ```json
 [
     {
-        "id": "ai.text.detect-intent.yandex.dictionary_api.1-0",
-        "name": "Yandex detect-intent API",
-        "score": 0,
-        "price": 0
+        "id": "ai.text.detect-intent.microsoft.luis.programmatic.api.2-0",
+        "vendor": "Microsoft",
+        "description": "Language Understanding (LUIS)",
+        "production": true,
+        "integrated": false,
+        "billable": true,
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false,
+        "lang": [
+            "en"
+        ]
     }
+    ...
 ]
 ```
 
@@ -88,7 +97,7 @@ The response contains a list of the providers available for given constraints wi
 The list of providers may be further constrained by adding desired parameter values to the GET request:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/detect-intent?from=en&to=es'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/detect-intent?lang=en'
 ```
 
 Response:
@@ -96,10 +105,18 @@ Response:
 ```json
 [
     {
-        "id": "ai.text.detect-intent.yandex.dictionary_api.1-0",
-        "name": "Yandex detect-intent API",
-        "score": 0,
-        "price": 0
+        "id": "ai.text.detect-intent.recast.ai.2-0",
+        "vendor": "SAP",
+        "description": "Conversational AI",
+        "production": true,
+        "integrated": false,
+        "billable": true,
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false,
+        "lang": [
+            "en"
+        ]
     }
 ]
 ```

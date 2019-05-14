@@ -63,7 +63,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of the providers available for given constraints with an information on pricing, etc.",
+                        "description": "List of the providers available for given constraints with an information on using custom models, etc.",
                         "content": {
                             "application/json": {
                                 "schema": {

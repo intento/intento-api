@@ -68,7 +68,7 @@ To get a list of available Dictionary providers, send a GET request to [https://
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/transliterate'
 ```
 
-The response contains a list of the providers available for given constraints with an information on pricing etc:
+The response contains a list of the providers available for given constraints with an information on using custom models, etc.:
 
 ```json
 [
@@ -76,8 +76,9 @@ The response contains a list of the providers available for given constraints wi
         "id": "ai.text.transliterate.microsoft.translator_text_api.3-0",
         "name": "Microsoft Translator API v3.0",
         "vendor": "Microsoft",
-        "score": 0,
-        "price": 0
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": true
     }
 ]
 ```
@@ -98,8 +99,9 @@ Response:
         "id": "ai.text.transliterate.microsoft.translator_text_api.3-0",
         "name": "Microsoft Translator API v3.0",
         "vendor": "Microsoft",
-        "score": 0,
-        "price": 0
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": true
     }
 ]
 ```

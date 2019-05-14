@@ -103,15 +103,20 @@ To get a list of available Dictionary providers, send a GET request to [https://
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/dictionary'
 ```
 
-The response contains a list of the providers available for given constraints with an information on pricing etc:
+The response contains a list of the providers available for given constraints with an information on using custom models, etc.:
 
 ```json
 [
     {
         "id": "ai.text.dictionary.yandex.dictionary_api.1-0",
-        "name": "Yandex dictionary API",
-        "score": 0,
-        "price": 0
+        "vendor": "Yandex",
+        "description": "Dictionary API",
+        "production": true,
+        "integrated": true,
+        "billable": true,
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false
     }
 ]
 ```
@@ -131,8 +136,8 @@ Response:
     {
         "id": "ai.text.dictionary.yandex.dictionary_api.1-0",
         "name": "Yandex dictionary API",
-        "score": 0,
-        "price": 0
+        "symmetric": [...],
+        "pairs": [...]
     }
 ]
 ```
