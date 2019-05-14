@@ -21,7 +21,7 @@ To detect language of a text, send a POST request to Intento API at [https://api
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/detect-language' -d '{
     "context": {
-        "text": "Hello, I would like to take a class at your University. Que diriez-vous des cours en francais?",
+        "text": "Hello, I would like to take a class at your University.",
     },
     "service": {
         "provider": "ai.text.detect-language.microsoft.text_analytics_api.2-1"
