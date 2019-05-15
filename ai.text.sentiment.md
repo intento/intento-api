@@ -179,15 +179,16 @@ To get a list of available Sentiment providers, send a GET request to [https://a
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/sentiment'
 ```
 
-The response contains a list of the providers available for given constraints with an information on pricing, etc.:
+The response contains a list of the providers available for given constraints with an information on using custom models, etc.:
 
 ```json
 [
     {
         "id": "ai.text.sentiment.ibm.natural_language_understanding",
         "name": "IBM Watson Natural Language Understanding",
-        "score": 0,
-        "price": 0,
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": true,
         "lang": [
             "en"
         ]
@@ -195,8 +196,9 @@ The response contains a list of the providers available for given constraints wi
     {
         "id": "ai.text.sentiment.microsoft.text_analytics_api.2-0",
         "name": "Microsoft Text Analytics API",
-        "score": 0,
-        "price": 0,
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false,
         "lang": [
             "en"
         ]
@@ -219,14 +221,16 @@ Response:
     {
         "id": "ai.text.sentiment.ibm.natural_language_understanding",
         "name": "IBM Watson Natural Language Understanding",
-        "score": 0,
-        "price": 0
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": true
     },
     {
         "id": "ai.text.sentiment.microsoft.text_analytics_api.2-0",
         "name": "Microsoft Text Analytics API",
-        "score": 0,
-        "price": 0
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false
     }
 ]
 ```

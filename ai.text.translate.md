@@ -23,6 +23,9 @@ This is an intent to translate text from one language to another.
     - [:lock: Migrating custom models between providers](#lock-migrating-custom-models-between-providers)
 - [Supported formats](#supported-formats)
     - [Supported formats in async mode](#supported-formats-in-async-mode)
+        - [HTML/XML formats](#htmlxml-formats)
+            - [Overview](#overview)
+            - [Important notes](#important-notes)
     - [List of providers supporting a specified format](#list-of-providers-supporting-a-specified-format)
 - [Content processing](#content-processing)
 
@@ -219,33 +222,49 @@ To get a list of available Machine Translation providers, send a GET request to 
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate'
 ```
 
-The response contains a list of the providers available for given constraints with an information on pricing etc:
+The response contains a list of the providers available for given constraints with an information on using custom models, etc.:
 
 ```json
 [
     {
+        "id": "ai.text.translate.google.translate_api.v3beta1",
+        "vendor": "Google Cloud",
+        "description": "Translation API (v3beta1)",
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": true
+    },
+    {
+        "id": "ai.text.translate.sdl.language_cloud_translation_toolkit",
+        "vendor": "SDL",
+        "description": "Language Cloud Translation Toolkit",
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false
+    },
+    {
+        "id": "ai.text.translate.deepl.api",
+        "vendor": "DeepL",
+        "description": "API",
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false
+    },
+    {
+        "id": "ai.text.translate.yandex.cloud-translate.v1",
+        "vendor": "Yandex Cloud",
+        "description": "Translate",
+        "own_auth": false,
+        "stock_model": true,
+        "custom_model": false
+    },
+    {
         "id": "ai.text.translate.baidu.translate_api",
-        "name": "Baidu Translate API",
-        "score": 0,
-        "price": 0
-    },
-    {
-        "id": "ai.text.translate.google.translate_api.2-0",
-        "name": "Google Cloud Translation API",
-        "score": 0,
-        "price": 0
-    },
-    {
-        "id": "ai.text.translate.yandex.translate_api.1-5",
-        "name": "Yandex Translate API",
-        "score": 0,
-        "price": 0
-    },
-    {
-        "id": "ai.text.translate.systran.translation_api.1-0-0",
-        "name": "SYSTRAN REST Translation API",
-        "score": 0,
-        "price": 0
+        "vendor": "Baidu",
+        "description": "Translate API",
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false
     }
 ]
 ```
@@ -271,28 +290,44 @@ Response:
 ```json
 [
     {
-        "id": "ai.text.translate.baidu.translate_api",
-        "name": "Baidu Translate API",
-        "score": 0,
-        "price": 0
+        "id": "ai.text.translate.amazon.translate",
+        "vendor": "Amazon",
+        "description": "Translate",
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false
     },
     {
         "id": "ai.text.translate.google.translate_api.2-0",
-        "name": "Google Cloud Translation API",
-        "score": 0,
-        "price": 0
-    },
-    {
-        "id": "ai.text.translate.yandex.translate_api.1-5",
-        "name": "Yandex Translate API",
-        "score": 0,
-        "price": 0
+        "vendor": "Google Cloud",
+        "description": "Translation API",
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false
     },
     {
         "id": "ai.text.translate.systran.translation_api.1-0-0",
-        "name": "SYSTRAN REST Translation API",
-        "score": 0,
-        "price": 0
+        "vendor": "SYSTRAN",
+        "description": "REST Translation API",
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false
+    },
+    {
+        "id": "ai.text.translate.ibm-language-translator-v3",
+        "vendor": "IBM Watson",
+        "description": "Language Translator Service v3",
+        "own_auth": false,
+        "stock_model": true,
+        "custom_model": true
+    },
+    {
+        "id": "ai.text.translate.modernmt.enterprise",
+        "vendor": "ModernMT",
+        "description": "Enterprise Edition",
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": true
     }
 ]
 ```
@@ -655,15 +690,19 @@ Response:
 [
     {
         "id": "ai.text.translate.microsoft.translator_text_api.3-0",
-        "name": "Microsoft Translator API v3.0",
-        "score": 0,
-        "price": 0
+        "vendor": "Microsoft",
+        "description": "Translator API v3.0",
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": true
     },
     {
-        "id": "ai.text.translate.google.translate_api.2-0",
-        "name": "Google Cloud Translation API",
-        "score": 0,
-        "price": 0
+        "id": "ai.text.translate.google.automl_api.v1beta1",
+        "vendor": "Google Cloud",
+        "description": "AutoML Translation API (v1beta1)",
+        "own_auth": true,
+        "stock_model": false,
+        "custom_model": true
     },
     ...
 ]
