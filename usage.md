@@ -155,7 +155,7 @@ To do this one can add a `filter` object in a request. Valid `filter` keys are:
 - `intent` - by used intents like `ai.text.translate` or `ai.text.sentiment`
 - `client` - (for multi-key accounts) to choose a particular account; if no parameter present, the statistics is provided for all keys together.
 - `status` - by HTTP response codes like `200` or `4xx` (intended for error monitoring)
-- `lang_pair` - by language pair like `en/es` or `zh/fr`
+- `lang_pair` - by language pair like `fr/en` or `en/es`
 
 Each value can be omitted. If specified, it should be a string or a list of strings.
 Detailed examples below.
