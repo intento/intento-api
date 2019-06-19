@@ -42,7 +42,7 @@ Model name looks like this `projects/automl-196010/locations/us-central1/models/
 
 #### 3. Create a service account for accessing Google AutoML API
 
-For this, you have to set up a Service Account as described [here](https://cloud.google.com/translate/automl/docs/before-you-begin)
+For this, you have to set up a Service Account as described [here](https://cloud.google.com/iam/docs/creating-managing-service-accounts#creating_a_service_account)
 
 You can limit access rights for the service account to only perform predictions on the model. Full access (creating and deleting models) is not required.
 
