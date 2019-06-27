@@ -365,7 +365,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate?tr
 #### request body in `service`
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' -H 'trace: true' 'https://api.inten.to/ai/text/translate' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d {
     "context": {
         "text": "A sample text",
         "to": "es"
