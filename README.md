@@ -349,23 +349,23 @@ There are three ways to set the `trace` flag:
 #### request header
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' -H 'trace: true' 'https://api.inten.to/ai/text/translate' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' -H 'trace: true' 'https://api.inten.to/ai/text/translate' -d '{
 ...
-}
+}'
 ```
 
 #### request arguments
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate?trace=true' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate?trace=true' -d '{
 ...
-}
+}'
 ```
 
 #### request body in `service`
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
     "context": {
         "text": "A sample text",
         "to": "es"
@@ -376,7 +376,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         ],
         "trace": true
     }
-}
+}'
 ```
 
 If flag do not set or set `false` we do not keep user payload in logs. Flag name is case insensitive.
