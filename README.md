@@ -227,7 +227,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
            "Large text corpus"
         ],
         "to": "es",
-        "from": en
+        "from": "en"
     },
     "service": {
         "provider": [
