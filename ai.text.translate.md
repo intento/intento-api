@@ -18,7 +18,9 @@ This is an intent to translate text from one language to another.
 - [Setting your own language codes](#setting-your-own-language-codes)
 - [All language settings](#all-language-settings)
 - [Custom Translation Models](#custom-translation-models)
+    - [Listing available models and glossaries](#listing-available-models-and-glossaries)
     - [Using previously trained custom models](#using-previously-trained-custom-models)
+    - [Using glossaries](#using-glossaries)
     - [:lock: Training custom models](#lock-training-custom-models)
     - [:lock: Migrating custom models between providers](#lock-migrating-custom-models-between-providers)
 - [Supported formats](#supported-formats)
@@ -501,6 +503,71 @@ Some of the MT services allow for fine-tuning of the translation models. Using t
 - parallel corpuses,
 - monolingual corpuses
 
+### Listing available models and glossaries
+
+If you have an MT provider account with trained models and glossaries, and you [connected](./delegated-credentials) this account to your Intento account, you can access these models and glossaries through Intento API.
+
+For now, Intento supports glossaries and models for Google v3.
+
+To set up glossaries for your Google v3 project follow instructions [here](https://cloud.google.com/translate/docs/glossary).
+
+To set up Google v3 models follow instructions [here](https://cloud.google.com/translate/automl/docs/).
+
+To continue you will need a Google v3 account connected to your Intento account. You can connect accounts in [Intento Console](https://console.inten.to/credentials) or using [our API](./delegated-credentials)
+
+To access assets for a provider `example-provider` you will need an Intento `example-provider-credential_id` of a provider account connected to Intento. This id you can get on the [Connected account page](https://console.inten.to/credentials), where you have already connected some accounts.
+
+Getting a list of glossaries:
+
+```sh
+curl -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate/glossaries?provider=example-provider&credential_id=example-provider-credential_id'
+```
+
+Response:
+
+```json
+{
+    'response': [
+        {
+            'id': 'projects/automl-123456/locations/us-central1/glossaries/my_EN_ES_Glossary',
+            'name': 'my_EN_ES_Glossary',
+            'from': 'en',
+            'to': 'es'
+        },
+        {
+            ...
+        },
+        ...
+    ]
+}
+```
+
+Getting a list of models:
+
+```sh
+curl -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate/models?provider=example-provider&credential_id=example-provider-credential_id'
+```
+
+Response:
+
+```json
+{
+    'response': [
+        {
+            'id': 'projects/mytest-123456/locations/us-central1/models/my_EN_ES_Model654321',
+            'name': 'my_EN_ES_Model',
+            'from': 'en',
+            'to': 'es',
+            'stock': false
+        },
+        {
+            ...
+        },
+        ...
+    ]
+}
+```
+
 ### Using previously trained custom models
 
 Right now we support custom models for these providers:
@@ -530,6 +597,31 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "auth": {
             "ai.text.translate.ibm-language-translator": [
                 {"user" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx", "password" : "xxxxxxxx"}
+            ]
+        }
+    }
+}'
+```
+
+### Using glossaries
+
+Some of MT services allow using a glossary. A glossary is a custom dictionary which to make sure that you translate terms that are specific to you precisely the way you need it.
+
+Translate with glossary:
+
+```sh
+curl -H 'apikey: YOUR_API_KEY' -XPOST 'https://api.inten.to/ai/text/translate' -d'{
+    "context": {
+        "text": "Hello World",
+        "from": "en",
+        "to": "es",
+        "glossary": "projects/automl-123456/locations/us-central1/glossaries/my_EN_ES_Glossary"
+    },
+    "service": {
+        "provider" : "ai.text.translate.google.translate_api.v3beta1",
+        "auth": {
+            "ai.text.translate.google.translate_api.v3beta1": [
+                {"credential_id": "credentials_for_automl_123456"}
             ]
         }
     }
