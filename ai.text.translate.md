@@ -527,12 +527,12 @@ Response:
 
 ```json
 {
-    'response': [
+    "response": [
         {
-            'id': 'projects/automl-123456/locations/us-central1/glossaries/my_EN_ES_Glossary',
-            'name': 'my_EN_ES_Glossary',
-            'from': 'en',
-            'to': 'es'
+            "id": "projects/automl-123456/locations/us-central1/glossaries/my_EN_ES_Glossary",
+            "name": "my_EN_ES_Glossary",
+            "from": "en",
+            "to": "es"
         },
         {
             ...
@@ -552,13 +552,13 @@ Response:
 
 ```json
 {
-    'response': [
+    "response": [
         {
-            'id': 'projects/mytest-123456/locations/us-central1/models/my_EN_ES_Model654321',
-            'name': 'my_EN_ES_Model',
-            'from': 'en',
-            'to': 'es',
-            'stock': false
+            "id": "projects/mytest-123456/locations/us-central1/models/my_EN_ES_Model654321",
+            "name": "my_EN_ES_Model",
+            "from": "en",
+            "to": "es",
+            "stock": false
         },
         {
             ...
