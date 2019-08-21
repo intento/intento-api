@@ -74,10 +74,12 @@ The response contains a list of the providers available for given constraints:
         "api_id": "ibmwatsonspeechtotext",
         "name": "IBM Watson",
         "description": "Speech to Text",
-        "own_auth": true,
+        "own_auth": true
     }
 ]
 ```
+
+More on [provider flags and capabilities](./providers).
 
 ### Filtering providers by capabilities
 

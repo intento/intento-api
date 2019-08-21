@@ -107,6 +107,8 @@ Response:
 ]
 ```
 
+More on [provider flags and capabilities](./providers).
+
 ## Getting information about a provider
 
 To get information about a provider with a given ID, send a GET request to `https://api.inten.to/ai/text/classify/PROVIDER_ID`.

@@ -69,7 +69,7 @@ The response contains a list of the providers available for given constraints:
         "api_id": "baiduimageclassify",
         "name": "Baidu",
         "description": "Image Classify",
-        "own_auth": true,
+        "own_auth": true
     }
 ]
 ```
@@ -93,11 +93,13 @@ Response:
         "integrated": false,
         "own_auth": true,
         "stock_model": false,
-        "custom_model": false,
+        "custom_model": false
     },
     ...
 ]
 ```
+
+More on [provider flags and capabilities](./providers).
 
 ## Getting information about a provider
 

@@ -119,6 +119,8 @@ The response contains a list of the providers available for given constraints wi
 ]
 ```
 
+More on [provider flags and capabilities](./providers).
+
 ## Getting information about a provider
 
 To get information about a provider with a given ID, send a GET request to `https://api.inten.to/ai/text/detect-language/PROVIDER_ID`.

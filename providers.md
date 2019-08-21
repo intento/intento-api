@@ -138,7 +138,7 @@ A typical response looks like this
 
 It may vary depending on the intent (for example, translate intent or image tagging intent).
 
-**`languages`** (dictionary `{ 'symmetric': ['list', 'of', 'strings'], 'pairs': ['list', 'of', 'strings'] }`) - supportes languages if applicable to the intent.
+**`languages`** (dictionary `{ "symmetric": ["list", "of", "strings"], "pairs": ["list", "of", "strings"] }`) - supports languages if applicable to the intent.
 
 **`format`** (list of strings) supported data formats. Like `text`, `html`, `xml` for the translation intent.
 

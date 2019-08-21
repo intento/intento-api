@@ -352,6 +352,8 @@ And when filtering by bulk in the async mode, the list of providers will be diff
 curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate?mode=async&bulk=true'
 ```
 
+More on [provider flags and capabilities](./providers).
+
 ## Getting information about a provider
 
 To get information about a provider with a given ID, send a GET request to `https://api.inten.to/ai/text/translate/PROVIDER_ID`.

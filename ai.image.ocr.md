@@ -68,7 +68,7 @@ The response contains a list of the providers available for given constraints:
         "id": "ai.image.ocr.microsoft.vision_api.1-0",
         "name": "Microsoft",
         "description": "Computer Vision API",
-        "own_auth": true,
+        "own_auth": true
     }
 ]
 ```
@@ -78,7 +78,7 @@ The response contains a list of the providers available for given constraints:
 The list of providers may be further constrained by adding desired parameter values to the GET request:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/image/ocr'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/image/ocr?own_auth=true'
 ```
 
 Response:
@@ -92,11 +92,13 @@ Response:
         "integrated": false,
         "own_auth": true,
         "stock_model": false,
-        "custom_model": false,
+        "custom_model": false
     },
     ...
 ]
 ```
+
+More on [provider flags and capabilities](./providers).
 
 ## Getting information about a provider
 

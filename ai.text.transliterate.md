@@ -83,6 +83,8 @@ The response contains a list of the providers available for given constraints wi
 ]
 ```
 
+More on [provider flags and capabilities](./providers).
+
 ### Filtering providers by capabilities
 
 The list of providers may be further constrained by adding desired parameter values to the GET request:
