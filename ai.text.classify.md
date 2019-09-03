@@ -107,7 +107,7 @@ Response:
 ]
 ```
 
-More on [provider flags and capabilities](./providers).
+More on [provider flags and capabilities](providers.md).
 
 ## Getting information about a provider
 

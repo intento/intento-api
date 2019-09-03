@@ -83,7 +83,7 @@ The response contains a list of the providers available for given constraints wi
 ]
 ```
 
-More on [provider flags and capabilities](./providers).
+More on [provider flags and capabilities](providers.md).
 
 ### Filtering providers by capabilities
 
