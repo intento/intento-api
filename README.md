@@ -551,7 +551,6 @@ By default, when the provider is missing, requests are routed to a provider with
 - `best` (default)
 - `best_quality` - the best expected quality regardless of the price
 - `best_price` - the cheapest provider
-- `random` - a randomly chosen provider
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
