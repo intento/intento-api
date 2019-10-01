@@ -192,11 +192,15 @@ Response:
             "results": [
                 "Un texto de ejemplo"
             ],
-            "meta": {},
+            "meta": {
+                "detected_source_language": [ "en" ],
+                "timing": { "total": 0.11, "providers": 0.1 }
+            },
             "service": {
                 "provider": {
                     "id": "ai.text.translate.microsoft.translator_text_api.3-0",
-                    "name": "Microsoft Translator API v3.0"
+                    "name": "Microsoft Translator API v3.0",
+                    "timing": { "provider": 0.1 }
                 }
             }
         },
@@ -204,11 +208,15 @@ Response:
             "results": [
                 "Un texto de ejemplo"
             ],
-            "meta": {},
+            "meta": {
+                "detected_source_language": [ "en" ],
+                "timing": { "total": 0.13, "providers": 0.11 }
+            },
             "service": {
                 "provider": {
                     "id": "ai.text.translate.yandex.cloud-translate.v2",
-                    "name": "Yandex Cloud Translate API v2"
+                    "name": "Yandex Cloud Translate API v2",
+                    "timing": { "provider": 0.11 }
                 }
             }
         }
@@ -442,9 +450,7 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
         "provider": "ai.text.translate.microsoft.translator_text_api.3-0",
         "auth": {
             "ai.text.translate.microsoft.translator_text_api.3-0": [
-                {
-                    "key": "YOUR_GOOGLE_KEY"
-                }
+                { "key": "YOUR_GOOGLE_KEY" }
             ]
         }
     }
@@ -459,14 +465,14 @@ Response:
         "Un texto de muestra"
     ],
     "meta": {
-        "detected_source_language": [
-            "en"
-        ]
+        "detected_source_language": [ "en" ],
+        "timing": { "total": 0.18, "providers": 0.16 }
     },
     "service": {
         "provider": {
             "id": "ai.text.translate.microsoft.translator_text_api.3-0",
-            "name": "Microsoft Translator API v3.0"
+            "name": "Microsoft Translator API v3.0",
+            "timing": { "provider": 0.16 }
         }
     }
 }
@@ -534,11 +540,16 @@ Response:
     "results": [
         "Un texto de ejemplo"
     ],
-    "meta": {},
+    "meta": {
+        "routing": { "name": "best" },
+        "detected_source_language": [ "en" ],
+        "timing": { "total": 0.11, "providers": 0.1 }
+    },
     "service": {
         "provider": {
             "id": "ai.text.translate.microsoft.translator_text_api.3-0",
-            "name": "Microsoft Translator API v3.0"
+            "name": "Microsoft Translator API v3.0",
+            "timing": { "provider": 0.1 }
         }
     }
 }
