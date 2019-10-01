@@ -113,6 +113,7 @@ Response:
         "provider": {
             "id": "ai.text.translate.microsoft.translator_text_api.3-0",
             "name": "Microsoft Translator API v3.0",
+            "category": {"name": "general"}
             "timing": { "provider": 0.14 }
         }
     }
@@ -137,17 +138,18 @@ Response:
 ```sh
 {
     "results": [
-        "Un texto de ejemplo"
+        "Un texto de muestra"
     ],
     "meta": {
         "detected_source_language": [ "en" ],
-        "timing": { "total": 0.12, "providers": 0.1 }
+        "timing": { "total": 0.078236, "providers": 0.06625 }
     },
     "service": {
         "provider": {
             "id": "ai.text.translate.microsoft.translator_text_api.3-0",
             "name": "Microsoft Translator API v3.0",
-            "timing": { "provider": 0.1 }
+            "category": {"name": "generalnn"}
+            "timing": { "provider": 0.06625 }
         }
     }
 }
