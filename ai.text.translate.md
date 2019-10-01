@@ -44,25 +44,31 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "to": "es"
     },
     "service": {
-        "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0"
     }
 }'
 ```
 
-The response contains the translated text and a service information:
+The response contains the translated text, meta and a service information:
 
 ```json
 {
     "results": ["Un texto de ejemplo"],
-    "meta": {},
+    "meta": {
+        "detected_source_language": [ "en" ],
+        "timing": { "total": 0.11, "providers": 0.1 }
+    },
     "service": {
         "provider": {
-            "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-            "name": "Microsoft Translator API"
+            "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+            "name": "Microsoft Translator API v3.0",
+            "timing": { "provider": 0.1 }
         }
     }
 }
 ```
+
+All timings are in seconds. 
 
 If the provider doesn't have capabilities (e.g. bulk support or language pairs) to process request, 413 error will be returned:
 
@@ -87,7 +93,7 @@ curl -XPOST -H 'apikey: YOUR_KEY' 'https://api.inten.to/ai/text/translate' -d '{
         "category": "general"
     },
     "service": {
-        "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0"
     }
 }'
 ```
@@ -99,11 +105,15 @@ Response:
     "results": [
         "Un texto de muestra"
     ],
-    "meta": {},
+    "meta": {
+        "detected_source_language": [ "en" ],
+        "timing": { "total": 0.15, "providers": 0.14 }
+    },
     "service": {
         "provider": {
-            "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-            "name": "Microsoft Translator API"
+            "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+            "name": "Microsoft Translator API v3.0",
+            "timing": { "provider": 0.14 }
         }
     }
 }
@@ -117,7 +127,7 @@ curl -XPOST -H 'apikey: YOUR_KEY' 'https://api.inten.to/ai/text/translate' -d '{
         "category": "generalnn"
     },
     "service": {
-        "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0"
     }
 }'
 ```
@@ -129,11 +139,15 @@ Response:
     "results": [
         "Un texto de ejemplo"
     ],
-    "meta": {},
+    "meta": {
+        "detected_source_language": [ "en" ],
+        "timing": { "total": 0.12, "providers": 0.1 }
+    },
     "service": {
         "provider": {
-            "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-            "name": "Microsoft Translator API"
+            "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+            "name": "Microsoft Translator API v3.0",
+            "timing": { "provider": 0.1 }
         }
     }
 }
@@ -154,7 +168,7 @@ curl -XPOST -H "apikey: YOUR_API_KEY" "$HOST/ai/text/translate" -d '{
         "to": "de"
     },
     "service": {
-        "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0"
     }
 }'
 ```
@@ -167,11 +181,15 @@ The response contains the translated texts and a service information:
         "Ein Beispieltext",
         "Hallo Welt"
     ],
-    "meta": {},
+    "meta": {
+        "detected_source_language": [ "en", "en" ],
+        "timing": { "total": 0.13, "providers": 0.12 }
+    },
     "service": {
         "provider": {
-            "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-            "name": "Microsoft Translator API"
+            "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+            "name": "Microsoft Translator API v3.0",
+            "timing": { "provider": 0.12 }
         }
     }
 }
@@ -190,7 +208,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "to": "es"
     },
     "service": {
-        "provider": "ai.text.translate.google.translate_api.2-0"
+        "provider": "ai.text.translate.google.translate_api.v3beta1"
     }
 }'
 ```
@@ -203,12 +221,14 @@ The response contains the translated text, service information and meta informat
         "Un ejemplo de texto"
     ],
     "meta": {
-        "detected_source_language": "en"
+        "detected_source_language": [ "en" ],
+        "timing": { "total": 0.12, "providers": 0.1 }
     },
     "service": {
         "provider": {
-            "id": "ai.text.translate.google.translate_api.2-0",
-            "name": "Google Cloud Translation API"
+            "id": "ai.text.translate.google.translate_api.v3beta1",
+            "name": "Google Cloud Translation API (v3beta1)",
+            "timing": { "provider": 0.1 }
         }
     }
 }
@@ -253,9 +273,9 @@ The response contains a list of the providers available for given constraints wi
         "custom_model": false
     },
     {
-        "id": "ai.text.translate.yandex.cloud-translate.v1",
+        "id": "ai.text.translate.yandex.cloud-translate.v2",
         "vendor": "Yandex Cloud",
-        "description": "Translate",
+        "description": "Translate API v2",
         "own_auth": false,
         "stock_model": true,
         "custom_model": false
@@ -300,9 +320,9 @@ Response:
         "custom_model": false
     },
     {
-        "id": "ai.text.translate.google.translate_api.2-0",
+        "id": "ai.text.translate.google.translate_api.v3beta1",
         "vendor": "Google Cloud",
-        "description": "Translation API",
+        "description": "Translation API (v3beta1)",
         "own_auth": true,
         "stock_model": true,
         "custom_model": false
@@ -366,7 +386,7 @@ The response contains a list of the metadata fields and values available for the
 
 ```json
 {
-    "id": "ai.text.translate.google.translate_api.2-0",
+    "id": "ai.text.translate.google.translate_api.v3beta1",
     "name": "Google Cloud Translation API",
     "logo": "https://inten.to/img/api/ggl_translate.png",
     "billing": true,
@@ -459,7 +479,7 @@ Response:
     "iso_639_2b_code": "heb",
     "iso_639_3_code": "heb",
     "provider_codes": {
-        "ai.text.translate.google.translate_api.2-0": "iw"
+        "ai.text.translate.google.translate_api.v3beta1": "iw"
     },
     "client_code": "hebr"
 }
@@ -652,7 +672,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "format": "html"
     },
     "service": {
-        "provider": "ai.text.translate.google.translate_api.2-0"
+        "provider": "ai.text.translate.google.translate_api.v3beta1"
     }
 }'
 ```
@@ -663,12 +683,14 @@ The response contains the translated text with preserved formatting:
 {
     "results": ["<p> <div> \u043e\u0431\u0440\u0430\u0437\u0435\u0446 </div> \u0442\u0435\u043a\u0441\u0442 </p>"],
     "meta": {
-        "detected_source_language": ["en"]
+        "detected_source_language": [ "en" ],
+        "timing": { "total": 0.18, "providers": 0.17 }
     },
     "service": {
         "provider": {
-            "id": "ai.text.translate.google.translate_api.2-0",
-            "name": "Google Cloud Translation API"
+            "id": "ai.text.translate.google.translate_api.v3beta1",
+            "name": "Google Cloud Translation API (v3beta1)",
+            "timing": { "provider": 0.12 }
         }
     }
 }
@@ -815,7 +837,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "to": "es"
     },
     "service": {
-        "provider": "ai.text.translate.microsoft.translator_text_api.2-0",
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0",
         "processing": {
             "pre": [
                 "punctuation_set"

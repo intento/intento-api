@@ -142,7 +142,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "to": "es"
     },
     "service": {
-        "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0"
     }
 }'
 ```
@@ -176,8 +176,8 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
     },
     "service": {
         "provider": [
-            "ai.text.translate.google.translate_api.2-0",
-            "ai.text.translate.yandex.translate_api.1-5"
+            "ai.text.translate.microsoft.translator_text_api.3-0",
+            "ai.text.translate.yandex.cloud-translate.v2"
         ]
     }
 }'
@@ -192,11 +192,15 @@ Response:
             "results": [
                 "Un texto de ejemplo"
             ],
-            "meta": {},
+            "meta": {
+                "detected_source_language": [ "en" ],
+                "timing": { "total": 0.11, "providers": 0.1 }
+            },
             "service": {
                 "provider": {
-                    "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-                    "name": "Microsoft Translator API"
+                    "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+                    "name": "Microsoft Translator API v3.0",
+                    "timing": { "provider": 0.1 }
                 }
             }
         },
@@ -204,11 +208,15 @@ Response:
             "results": [
                 "Un texto de ejemplo"
             ],
-            "meta": {},
+            "meta": {
+                "detected_source_language": [ "en" ],
+                "timing": { "total": 0.13, "providers": 0.11 }
+            },
             "service": {
                 "provider": {
-                    "id": "ai.text.translate.yandex.translate_api.1-5",
-                    "name": "Yandex Translate API"
+                    "id": "ai.text.translate.yandex.cloud-translate.v2",
+                    "name": "Yandex Cloud Translate API v2",
+                    "timing": { "provider": 0.11 }
                 }
             }
         }
@@ -231,7 +239,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
     },
     "service": {
         "provider": [
-            "ai.text.translate.microsoft.translator_text_api.2-0"
+            "ai.text.translate.microsoft.translator_text_api.3-0"
         ],
         "async": true
     }
@@ -262,8 +270,8 @@ TTL of the resource is 30 days.
             "meta": {},
             "service": {
                 "provider": {
-                    "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-                    "name": "Microsoft Translator API"
+                    "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+                    "name": "Microsoft Translator API v3.0"
                 }
             }
         }
@@ -372,7 +380,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
     },
     "service": {
         "provider": [
-            "ai.text.translate.google.translate_api.2-0"
+            "ai.text.translate.google.translate_api.v3beta1"
         ],
         "trace": true
     }
@@ -400,7 +408,7 @@ Response:
 
 ```json
 {
-    "id": "ai.text.translate.google.translate_api.2-0",
+    "id": "ai.text.translate.google.translate_api.v3beta1",
     "name": "Google Cloud Translation API",
     "logo": "https://inten.to/img/api/ggl_translate.png",
     "auth": {
@@ -439,12 +447,10 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
         "to": "es"
     },
     "service": {
-        "provider": "ai.text.translate.google.translate_api.2-0",
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0",
         "auth": {
-            "ai.text.translate.google.translate_api.2-0": [
-                {
-                    "key": "YOUR_GOOGLE_KEY"
-                }
+            "ai.text.translate.microsoft.translator_text_api.3-0": [
+                { "key": "YOUR_GOOGLE_KEY" }
             ]
         }
     }
@@ -459,14 +465,14 @@ Response:
         "Un texto de muestra"
     ],
     "meta": {
-        "detected_source_language": [
-            "en"
-        ]
+        "detected_source_language": [ "en" ],
+        "timing": { "total": 0.18, "providers": 0.16 }
     },
     "service": {
         "provider": {
-            "id": "ai.text.translate.google.translate_api.2-0",
-            "name": "Google Cloud Translation API"
+            "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+            "name": "Microsoft Translator API v3.0",
+            "timing": { "provider": 0.16 }
         }
     }
 }
@@ -493,9 +499,9 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
         "category": "projects/automl-196010/locations/us-central1/models/8254482168020221643"
     },
     "service": {
-        "provider": "ai.text.translate.google.automl_api.v1beta1",
+        "provider": "ai.text.translate.google.translate_api.v3beta1",
         "auth": {
-            "ai.text.translate.google.automl_api.v1beta1": [
+            "ai.text.translate.google.translate_api.v3beta1": [
                 {
                     "credential_id": "credentials_for_project_274"
                 }
@@ -534,19 +540,24 @@ Response:
     "results": [
         "Un texto de ejemplo"
     ],
-    "meta": {},
+    "meta": {
+        "routing": { "name": "best" },
+        "detected_source_language": [ "en" ],
+        "timing": { "total": 0.11, "providers": 0.1 }
+    },
     "service": {
         "provider": {
-            "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-            "name": "Microsoft Translator API"
+            "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+            "name": "Microsoft Translator API v3.0",
+            "timing": { "provider": 0.1 }
         }
     }
 }
 ```
 
-#### Specifying the bidding strategy
+#### Specifying the smart routing strategy
 
-By default, when the provider is missing, requests are routed to a provider with the best expected price/performance ratio. This behavior may be controlled by specifying the desired bidding strategy in the `service.bidding` parameter. Supported values are:
+By default, when the provider is missing, requests are routed to a provider with the best expected price/performance ratio. This behavior may be controlled by specifying the desired bidding strategy in the `service.routing` parameter. Supported values are:
 
 - `best` (default)
 - `best_quality` - the best expected quality regardless of the price
@@ -559,7 +570,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "to": "es"
     },
     "service": {
-        "bidding": "best_quality"
+        "routing": "best_quality"
     }
 }'
 ```
@@ -577,11 +588,11 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "to": "es"
     },
     "service": {
-        "provider": "ai.text.translate.microsoft.translator_text_api.2-0",
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0",
         "failover": true,
         "failover_list": [
-            "ai.text.translate.google.translate_api.2-0",
-            "ai.text.translate.yandex.translate_api.1-5"
+            "ai.text.translate.google.translate_api.v3beta1",
+            "ai.text.translate.yandex.cloud-translate.v2"
         ]
     }
 }'
@@ -601,8 +612,8 @@ For each translation, Intento returns its unique id in `service.id` field:
     "service": {
         "id": "AVsAnRaMhIu3DcCXPJYY",
         "provider": {
-            "id": "ai.text.translate.microsoft.translator_text_api.2-0",
-            "name": "Microsoft Translator API"
+            "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+            "name": "Microsoft Translator API v3.0"
         }
     }
 }
