@@ -113,7 +113,7 @@ Response:
         "provider": {
             "id": "ai.text.translate.microsoft.translator_text_api.3-0",
             "name": "Microsoft Translator API v3.0",
-            "category": {"name": "general"}
+            "category": {"id": "general"}
             "timing": { "provider": 0.14 }
         }
     }
@@ -148,7 +148,7 @@ Response:
         "provider": {
             "id": "ai.text.translate.microsoft.translator_text_api.3-0",
             "name": "Microsoft Translator API v3.0",
-            "category": {"name": "generalnn"}
+            "category": {"id": "generalnn"}
             "timing": { "provider": 0.06625 }
         }
     }
