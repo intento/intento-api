@@ -511,6 +511,31 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
 }'
 ```
 
+Response:
+
+```json
+{
+    "results": [
+        "marcadores epigenéticos para tratamento de câncer e síndrome intestinal em ambiente hospitalar"
+    ],
+    "meta": {
+        "timing": { "total": 0.831101, "providers": 0.788544 }
+    },
+    "service": {
+        "provider": {
+            "id": "ai.text.translate.google.translate_api.v3beta1",
+            "name": "Google Cloud Translation API (v3beta1)",
+            "timing": { "provider": 0.788544 }
+            "category": {
+                "id": "projects/automl-196010/locations/us-central1/models/8254482168020221643"
+            },
+            "credential_id": "credentials_for_project_274",
+        }
+    }
+}
+```
+
+
 Here is the [instruction on how to create your own delegated credentials for different providers][delegated_credentials.md]. Right now this mode is supported only for `ai.text.translate.google.automl_api.v1beta1`.
 
 ### Smart routing
