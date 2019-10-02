@@ -742,7 +742,7 @@ The response contains the translated text with preserved formatting:
         "provider": {
             "id": "ai.text.translate.google.translate_api.v3beta1",
             "name": "Google Cloud Translation API (v3beta1)",
-            "timing": { "provider": 0.12 }
+            "timing": { "provider": 0.17 }
         }
     }
 }
