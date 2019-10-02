@@ -270,8 +270,7 @@
                                 "enum": [
                                     "best",
                                     "best_quality",
-                                    "best_price",
-                                    "random"
+                                    "best_price"
                                 ],
                                 "default": "best"
                             },

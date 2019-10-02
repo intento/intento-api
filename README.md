@@ -29,7 +29,7 @@ In case you don't have a key to use Intento API, please register here [console.i
         - [Delegated credentials](#delegated-credentials)
     - [Smart routing](#smart-routing)
         - [Basic smart routing](#basic-smart-routing)
-        - [Specifying the bidding strategy](#specifying-the-bidding-strategy)
+        - [Specifying the smart routing strategy](#specifying-the-smart-routing-strategy)
     - [Failover mode](#failover-mode)
     - [:lock: Sending feedback signals](#lock-sending-feedback-signals)
     - [:lock: Session-based routing](#lock-session-based-routing)
@@ -62,7 +62,7 @@ Intent APIs are accessed via the base path. That said, API for the Machine Trans
 
 In order to get a list of providers available for some intent, use `GET` requests. Some providers support a subset of all available inputs for an intent. For example, not every Machine Translation service supports Korean to Russian language pair. To get a list of providers that support particular inputs, specify the input data constraints in GET parameters (see below).
 
-In order to fulfill an intent (e.g. translate some text), use `POST` requests. The request is routed to a provider that supports the input data. In order to control the provider selection process, you may specify the bidding strategy or identifier of the particular provider to use.
+In order to fulfill an intent (e.g. translate some text), use `POST` requests. The request is routed to a provider that supports the input data. In order to control the provider selection process, you may specify a custom routing strategy (contact us at hello@inten.to to set up it for you) or identifier of the particular provider to use.
 
 All methods of the Intento API return JSON responses.
 
@@ -557,11 +557,7 @@ Response:
 
 #### Specifying the smart routing strategy
 
-By default, when the provider is missing, requests are routed to a provider with the best expected price/performance ratio. This behavior may be controlled by specifying the desired bidding strategy in the `service.routing` parameter. Supported values are:
-
-- `best` (default)
-- `best_quality` - the best expected quality regardless of the price
-- `best_price` - the cheapest provider
+By default, when the provider is missing, requests are routed to a provider with the best expected price/performance ratio. This behavior may be controlled by specifying the desired routing strategy in the `service.routing` parameter. Contact us at hello@inten.to to set up it for you.
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
@@ -577,7 +573,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 
 ### Failover mode
 
-Both for smart routing mode and basic mode, a failover is supported. By default, the failover is off, thus when the selected provider fails, an error is returned. To enable the failover mode, set the `service.failover` to `true`. By default, failover is governed by the default bidding strategy (`best`). To control this behavior, another bidding strategy may be specified via `service.bidding` parameter. Alternatively, you may specify a list of providers to consider for the failover (`service.failover_list`). This option overrides the bidding strategy for the failover procedure.
+Both for smart routing mode and basic mode, a failover is supported. By default, the failover is off, thus when the selected provider fails, an error is returned. To enable the failover mode, set the `service.failover` to `true`. By default, failover is governed by the default routing strategy (`best`). To control this behavior, another routing strategy may be specified via `service.routing` parameter. Alternatively, you may specify a list of providers to consider for the failover (`service.failover_list`). This option overrides the routing strategy for the failover procedure.
 
 In the following example we set the provider, but specify the list of alternatives to control the failover:
 
