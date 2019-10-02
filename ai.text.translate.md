@@ -652,6 +652,31 @@ curl -H 'apikey: YOUR_API_KEY' -XPOST 'https://api.inten.to/ai/text/translate' -
 }'
 ```
 
+Response
+
+```json
+{
+    "results": [
+        "Hola Mundo"
+    ],
+    "meta": {
+        "timing": { "total": 0.21, "providers": 0.2 }
+    },
+    "service": {
+        "provider": {
+            "id": "ai.text.translate.google.translate_api.v3beta1",
+            "name": "Google Cloud Translation API (v3beta1)",
+            "timing": { "provider": 0.2 },
+            "glossary": {
+                "id": "projects/automl-123456/locations/us-central1/glossaries/my_EN_ES_Glossary"
+            },
+            "credential_id": "credentials_for_automl_123456",
+        }
+    }
+}
+```
+
+
 ### :lock: Training custom models
 
 TBD
