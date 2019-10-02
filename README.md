@@ -525,7 +525,7 @@ Response:
         "provider": {
             "id": "ai.text.translate.google.translate_api.v3beta1",
             "name": "Google Cloud Translation API (v3beta1)",
-            "timing": { "provider": 0.788544 }
+            "timing": { "provider": 0.788544 },
             "category": {
                 "id": "projects/automl-196010/locations/us-central1/models/8254482168020221643"
             },
