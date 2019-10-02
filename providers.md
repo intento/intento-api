@@ -167,7 +167,7 @@ A provider supports training models (only on their side for now) and passing the
 
 ### `delegated_credentials`
 
-Intento supports connecting accounts to this provider. For example to Google AutoML. See more details in the [delegated credentials](./delegated_credentials.md)
+Intento supports connecting your accounts of Google Cloud Translation API (v3beta1) and Google AutoML providers. See more details in the [Connected Accounts section](./delegated_credentials.md). The fastest way to set up Google Cloud Translation API (v3beta1) and Google AutoML with Intento is our [Connected accounts Manager](https://console.inten.to/credentials).
 
 ### `integrated`
 

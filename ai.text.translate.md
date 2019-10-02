@@ -68,7 +68,7 @@ The response contains the translated text, meta and a service information:
 }
 ```
 
-All timings are in seconds. 
+All timings are in seconds.
 
 If the provider doesn't have capabilities (e.g. bulk support or language pairs) to process request, 413 error will be returned:
 
@@ -600,7 +600,7 @@ Right now we support custom models for these providers:
 - (SMT) Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.2-0`). This engine is deprecated since April 30, 2018 and will be discontinued on April 30, 2019.
 - (NMT) IBM Watson Language Translator Service v3 (`ai.text.translate.ibm-language-translator-v3`).
 - (NMT) Microsoft Translator API v3.0 (`ai.text.translate.microsoft.translator_text_api.3-0`).
-- (NMT) Google AutoML Translation API (v1beta1) (`ai.text.translate.google.automl_api.v1beta1`).
+- (NMT) Google Cloud Translation API (v3beta1) (`ai.text.translate.google.translate_api.v3beta1`).
 - ModernMT Enterprise Edition (`ai.text.translate.modernmt.enterprise`).
 - Tilde Machine Translation API (`ai.text.translate.tilde.machine_translation_api`).
 
@@ -620,7 +620,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "provider" : "ai.text.translate.google.translate_api.v3beta1",
         "auth": {
             "ai.text.translate.google.translate_api.v3beta1": [
-                {"credential_id": "credentials_for_automl_123456"}
+                {"credential_id": "credentials_for_google_v3_123456"}
             ]
         }
     }
@@ -645,12 +645,11 @@ Response
             "category": {
                 "id": "cccccccc-cccc-cccc-cccc-cccccccc"
             },
-            "credential_id": "credentials_for_automl_123456"
+            "credential_id": "credentials_for_google_v3_123456"
         }
     }
 }
 ```
-
 
 ### Using glossaries
 
@@ -670,7 +669,7 @@ curl -H 'apikey: YOUR_API_KEY' -XPOST 'https://api.inten.to/ai/text/translate' -
         "provider" : "ai.text.translate.google.translate_api.v3beta1",
         "auth": {
             "ai.text.translate.google.translate_api.v3beta1": [
-                {"credential_id": "credentials_for_automl_123456"}
+                {"credential_id": "credentials_for_google_v3_123456"}
             ]
         }
     }
@@ -695,12 +694,11 @@ Response
             "glossary": {
                 "id": "projects/automl-123456/locations/us-central1/glossaries/my_EN_ES_Glossary"
             },
-            "credential_id": "credentials_for_automl_123456"
+            "credential_id": "credentials_for_google_v3_123456"
         }
     }
 }
 ```
-
 
 ### :lock: Training custom models
 
@@ -865,9 +863,9 @@ Response:
         "custom_model": true
     },
     {
-        "id": "ai.text.translate.google.automl_api.v1beta1",
+        "id": "ai.text.translate.google.translate_api.v3beta1",
         "vendor": "Google Cloud",
-        "description": "AutoML Translation API (v1beta1)",
+        "description": "Translation API (v3beta1)",
         "own_auth": true,
         "stock_model": false,
         "custom_model": true
