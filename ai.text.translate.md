@@ -751,7 +751,7 @@ Note that some MT engines eliminate newline characters from the text. If you rel
 
 ### Supported formats in async mode
 
-In addition to the provider's format support, we have built-in support for HTML and XML formats.
+In addition to the provider's format support, we have built-in support for HTML, XML and XLIFF formats.
 
 #### HTML/XML formats
 
@@ -841,6 +841,30 @@ After conversion there is nine items in the array:
 ```
 
 The first and the second items are produced after splitting by `<br>` tags. These elements seem fine. Next item 'As is...'  is not adequately extracted because the `<br>` tag is in the middle of a sentence. Instead of one element for the sentence, two are formed, each of which is a separate item in the array. As you can see, the following elements starting from the fifth are also extracted not correctly due to the `<i>` and `<span>` tags in the middle of sentences. To avoid such splittings, be sure that the inline tags do not divide a sentence.
+
+
+#### XLIFF format
+
+#### Memsource version of the XLIFF
+
+We support the [Memsource version of the XLIFF (v1.2)](https://help.memsource.com/hc/en-us/articles/360004658951) format in [async mode](https://github.com/intento/intento-api#async-mode). To translate Memsource version of the XLIFF add `format`: `xliff-memsource`:
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+    "context": {
+        "text": "<xliff version=\"1.2\" xmlns....",
+        "format": "xliff-memsource"
+    },
+    "service": {
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0",
+        "async": true
+    }
+}'
+```
+
+`from` and `to` parameters are specified in the XLIFF file as [source-language](http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#source-language) tag and [target-language](http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#target-language) tag respectively.
+
+We also support translation of the Memsource XLIFF (MXLIFF) files in [Intento Console](https://console.inten.to).
 
 ### List of providers supporting a specified format
 
