@@ -549,11 +549,11 @@ curl -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate/glossarie
 
 Response:
 
-```json
+```
 {
     "response": [
         {
-            "id": "projects/automl-123456/locations/us-central1/glossaries/my_EN_ES_Glossary",
+            "id": "projects/xxxxx/locations/us-central1/glossaries/my_EN_ES_Glossary",
             "name": "my_EN_ES_Glossary",
             "from": "en",
             "to": "es"
