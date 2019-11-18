@@ -574,7 +574,7 @@ curl -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate/models?pr
 
 Response:
 
-```json
+```
 {
     "response": [
         {
