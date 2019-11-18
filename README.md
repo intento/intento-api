@@ -401,7 +401,8 @@ In the tech proxy mode, the custom credentials are passed in the `auth` service 
 Auth object structure is different for different providers and may be obtained together with other provider details by sending GET request for this provider:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0'
+curl -H 'apikey: YOUR_INTENTO_KEY' 
+   'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0'
 ```
 
 Response:
@@ -450,7 +451,7 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
         "provider": "ai.text.translate.microsoft.translator_text_api.3-0",
         "auth": {
             "ai.text.translate.microsoft.translator_text_api.3-0": [
-                { "key": "YOUR_GOOGLE_KEY" }
+                { "key": "YOUR_MICROSOFT_KEY" }
             ]
         }
     }
