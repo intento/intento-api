@@ -497,7 +497,7 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
         "text": "epigenetics markers for treatment in a hospital setting ...",
         "from": "en",
         "to": "pt",
-        "category": "projects/automl-196010/locations/us-central1/models/8254482168020221643"
+        "category": "projects/xxx/locations/us-central1/models/zzzzzzzz"
     },
     "service": {
         "provider": "ai.text.translate.google.translate_api.v3beta1",
@@ -528,7 +528,7 @@ Response:
             "name": "Google Cloud Translation API (v3beta1)",
             "timing": { "provider": 0.788544 },
             "category": {
-                "id": "projects/automl-196010/locations/us-central1/models/8254482168020221643"
+                "id": "projects/xxx/locations/us-central1/models/zzzzzzzz"
             },
             "credential_id": "credentials_for_project_274",
         }
