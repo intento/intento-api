@@ -100,16 +100,18 @@ For each account, we provide two keys, a real key and a sandbox one. Requests pe
 
 ## Usage limits
 
-The following limits apply to the production keys:
+Intento API has the following technical limitations on the API Gateway level:
 
 - Requests per second: 100
 - Requests per month: 1,000,000
 - Data per request: 100MB
-- Provider specific limits
+- Provider-specific limits
+
+Actual data processing limits depend on the subscription plan and the technical limitations of the selected third-party services.
 
 Remaining limits are returned with a response in headers: `X-RateLimit-Remaining-second`, `X-RateLimit-Remaining-month`
 
-When the limits as exceeded, Intento API will return a HTTP error 429 (see below).
+When the limits are exceeded, Intento API returns an HTTP error `429` (see Error codes below).
 
 In case if your request exceeds limits you can use [the async mode][async-mode]. The current approach to handling the oversized requests [is described in a separate document][processing-oversized-requests].
 
@@ -401,7 +403,7 @@ In the tech proxy mode, the custom credentials are passed in the `auth` service 
 Auth object structure is different for different providers and may be obtained together with other provider details by sending GET request for this provider:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 
+curl -H 'apikey: YOUR_INTENTO_KEY'
    'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0'
 ```
 
