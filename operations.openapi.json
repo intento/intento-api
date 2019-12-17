@@ -144,7 +144,7 @@
               "failure"
             ]
           },
-          "type": {
+          "intent": {
             "example": "translate",
             "type": "string"
           },
