@@ -128,6 +128,10 @@
           "error": {
             "$ref": "#/components/schemas/JobError"
           },
+          "common_error_reason": {
+            "example": "One or more of async operations return an error",
+            "type": "string"
+          },
           "meta": {
             "$ref": "#/components/schemas/JobMeta"
           },
@@ -140,7 +144,7 @@
               "failure"
             ]
           },
-          "type": {
+          "intent": {
             "example": "translate",
             "type": "string"
           },
