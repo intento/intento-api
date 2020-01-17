@@ -59,7 +59,7 @@ The response contains the list of buckets with statistics:
 This request returns per hour information for the last 15 hours:
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
     "range": {
         "bucket": "1h",
         "items": 15
@@ -72,7 +72,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
 This example shows how to set a particular date-time range: 10 items from a specific moment (datetime stamp in seconds, UTC timezone, check out [timezone converter](https://www.epochconverter.com/)).
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
     "range": {
         "items": 10,
         "from": 1529884800,
@@ -132,7 +132,7 @@ Error codes:
 Intento API receives requests from the customer and sends requests to the provider. You may get statistics of requests to providers as well. Endpoint needs to be changed to [https://api.inten.to/usage/provider](https://api.inten.to/usage/provider) and you may specify a particular provider or intent:
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/provider' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/provider' -d '{
     "range": {
         "from": 1529280000,
         "to": 1529884800,
@@ -165,7 +165,7 @@ Detailed examples below.
 To get statistics for a particular provider or for a list of some providers, specify the filter block in your request:
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
     "range": {
         "bucket": "1hour"
     },
@@ -182,7 +182,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
 To get statistics for a particular intent or for a list of some intents, specify the filter block in your request:
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
     "range": {
         "from": 1529280000,
         "to": 1529884800,
@@ -222,7 +222,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
 To get statistics for a particular language pair or for a list of some language pairs, specify the filter block in your request:
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d {
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
     "range": {
         "from": 1529280000,
         "to": 1529884800,
