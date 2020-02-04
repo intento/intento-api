@@ -18,7 +18,7 @@ To detect or extract text within an image, send a POST request to Intento API at
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/image/ocr' -d '{
     "context": {
-        "source": "..."
+        "image": "..."
     },
     "service": {
         "provider": "ai.image.ocr.abbyy.cloud_ocr"
