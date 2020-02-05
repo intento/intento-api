@@ -82,9 +82,9 @@ We enable cross-origin resource sharing support for our API so that you can use 
 
 Third-party services may be paid via Intento (the default scenario) or via your own account at the third party service. In order to use your own account at the third party service, specify the account credentials as described below. NOTE: some of the services are available only with your own accounts (i.e. we don’t have a billing integration with them).
 
-### Additional feature
+### Additional features
 
-Intento Service Platform provides additional feature for useful work.
+Intento Service Platform provides additional APIs for convenience.
 
 Currently, the following features are available:
 
