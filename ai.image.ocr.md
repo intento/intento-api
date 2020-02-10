@@ -13,12 +13,12 @@ Optical Character Recognition (OCR) detects and extracts text within an image wi
 
 ## Basic usage
 
-To detect or extract text within an image, send a POST request to Intento API at [https://api.inten.to/ai/image/ocr](https://api.inten.to/ai/image/ocr). Specify the source and the desired provider in JSON body of the request as in the following example:
+To detect or extract text within an image, send a POST request to Intento API at [https://api.inten.to/ai/image/ocr](https://api.inten.to/ai/image/ocr). Specify the source image and the desired provider in JSON body of the request as in the following example:
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/image/ocr' -d '{
     "context": {
-        "source": "..."
+        "image": "..."
     },
     "service": {
         "provider": "ai.image.ocr.abbyy.cloud_ocr"

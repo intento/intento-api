@@ -13,12 +13,12 @@ Image tagging generates a list of words or tags that are relevant to the content
 
 ## Basic usage
 
-To tag an image, send a POST request to Intento API at [https://api.inten.to/ai/image/tagging](https://api.inten.to/ai/image/tagging). Specify the source and the desired provider in JSON body of the request as in the following example:
+To tag an image, send a POST request to Intento API at [https://api.inten.to/ai/image/tagging](https://api.inten.to/ai/image/tagging). Specify the source image and the desired provider in JSON body of the request as in the following example:
 
 ```sh
 curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/image/tagging' -d '{
     "context": {
-        "source": "..."
+        "image": "..."
     },
     "service": {
         "provider": "ai.image.tagging.amazon.recognition_detect_labels_api"
