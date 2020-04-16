@@ -231,7 +231,7 @@ The response contains the translated text, service information and meta informat
     "service": {
         "provider": {
             "id": "ai.text.translate.google.translate_api.v3",
-            "name": "Google Cloud Translation API (v3beta1)",
+            "name": "Google Cloud Advanced Translation API",
             "timing": { "provider": 0.1 }
         }
     }
@@ -255,7 +255,7 @@ The response contains a list of the providers available for given constraints wi
     {
         "id": "ai.text.translate.google.translate_api.v3",
         "vendor": "Google Cloud",
-        "description": "Translation API (v3beta1)",
+        "description": "Advanced Translation API",
         "own_auth": true,
         "stock_model": true,
         "custom_model": true
@@ -326,7 +326,7 @@ Response:
     {
         "id": "ai.text.translate.google.translate_api.v3",
         "vendor": "Google Cloud",
-        "description": "Translation API (v3beta1)",
+        "description": "Advanced Translation API",
         "own_auth": true,
         "stock_model": true,
         "custom_model": false
@@ -596,17 +596,28 @@ Response:
 
 ### Using previously trained custom models
 
-Right now we support custom models for these providers:
+Right now we support custom models for these 14 providers:
 
-- (SMT) IBM Watson Language Translator Service (`ai.text.translate.ibm-language-translator`). This engine is deprecated and will no longer be available after October 4, 2018.
-- (SMT) Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.3-0`). This engine is deprecated since April 30, 2018 and will be discontinued on April 30, 2019.
-- (NMT) IBM Watson Language Translator Service v3 (`ai.text.translate.ibm-language-translator-v3`).
-- (NMT) Microsoft Translator API v3.0 (`ai.text.translate.microsoft.translator_text_api.3-0`).
-- (NMT) Google Cloud Translation API (v3beta1) (`ai.text.translate.google.translate_api.v3`).
-- ModernMT Enterprise Edition (`ai.text.translate.modernmt.enterprise`).
-- Tilde Machine Translation API (`ai.text.translate.tilde.machine_translation_api`).
+1. Alibaba Cloud E-commerce Edition (`ai.text.translate.alibaba.machine_translation_api`).
+1. Google Cloud Advanced Translation API (`ai.text.translate.google.translate_api.v3`).
+1. Google Cloud AutoML Translation API (`ai.text.translate.google.automl_api.v1`).
+1. Google Cloud AutoML Translation API (v1beta1) (`ai.text.translate.google.automl_api.v1beta1`).
+1. Google Cloud Translation API (v3beta1) (`ai.text.translate.google.translate_api.v3beta1`).
+1. IBM Watson Language Translator Service v3 (`ai.text.translate.ibm-language-translator-v3`).
+1. Microsoft Translator API v2.0 (SMT) (`ai.text.translate.microsoft.translator_text_api.2-0`). This engine is deprecated since April 30, 2018 and will be discontinued on April 30, 2019.
+1. Microsoft Translator API v3.0 (`ai.text.translate.microsoft.translator_text_api.3-0`).
+1. ModernMT Human-in-the-loop (`ai.text.translate.modernmt.enterprise`).
+1. SDL BeGlobal Translate API (`ai.text.translate.sdl.beglobal_translate_api.4-0`).
+1. SDL Enterprise Translation Server (`ai.text.translate.sdl.enterprise_translation_server`).
+1. SYSTRAN PNMT API (`ai.text.translate.systran.pnmt`).
+1. Tilde Machine Translation API (`ai.text.translate.tilde.machine_translation_api`).
+1. Yandex Cloud Translate API v2 (`ai.text.translate.yandex.cloud-translate.v2`).
 
 More providers to come!
+
+Archived providers:
+
+- (SMT) IBM Watson Language Translator Service (`ai.text.translate.ibm-language-translator`). This engine is deprecated and will no longer be available after October 4, 2018.
 
 For using a custom model trained with these services just pass the model id in the `category` parameter with your [own credentials](https://github.com/intento/intento-api#using-a-service-provider-with-your-own-keys) (because other users do not have access to your models):
 
@@ -642,7 +653,7 @@ Response
     "service": {
         "provider": {
             "id": "ai.text.translate.google.translate_api.v3",
-            "name": "Google Cloud Translation API (v3beta1)",
+            "name": "Google Cloud Advanced Translation API",
             "timing": { "provider": 0.2 },
             "category": {
                 "id": "cccccccc-cccc-cccc-cccc-cccccccc"
@@ -691,7 +702,7 @@ Response
     "service": {
         "provider": {
             "id": "ai.text.translate.google.translate_api.v3",
-            "name": "Google Cloud Translation API (v3beta1)",
+            "name": "Google Cloud Advanced Translation API",
             "timing": { "provider": 0.2 },
             "glossary": {
                 "id": "projects/automl-123456/locations/us-central1/glossaries/my_EN_ES_Glossary"
@@ -741,7 +752,7 @@ The response contains the translated text with preserved formatting:
     "service": {
         "provider": {
             "id": "ai.text.translate.google.translate_api.v3",
-            "name": "Google Cloud Translation API (v3beta1)",
+            "name": "Google Cloud Advanced Translation API",
             "timing": { "provider": 0.17 }
         }
     }
@@ -890,7 +901,7 @@ Response:
     {
         "id": "ai.text.translate.google.translate_api.v3",
         "vendor": "Google Cloud",
-        "description": "Translation API (v3beta1)",
+        "description": "Advanced Translation API",
         "own_auth": true,
         "stock_model": false,
         "custom_model": true

@@ -483,11 +483,11 @@ Response:
 
 #### Delegated credentials
 
-Some providers do not provide fixed static credentials like API-keys or username/password pair but require you to use temporary tokens instead (like Google Cloud Translation API (v3beta1) or Google AutoML). So it imposes some extra work when using your own credentials — you have to regenerate these temporary credentials by yourself and provide them with each request to Intento. You have to know when you need to regenerate a token, or we let you know when we cannot fulfill a request using a provided token (because it was expired), so you can catch this situation, regenerate a token by yourself and continue using Intento API.
+Some providers do not provide fixed static credentials like API-keys or username/password pair but require you to use temporary tokens instead (like Google Cloud Advanced Translation API or Google AutoML). So it imposes some extra work when using your own credentials — you have to regenerate these temporary credentials by yourself and provide them with each request to Intento. You have to know when you need to regenerate a token, or we let you know when we cannot fulfill a request using a provided token (because it was expired), so you can catch this situation, regenerate a token by yourself and continue using Intento API.
 
 It is not very handy, because some tokens expire just after an hour, so you have to regenerate them each hour. Even if this process can be automated it takes much extra work: you need to catch this particular situation, regenerate a token, resend a bunch of requests which happen to be called with the expired token. The situation becomes harder when you run large async jobs that could take more time than a token lifetime. In this situation a part of such request will fail, so you need to split your requests into smaller parts or resubmit failed tasks with a new token. It is painful.
 
-We provide a much more convenient and hassle-free way to work with temporary credentials. You can provide us with all the required information to generate temporary tokens. The fastest way to set up Google Cloud Translation API (v3beta1) and Google AutoML with Intento is our [Connected accounts Manager](https://console.inten.to/credentials).
+We provide a much more convenient and hassle-free way to work with temporary credentials. You can provide us with all the required information to generate temporary tokens. The fastest way to set up Google Cloud Advanced Translation API and Google AutoML with Intento is our [Connected accounts Manager](https://console.inten.to/credentials).
 
 Another option is to [delegate us the required credentials through the API][delegated_credentials.md], and we take care of the whole process, automatically regenerating tokens when it's needed and substituting an actual token in the request to a provider. You pass a credential id (which is constant now), and we do all the job with translating it to always-working tokens.
 
@@ -527,7 +527,7 @@ Response:
     "service": {
         "provider": {
             "id": "ai.text.translate.google.translate_api.v3",
-            "name": "Google Cloud Translation API (v3beta1)",
+            "name": "Google Cloud Advanced Translation API",
             "timing": { "provider": 0.788544 },
             "category": {
                 "id": "projects/xxx/locations/us-central1/models/zzzzzzzz"
