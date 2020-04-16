@@ -382,7 +382,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
     },
     "service": {
         "provider": [
-            "ai.text.translate.google.translate_api.v3beta1"
+            "ai.text.translate.google.translate_api.v3"
         ],
         "trace": true
     }
@@ -404,14 +404,14 @@ Auth object structure is different for different providers and may be obtained t
 
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY'
-   'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0'
+   'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.v3'
 ```
 
 Response:
 
 ```json
 {
-    "id": "ai.text.translate.google.translate_api.v3beta1",
+    "id": "ai.text.translate.google.translate_api.v3",
     "name": "Google Cloud Translation API",
     "logo": "https://inten.to/img/api/ggl_translate.png",
     "auth": {
@@ -502,9 +502,9 @@ curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translat
         "category": "projects/xxx/locations/us-central1/models/zzzzzzzz"
     },
     "service": {
-        "provider": "ai.text.translate.google.translate_api.v3beta1",
+        "provider": "ai.text.translate.google.translate_api.v3",
         "auth": {
-            "ai.text.translate.google.translate_api.v3beta1": [
+            "ai.text.translate.google.translate_api.v3": [
                 {
                     "credential_id": "credentials_for_project_274"
                 }
@@ -526,7 +526,7 @@ Response:
     },
     "service": {
         "provider": {
-            "id": "ai.text.translate.google.translate_api.v3beta1",
+            "id": "ai.text.translate.google.translate_api.v3",
             "name": "Google Cloud Translation API (v3beta1)",
             "timing": { "provider": 0.788544 },
             "category": {
@@ -614,7 +614,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "provider": "ai.text.translate.microsoft.translator_text_api.3-0",
         "failover": true,
         "failover_list": [
-            "ai.text.translate.google.translate_api.v3beta1",
+            "ai.text.translate.google.translate_api.v3",
             "ai.text.translate.yandex.cloud-translate.v2"
         ]
     }

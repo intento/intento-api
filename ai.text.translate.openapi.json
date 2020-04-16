@@ -100,7 +100,7 @@
                                             "id": {
                                                 "type": "string",
                                                 "description": "Service provider id",
-                                                "example": "ai.text.translate.google.translate_api.2-0"
+                                                "example": "ai.text.translate.google.translate_api.v3"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -168,7 +168,7 @@
                         "description": "Provider id",
                         "schema": {
                             "type": "string",
-                            "default": "ai.text.translate.google.translate_api.2-0"
+                            "default": "ai.text.translate.google.translate_api.v3"
                         }
                     }
                 ],
@@ -183,7 +183,7 @@
                                         "id": {
                                             "type": "string",
                                             "description": "Service provider id",
-                                            "example": "ai.text.translate.google.translate_api.2-0"
+                                            "example": "ai.text.translate.google.translate_api.v3"
                                         },
                                         "name": {
                                             "type": "string",
@@ -381,7 +381,7 @@
                                             "provider_codes": {
                                                 "type": "object",
                                                 "example": {
-                                                    "ai.text.translate.google.translate_api.2-0": "iw"
+                                                    "ai.text.translate.google.translate_api.v3": "iw"
                                                 }
                                             }
                                         }

@@ -28,6 +28,8 @@ This is an intent to translate text from one language to another.
         - [HTML/XML formats](#htmlxml-formats)
             - [Overview](#overview)
             - [Important notes](#important-notes)
+        - [XLIFF format](#xliff-format)
+        - [Memsource version of the XLIFF](#memsource-version-of-the-xliff)
     - [List of providers supporting a specified format](#list-of-providers-supporting-a-specified-format)
 - [Content processing](#content-processing)
 
@@ -210,7 +212,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "to": "es"
     },
     "service": {
-        "provider": "ai.text.translate.google.translate_api.v3beta1"
+        "provider": "ai.text.translate.google.translate_api.v3"
     }
 }'
 ```
@@ -228,7 +230,7 @@ The response contains the translated text, service information and meta informat
     },
     "service": {
         "provider": {
-            "id": "ai.text.translate.google.translate_api.v3beta1",
+            "id": "ai.text.translate.google.translate_api.v3",
             "name": "Google Cloud Translation API (v3beta1)",
             "timing": { "provider": 0.1 }
         }
@@ -251,7 +253,7 @@ The response contains a list of the providers available for given constraints wi
 ```json
 [
     {
-        "id": "ai.text.translate.google.translate_api.v3beta1",
+        "id": "ai.text.translate.google.translate_api.v3",
         "vendor": "Google Cloud",
         "description": "Translation API (v3beta1)",
         "own_auth": true,
@@ -322,7 +324,7 @@ Response:
         "custom_model": false
     },
     {
-        "id": "ai.text.translate.google.translate_api.v3beta1",
+        "id": "ai.text.translate.google.translate_api.v3",
         "vendor": "Google Cloud",
         "description": "Translation API (v3beta1)",
         "own_auth": true,
@@ -381,14 +383,14 @@ More on [provider flags and capabilities](providers.md).
 To get information about a provider with a given ID, send a GET request to `https://api.inten.to/ai/text/translate/PROVIDER_ID`.
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.v3'
 ```
 
 The response contains a list of the metadata fields and values available for the provider:
 
 ```json
 {
-    "id": "ai.text.translate.google.translate_api.v3beta1",
+    "id": "ai.text.translate.google.translate_api.v3",
     "name": "Google Cloud Translation API",
     "logo": "https://inten.to/img/api/ggl_translate.png",
     "billing": true,
@@ -422,7 +424,7 @@ The response contains a list of the metadata fields and values available for the
 As well as for the request for the list of available providers, the parameter `mode=async` can be specified:
 
 ```sh
-curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.2-0?mode=async'
+curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.v3?mode=async'
 
 ```
 
@@ -481,7 +483,7 @@ Response:
     "iso_639_2b_code": "heb",
     "iso_639_3_code": "heb",
     "provider_codes": {
-        "ai.text.translate.google.translate_api.v3beta1": "iw"
+        "ai.text.translate.google.translate_api.v3": "iw"
     },
     "client_code": "hebr"
 }
@@ -549,7 +551,7 @@ curl -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate/glossarie
 
 Response:
 
-```
+```json
 {
     "response": [
         {
@@ -574,7 +576,7 @@ curl -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate/models?pr
 
 Response:
 
-```
+```json
 {
     "response": [
         {
@@ -597,10 +599,10 @@ Response:
 Right now we support custom models for these providers:
 
 - (SMT) IBM Watson Language Translator Service (`ai.text.translate.ibm-language-translator`). This engine is deprecated and will no longer be available after October 4, 2018.
-- (SMT) Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.2-0`). This engine is deprecated since April 30, 2018 and will be discontinued on April 30, 2019.
+- (SMT) Microsoft Translator API v2.0 (`ai.text.translate.microsoft.translator_text_api.3-0`). This engine is deprecated since April 30, 2018 and will be discontinued on April 30, 2019.
 - (NMT) IBM Watson Language Translator Service v3 (`ai.text.translate.ibm-language-translator-v3`).
 - (NMT) Microsoft Translator API v3.0 (`ai.text.translate.microsoft.translator_text_api.3-0`).
-- (NMT) Google Cloud Translation API (v3beta1) (`ai.text.translate.google.translate_api.v3beta1`).
+- (NMT) Google Cloud Translation API (v3beta1) (`ai.text.translate.google.translate_api.v3`).
 - ModernMT Enterprise Edition (`ai.text.translate.modernmt.enterprise`).
 - Tilde Machine Translation API (`ai.text.translate.tilde.machine_translation_api`).
 
@@ -617,9 +619,9 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "category": "cccccccc-cccc-cccc-cccc-cccccccc"
     },
     "service": {
-        "provider" : "ai.text.translate.google.translate_api.v3beta1",
+        "provider" : "ai.text.translate.google.translate_api.v3",
         "auth": {
-            "ai.text.translate.google.translate_api.v3beta1": [
+            "ai.text.translate.google.translate_api.v3": [
                 {"credential_id": "credentials_for_google_v3_123456"}
             ]
         }
@@ -639,7 +641,7 @@ Response
     },
     "service": {
         "provider": {
-            "id": "ai.text.translate.google.translate_api.v3beta1",
+            "id": "ai.text.translate.google.translate_api.v3",
             "name": "Google Cloud Translation API (v3beta1)",
             "timing": { "provider": 0.2 },
             "category": {
@@ -666,9 +668,9 @@ curl -H 'apikey: YOUR_API_KEY' -XPOST 'https://api.inten.to/ai/text/translate' -
         "glossary": "projects/automl-123456/locations/us-central1/glossaries/my_EN_ES_Glossary"
     },
     "service": {
-        "provider" : "ai.text.translate.google.translate_api.v3beta1",
+        "provider" : "ai.text.translate.google.translate_api.v3",
         "auth": {
-            "ai.text.translate.google.translate_api.v3beta1": [
+            "ai.text.translate.google.translate_api.v3": [
                 {"credential_id": "credentials_for_google_v3_123456"}
             ]
         }
@@ -688,7 +690,7 @@ Response
     },
     "service": {
         "provider": {
-            "id": "ai.text.translate.google.translate_api.v3beta1",
+            "id": "ai.text.translate.google.translate_api.v3",
             "name": "Google Cloud Translation API (v3beta1)",
             "timing": { "provider": 0.2 },
             "glossary": {
@@ -722,7 +724,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "format": "html"
     },
     "service": {
-        "provider": "ai.text.translate.google.translate_api.v3beta1"
+        "provider": "ai.text.translate.google.translate_api.v3"
     }
 }'
 ```
@@ -738,7 +740,7 @@ The response contains the translated text with preserved formatting:
     },
     "service": {
         "provider": {
-            "id": "ai.text.translate.google.translate_api.v3beta1",
+            "id": "ai.text.translate.google.translate_api.v3",
             "name": "Google Cloud Translation API (v3beta1)",
             "timing": { "provider": 0.17 }
         }
@@ -842,7 +844,6 @@ After conversion there is nine items in the array:
 
 The first and the second items are produced after splitting by `<br>` tags. These elements seem fine. Next item 'As is...'  is not adequately extracted because the `<br>` tag is in the middle of a sentence. Instead of one element for the sentence, two are formed, each of which is a separate item in the array. As you can see, the following elements starting from the fifth are also extracted not correctly due to the `<i>` and `<span>` tags in the middle of sentences. To avoid such splittings, be sure that the inline tags do not divide a sentence.
 
-
 #### XLIFF format
 
 #### Memsource version of the XLIFF
@@ -887,7 +888,7 @@ Response:
         "custom_model": true
     },
     {
-        "id": "ai.text.translate.google.translate_api.v3beta1",
+        "id": "ai.text.translate.google.translate_api.v3",
         "vendor": "Google Cloud",
         "description": "Translation API (v3beta1)",
         "own_auth": true,

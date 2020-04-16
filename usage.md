@@ -140,7 +140,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/provider' -d '
     },
     "filter": {
         "provider": [
-            "ai.text.translate.microsoft.translator_text_api.2-0"
+            "ai.text.translate.microsoft.translator_text_api.3-0"
         ]
     }
 }'
@@ -151,7 +151,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/provider' -d '
 Usage statistics can be filtered by provider, intent, client or error status.
 To do this one can add a `filter` object in a request. Valid `filter` keys are:
 
-- `provider` - by provider like `ai.text.translate.microsoft.translator_text_api.2-0` or `ai.text.translate.google.translate_api.2-0`
+- `provider` - by provider like `ai.text.translate.microsoft.translator_text_api.3-0` or `ai.text.translate.google.translate_api.v3`
 - `intent` - by used intents like `ai.text.translate` or `ai.text.sentiment`
 - `client` - (for multi-key accounts) to choose a particular account; if no parameter present, the statistics is provided for all keys together.
 - `status` - by HTTP response codes like `200` or `4xx` (intended for error monitoring)
@@ -171,7 +171,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/usage/intento' -d '{
     },
     "filter": {
         "provider": [
-            "ai.text.translate.microsoft.translator_text_api.2-0"
+            "ai.text.translate.microsoft.translator_text_api.3-0"
         ]
     }
 }'
@@ -266,7 +266,7 @@ The response contains the list of buckets with statistics. Each `bucket` describ
             "timestamp": 1529884800,
             "group": {
                 "intent": "ai.text.translate",
-                "provider": "ai.text.translate.microsoft.translator_text_api.2-0"
+                "provider": "ai.text.translate.microsoft.translator_text_api.3-0"
             },
             "metrics": {
                 "requests": 100,

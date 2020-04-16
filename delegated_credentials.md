@@ -27,7 +27,7 @@ Currently, we support only Google Service Account type credentials.
 
 ### Google Service Account
 
-The fastest way to set up Google Cloud Translation API (v3beta1) and Google AutoML with Intento is our [Connected accounts Manager](https://console.inten.to/credentials).
+The fastest way to set up Google Cloud Translation API (v3) and Google AutoML with Intento is our [Connected accounts Manager](https://console.inten.to/credentials).
 
 Following instruction may help if you'd like to set up your Google AutoML account manually.
 
@@ -151,9 +151,9 @@ curl -XPOST -H "apikey: $YOUR_API_KEY" "$HOST/ai/text/translate" -d '
         "category": "projects/automl-196010/locations/us-central1/models/8254482168020221643"
     },
     "service": {
-        "provider": "ai.text.translate.google.translate_api.v3beta1",
+        "provider": "ai.text.translate.google.translate_api.v3",
         "auth": {
-            "ai.text.translate.google.translate_api.v3beta1": [
+            "ai.text.translate.google.translate_api.v3": [
                 {
                     "credential_id": "credentials_for_project_x"
                 }
