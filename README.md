@@ -154,6 +154,7 @@ Proceed to the following links for more details and examples on how to use a par
 
 - Text
     - [Text translation][ai.text.translate] `ai.text.translate`
+    - [Language detection][ai.text.detect-language] `ai.text.detect-language`
     - [Sentiment analysis][ai.text.sentiment] `ai.text.sentiment`
     - [Dictionary][ai.text.dictionary] `ai.text.dictionary`
     - [Text classify](ai.text.classify.md) `ai.text.classify`
