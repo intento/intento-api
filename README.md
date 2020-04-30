@@ -46,6 +46,7 @@ Currently, the following intents are available:
 
 - Text
     - [Text translation][ai.text.translate] `ai.text.translate`, [Demo][ai.text.translate.demo]
+    - [Language detection][ai.text.detect-language] `ai.text.detect-language`, [Demo][ai.text.detect-language.demo]
     - [Sentiment analysis][ai.text.sentiment] `ai.text.sentiment`, [Demo][ai.text.sentiment.demo]
     - [Dictionary][ai.text.dictionary] `ai.text.dictionary`, [Demo][ai.text.dictionary.demo]
     - [Text classify][ai.text.classify] `ai.text.classify`, [Catalog][ai.text.classify.catalog]
