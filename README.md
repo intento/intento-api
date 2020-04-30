@@ -688,6 +688,7 @@ or
 ```
 
 [ai.text.translate]: <ai.text.translate.md>
+[ai.text.detect-language]: <ai.text.detect-language.md>
 [ai.text.dictionary]: <ai.text.dictionary.md>
 [ai.text.sentiment]: <ai.text.sentiment.md>
 [ai.text.classify]: <ai.text.classify.md>
@@ -701,6 +702,7 @@ or
 [processing-oversized-requests]: <https://github.com/intento/intento-api/blob/master/processing-oversized-requests.md>
 [async-mode]: <https://github.com/intento/intento-api#async-mode>
 [ai.text.translate.demo]: <https://inten.to/api-platform/ai/text/translate#mt-demo>
+[ai.text.detect-language.demo]: <https://inten.to/api-platform/ai/text/detect-language#mt-demo>
 [ai.text.sentiment.demo]: <https://inten.to/api-platform/ai/text/sentiment#mt-demo>
 [ai.text.dictionary.demo]: <https://inten.to/api-platform/ai/text/dictionary#mt-demo>
 [ai.text.classify.demo]: <https://inten.to/api-platform/ai/text/classify#mt-demo>
