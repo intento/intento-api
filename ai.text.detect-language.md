@@ -51,7 +51,7 @@ The response contains the detect-language results:
 }
 ```
 
-The detect-language intent supports bulk requests:
+The detect-language intent supports bulk requests for providers with such capability (right now only `ai.text.detect-language.microsoft.text_analytics_api.2-1`):
 
 ```bash
 curl -XPOST -H "Trace: true" -H "apikey: YOUR_API_KEY" "https://api.inten.to/ai/text/detect-language" -d '
@@ -109,6 +109,17 @@ The response contains a list of the providers available for given constraints wi
         "id": "ai.text.detect-language.microsoft.text_analytics_api.2-1",
         "vendor": "Microsoft",
         "description": "Text Analytics API",
+        "production": true,
+        "integrated": true,
+        "billable": true,
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false
+    },
+    {
+        "id": "ai.text.detect-language.google.translate_api.v3",
+        "vendor": "Google Cloud",
+        "description": "Advanced Translation API",
         "production": true,
         "integrated": true,
         "billable": true,
