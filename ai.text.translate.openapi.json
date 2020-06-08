@@ -48,7 +48,7 @@
                         "in": "query",
                         "name": "category",
                         "required": false,
-                        "description": "Translation domain <a href='https://github.com/intento/intento-api/ai.text.translation.md#translation-domains'>check out docs</a>",
+                        "description": "Translation domain <a href='https://github.com/intento/intento-api/blob/master/ai.text.translate.md#translation-domains'>check out docs</a>",
                         "schema": {
                             "type": "string"
                         }
