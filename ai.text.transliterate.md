@@ -228,7 +228,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/transliterate/l
 
 Response:
 
-```json
+```
 [
     {
         "iso_name": "Hebrew",
@@ -236,7 +236,7 @@ Response:
         "direction": "right-to-left",
         "name": "иврит"
     },
-    …
+    ...
 ]
 ```
 
