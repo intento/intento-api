@@ -236,7 +236,7 @@ Response:
         "direction": "right-to-left",
         "name": "иврит"
     },
-    ...
+    …
 ]
 ```
 
