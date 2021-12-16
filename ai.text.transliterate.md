@@ -37,15 +37,42 @@ The response contains the transliterate results grouped by part of speech and a 
 
 ```json
 {
-    "results": "konnnichiha",
-    "meta": {},
+    "results": [
+        "Kon'nichiwa"
+    ],
+    "meta": {
+        "timing": {
+            "total": 0.246434,
+            "providers": 0.201087
+        },
+        "client_key_label": "production"
+    },
     "service": {
         "provider": {
             "id": "ai.text.transliterate.microsoft.translator_text_api.3-0",
-            "name": "Microsoft Translator API v3.0"
+            "name": "Microsoft Translator API v3.0",
+            "timing": {
+                "provider": 0.201087
+            }
         }
     }
 }
+```
+
+Transliterating multiple segments with single request:
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/transliterate' -d '{
+    "context": {
+        "text": ["こんにちは", "文字変換の例"],
+        "language": "ja",
+        "fromscript": "jpan",
+        "toscript": "latn"
+    },
+    "service": {
+        "provider": "ai.text.transliterate.microsoft.translator_text_api.3-0"
+    }
+}'
 ```
 
 If the provider doesn't have capabilities (e.g. language) to process request, 413 error will be returned:
@@ -70,15 +97,36 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/transliterate'
 
 The response contains a list of the providers available for given constraints with an information on using custom models, etc.:
 
-```json
+```
 [
     {
+        "production": true,
+        "integrated": true,
+        "billable": true,
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false,
+        "delegated_credentials": null,
+        "async_only": false,
         "id": "ai.text.transliterate.microsoft.translator_text_api.3-0",
         "name": "Microsoft Translator API v3.0",
         "vendor": "Microsoft",
-        "own_auth": true,
-        "stock_model": true,
-        "custom_model": true
+        "api_id": "microsofttranslator30",
+        "picture": "img/api/mcs_translate.png",
+        "type": "instance",
+        "description": "Translator API v3.0",
+        "language": [
+            "ar",
+            ...
+        ],
+        "fromscript": [
+            "latn",
+            ...
+        ],
+        "toscript": [
+            "arab",
+            ...
+        ]
     }
 ]
 ```
@@ -98,12 +146,21 @@ Response:
 ```json
 [
     {
+        "production": true,
+        "integrated": true,
+        "billable": true,
+        "own_auth": true,
+        "stock_model": true,
+        "custom_model": false,
+        "delegated_credentials": null,
+        "async_only": false,
         "id": "ai.text.transliterate.microsoft.translator_text_api.3-0",
         "name": "Microsoft Translator API v3.0",
         "vendor": "Microsoft",
-        "own_auth": true,
-        "stock_model": true,
-        "custom_model": true
+        "api_id": "microsofttranslator30",
+        "picture": "img/api/mcs_translate.png",
+        "type": "instance",
+        "description": "Translator API v3.0"
     }
 ]
 ```
@@ -118,20 +175,39 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/transliterate/a
 
 The response contains a list of the metadata fields and values available for the provider:
 
-```json
+```
 {
     "id": "ai.text.transliterate.microsoft.translator_text_api.3-0",
     "vendor": "Microsoft",
-    "logo": "https://inten.to/static/img/api/mcs_translate.png",
-    "bulk": true,
+    "logo": "https://inten.to/img/api/mcs_translate.png",
+    "billing": true,
     "description": "Translator API v3.0",
+    "production": true,
     "integrated": true,
     "billable": true,
+    "own_auth": true,
+    "stock_model": true,
+    "custom_model": false,
+    "delegated_credentials": null,
+    "async_only": false,
+    "auth": {
+        "key": "YOUR_KEY"
+    },
     "languages": {
-        "language": [ ... ],
-        "fromscript": [ ... ],
-        "toscript": [ ... ]
-    }
+        "language": [
+            "ar",
+            ...
+        ],
+        "fromscript": [
+            "latn",
+            ...
+        ],
+        "toscript": [
+            "arab",
+            ...
+        ]
+    },
+    "bulk": true
 }
 ```
 
@@ -152,13 +228,15 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/transliterate/l
 
 Response:
 
-```json
+```
 [
     {
-        "iso_name": "Hebrew (modern)",
-        "name": "иврит",
-        "intento_code": "he"
-    }
+        "iso_name": "Hebrew",
+        "intento_code": "he",
+        "direction": "right-to-left",
+        "name": "иврит"
+    },
+    ...
 ]
 ```
 
@@ -181,14 +259,14 @@ Response:
 
 ```json
 {
-    "iso_name": "Hebrew (modern)",
-    "name": "иврит",
+    "iso_name": "Hebrew",
     "intento_code": "he",
     "iso_639_1_code": "he",
     "iso_639_2t_code": "heb",
     "iso_639_2b_code": "heb",
     "iso_639_3_code": "heb",
-    "provider_codes": {}
+    "provider_codes": {},
+    "name": "иврит"
 }
 ```
 
