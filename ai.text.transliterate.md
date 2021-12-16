@@ -97,7 +97,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/transliterate'
 
 The response contains a list of the providers available for given constraints with an information on using custom models, etc.:
 
-```json
+```
 [
     {
         "production": true,
@@ -175,7 +175,7 @@ curl -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/transliterate/a
 
 The response contains a list of the metadata fields and values available for the provider:
 
-```json
+```
 {
     "id": "ai.text.transliterate.microsoft.translator_text_api.3-0",
     "vendor": "Microsoft",
