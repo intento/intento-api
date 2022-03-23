@@ -478,7 +478,7 @@ Response:
 }
 ```
 
-Here is the [instruction on how to connect your accounts of different providers][delegated_credentials.md]. Right now this mode is supported for `ai.text.translate.google.automl_api.v1beta1`.
+Here is the [instruction on how to connect your accounts of different providers][delegated_credentials.md]. Right now this mode is supported for `ai.text.translate.google.automl_api.v1` and `ai.text.translate.google.translate_api.v3`.
 
 ### Smart routing
 
