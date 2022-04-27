@@ -35,7 +35,7 @@ Recent Google AutoML APIs do not support API key authentication but require you 
 
 Here is a manual on how to use your custom models with delegated credentials.
 
-The example uses Google AutoML Translate instance `ai.text.translate.google.automl_api.v1beta1`.
+The example uses Google AutoML Translate instance `ai.text.translate.google.automl_api.v1`.
 
 #### 1. [Train your custom model in Google AutoML Translate](https://cloud.google.com/translate/automl/docs/quickstart)
 

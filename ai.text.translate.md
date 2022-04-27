@@ -596,13 +596,11 @@ Response:
 
 ### Using previously trained custom models
 
-Right now we support custom models for these 14 providers:
+Right now we support custom models for these 12 providers:
 
 1. Alibaba Cloud E-commerce Edition (`ai.text.translate.alibaba.machine_translation_api`).
 1. Google Cloud Advanced Translation API (`ai.text.translate.google.translate_api.v3`).
 1. Google Cloud AutoML Translation API (`ai.text.translate.google.automl_api.v1`).
-1. Google Cloud AutoML Translation API (v1beta1) (`ai.text.translate.google.automl_api.v1beta1`).
-1. Google Cloud Translation API (v3beta1) (`ai.text.translate.google.translate_api.v3beta1`).
 1. IBM Watson Language Translator Service v3 (`ai.text.translate.ibm-language-translator-v3`).
 1. Microsoft Translator API v2.0 (SMT) (`ai.text.translate.microsoft.translator_text_api.2-0`). This engine is deprecated since April 30, 2018 and will be discontinued on April 30, 2019.
 1. Microsoft Translator API v3.0 (`ai.text.translate.microsoft.translator_text_api.3-0`).
