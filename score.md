@@ -52,7 +52,7 @@ The response contains id of the operation:
 { "id": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda" }
 ```
 
-Wait for processing to complete. To retrieve the result of the operation, make a GET request to the `https://api.inten.to/operations/YOUR_OPERATION_ID`. TTL of the resource is 30 days.
+Wait for processing to complete. To retrieve the result of the operation, make a GET request to the `https://api.inten.to/evaluate/score/YOUR_OPERATION_ID`. TTL of the resource is 30 days.
 
 ```json
 {
