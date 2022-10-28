@@ -344,18 +344,29 @@ Auth object structure is different for different providers and may be obtained t
 
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY'
-   'https://api.inten.to/ai/text/translate/ai.text.translate.google.translate_api.v3'
+   'https://api.inten.to/ai/text/translate/ai.text.translate.microsoft.translator_text_api.3-0'
 ```
 
 Response:
 
 ```json
 {
-    "id": "ai.text.translate.google.translate_api.v3",
-    "name": "Google Cloud Translation API",
-    "logo": "https://inten.to/img/api/ggl_translate.png",
-    "auth": {
-        "key": "YOUR_KEY"
+    "id": "ai.text.translate.microsoft.translator_text_api.3-0",
+    "vendor": "Microsoft",
+    "logo": "https://inten.to/img/api/mcs_translate.png",
+    "description": "Translator API v3.0",
+    "auth_information": {
+        "key": {
+            "description": "YOUR_MICROSOFT_KEY"
+        },
+        "url": {
+            "description": "YOUR URL (e.g. 'https://api.cognitive.microsofttranslator.com')",
+            "default": "https://api.cognitive.microsofttranslator.com"
+        },
+        "region": {
+            "description": "YOUR REGION (e.g. 'westeurope' or 'westus2'. If unknown use 'global')",
+            "default": "global"
+        }
     },
     "billing": true,
     "bulk": true,
