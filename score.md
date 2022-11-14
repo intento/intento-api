@@ -52,7 +52,9 @@ Specify request payload:
 - `reference` - ground truth translation. 
 - `lang` - language of translation.
 - `source` - **optional** parameter for COMET score. See below for more details.
-- `scores` - list of scoring metrics to calculate. <br />Setting `ignore_errors` to `true` in the scores array, makes the API to return results regardless of consecutive errors.
+- `scores` - list of scoring metrics to calculate. 
+
+Setting `ignore_errors` to `true` in the scores array, makes the API to return results regardless of consecutive errors.
 
 **Note**: evaluation endpoints are supported only in async mode.
 
