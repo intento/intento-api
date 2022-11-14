@@ -4,10 +4,7 @@ Score API is a collection of endpoints for calculating standard AI performance m
 
 ## Machine Translation
 
-To compare a machine translation with a reference translation, send a POST request to `https://api.inten.to/evaluate/score`. Specify data context keys: `items` - results of the machine translation,  `reference` -  ground truth and language.  List one or more currently implemented score functions, using `ignore_errors` flag to return result no matter of previous errors. Note that evaluation endpoints are supported only in `async` mode.
-
-**Scores:**
-
+List of available scores:
 - [hlepor](https://github.com/aaronlifenghan/aaron-project-hlepor)
 - [ribes](http://www.kecl.ntt.co.jp/icl/lirg/ribes/)
 - [ter](https://github.com/jhclark/tercom)
@@ -15,6 +12,8 @@ To compare a machine translation with a reference translation, send a POST reque
 - [rouge](https://github.com/pltrdy/rouge)
 - [chrf](https://github.com/mjpost/sacrebleu)
 - [bert](https://github.com/Tiiiger/bert_score)
+- [comet](https://github.com/Unbabel/COMET)
+- [comet-mtqe](https://github.com/Unbabel/COMET)
 
 ### Basic usage
 
@@ -108,11 +107,19 @@ To get scores for each pair of items (machine translation and reference), set it
 }
 ```
 
-## COMET
+### COMET
 
-Crosslingual Optimized Metric for Evaluation of Translation ([COMET](https://github.com/Unbabel/COMET)) is metrics that achieve high levels of correlation with different types of human judgments. COMET takes 3 lists of strings as input: `sources` - a list of source sentences, `items` - results of the machine translation and `references` - ground truth and language. List one or more currently implemented score functions, using ignore_errors flag to return result no matter of previous errors. Note that evaluation endpoints are supported only in async mode. 
+Crosslingual Optimized Metric for Evaluation of Translation ([COMET](https://github.com/Unbabel/COMET)) is a metric that achieve high levels of correlation with different types of human judgements. COMET takes 4 parameters as an input: 
+1. `sources` - a list of source sentences
+2. `items` - results of the machine translation
+3. `reference` - ground truth translation
+4. `lang` - language of translation
 
-### Basic usage
+Setting `ignore_errors` to `true` in the scores array, makes the API to return results regardless of consecutive errors.
+
+**Note**: evaluation endpoints are supported only in async mode. 
+
+#### Usage
 
 ```sh
 curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d '{
@@ -176,6 +183,82 @@ Wait for processing to complete.
     },
     "meta": {},
     "error": null
+}
+```
+
+### COMET-QE
+
+Crosslingual Optimized Metric for Evaluation of Translation ([COMET](https://github.com/Unbabel/COMET)) is a metric that achieve high levels of correlation with different types of human judgements. Intento uses `wmt20-comet-qe-da` [model](https://unbabel.github.io/COMET/html/models.html#wmt20-comet-metrics). 
+
+COMET-QE takes 3 parameters as an input:
+1. `items` - results of the machine translation
+2. `reference` - ground truth translation. 
+3. `lang` - language of translation.
+
+Setting `ignore_errors` to `true` in the scores array, makes the API to return results regardless of consecutive errors.
+
+**Note**: evaluation endpoints are supported only in async mode. 
+
+#### Usage
+
+```sh
+curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d '{
+    "data": {
+        "items": [
+            "A sample text",
+            "Some text"
+        ],
+        "source": [
+            "Un texto de muestra",
+            "Algún otro texto"
+        ],
+        "lang": "en"
+    },
+    "scores": [
+        {
+            "name": "comet-mtqe",
+            "ignore_errors": true
+        }
+    ],
+    "itemize": false,
+    "async": true
+}'
+```
+
+The response contains id of the operation:
+
+```json
+{ "id": "6f409125-a8c2-4ffb-b42d-99f2d9d14f7a" }
+```
+
+Wait for processing to complete.
+
+```json
+{
+	"id": "6f409125-a8c2-4ffb-b42d-99f2d9d14f7a",
+	"done": true,
+	"response": {
+		"results": {
+			"scores": [
+				{
+					"value": {
+						"segment_scores": [
+							0.5931146740913391,
+							4.1349710954818875e-05
+						],
+						"corpus_scores": [
+							0.29657801190114697
+						],
+						"return_hash": "wmt20-comet-qe-da"
+					},
+					"name": "comet-mtqe"
+				}
+			]
+		},
+		"type": "scores"
+	},
+	"meta": {},
+	"error": null
 }
 ```
 
