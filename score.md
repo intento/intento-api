@@ -17,6 +17,8 @@ List of available scores:
 
 ### Basic usage
 
+To compare machine translation with a reference translation, send POST request to `https://api.inten.to/evaluate/score`.
+
 ```sh
 curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d '{
     "data": {
@@ -44,6 +46,16 @@ curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d
     "async": true
 }'
 ```
+
+Specify request payload: 
+- `items` - results of the machine translation
+- `reference` - ground truth translation. 
+- `lang` - language of translation.
+- `source` - **optional** parameter for COMET score. See below for more details.
+- `scores` - list of scoring metrics to calculate.
+Setting `ignore_errors` to `true` in the scores array, makes the API to return results regardless of consecutive errors.
+
+**Note**: evaluation endpoints are supported only in async mode.
 
 The response contains id of the operation:
 
