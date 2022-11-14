@@ -221,6 +221,7 @@ curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d
             "A sample text",
             "Some text"
         ],
+        "reference": [],
         "source": [
             "Un texto de muestra",
             "Algún otro texto"
@@ -237,6 +238,8 @@ curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d
     "async": true
 }'
 ```
+
+**Note**: `reference` field is required but can be an empty list.
 
 The response contains id of the operation:
 
