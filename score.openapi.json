@@ -207,26 +207,31 @@
       "GetMetricsResponse": {
         "type": "object",
         "properties": {
-          "metrics": {
-            "type": "array",
-            "example": [
-              {
-                "id": 1,
-                "name": "hlepor",
-                "source": "https://github.com/aaronlifenghan/aaron-project-hlepor"
-              }
-            ],
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "source": {
-                  "type": "string"
+          "data": {
+            "type": "object",
+            "properties": {
+              "ai.text.translate": {
+                "type": "array",
+                "example": [
+                  {
+                    "id": 1,
+                    "name": "hlepor",
+                    "source": "https://github.com/aaronlifenghan/aaron-project-hlepor"
+                  }
+                ],
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "source": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -240,37 +245,56 @@
             "type": "string",
             "example": "ea1684f1-4ec7-431d-9b7e-bfbe98cf0bda"
           },
-          "results": {
-            "type": "array",
-            "example": [
-              {
-                "name": "hlepor",
-                "value": 0.91
-              },
-              {
-                "name": "bleu-corpus",
-                "value": 0.95
-              }
-            ],
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "value": {
-                  "type": "string"
+          "response": {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "object",
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "example": [
+                      {
+                        "name": "hlepor",
+                        "value": 0.91
+                      },
+                      {
+                        "name": "bleu-corpus",
+                        "value": 0.95
+                      }
+                    ],
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
                 }
+              },
+              "type": {
+                "type": "object",
+                "example": "scores"
               }
             }
           },
+
           "error": {
             "type": "string",
             "default": null
           },
           "done": {
             "type": "boolean",
-            "default": false
+            "default": true
+          },
+          "meta": {
+            "type": "object",
+            "default": {}
           }
         }
       },
@@ -333,7 +357,7 @@
       "CreateScorePayload": {
         "type": "object",
         "properties": {
-          "context": {
+          "data": {
             "type": "object",
             "properties": {
               "items": {
@@ -350,38 +374,37 @@
                   "type": "string"
                 }
               },
-              "metrics": {
-                "type": "array",
-                "example": ["hlepor"],
-                "items": {
-                  "type": "string"
-                }
-              },
               "lang": {
                 "type": "string",
                 "example": "en"
               }
             }
           },
-          "options": {
-            "type": "object",
-            "properties": {
-              "itemize": {
-                "type": "boolean",
-                "description": "Get scores for each pair of items (translation and reference)",
-                "example": false
-              },
-              "tokenize": {
-                "type": "boolean",
-                "description": "Toggle tokenisation for asian languages",
-                "example": false
-              },
-              "async": {
-                "type": "boolean",
-                "example": true,
-                "description": "Only 'true' is allowed yet"
+          "scores": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "score": {
+                  "type": "string",
+                  "example": "hlepor"
+                },
+                "ignore_errors": {
+                  "type": "boolean",
+                  "example": "true"
+                }
               }
             }
+          },
+          "itemize": {
+            "type": "boolean",
+            "description": "Get scores for each pair of items (translation and reference)",
+            "example": false
+          },
+          "async": {
+            "type": "boolean",
+            "example": true,
+            "description": "Only 'true' is allowed yet"
           }
         }
       }
