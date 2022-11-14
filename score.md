@@ -248,30 +248,30 @@ Wait for processing to complete.
 
 ```json
 {
-	"id": "6f409125-a8c2-4ffb-b42d-99f2d9d14f7a",
-	"done": true,
-	"response": {
-		"results": {
-			"scores": [
-				{
-					"value": {
-						"segment_scores": [
-							0.5931146740913391,
-							4.1349710954818875e-05
-						],
-						"corpus_scores": [
-							0.29657801190114697
-						],
-						"return_hash": "wmt20-comet-qe-da"
-					},
-					"name": "comet-mtqe"
-				}
-			]
-		},
-		"type": "scores"
-	},
-	"meta": {},
-	"error": null
+    "id": "6f409125-a8c2-4ffb-b42d-99f2d9d14f7a",
+    "done": true,
+    "response": {
+        "results": {
+            "scores": [
+                {
+                    "value": {
+                        "segment_scores": [
+                            0.5931146740913391,
+                            4.1349710954818875e-05
+                        ],
+                        "corpus_scores": [
+                            0.29657801190114697
+                        ],
+                        "return_hash": "wmt20-comet-qe-da"
+                    },
+                    "name": "comet-mtqe"
+                }
+            ]
+        },
+        "type": "scores"
+    },
+    "meta": {},
+    "error": null
 }
 ```
 
