@@ -14,6 +14,7 @@ List of available scores:
 - [bert](https://github.com/Tiiiger/bert_score)
 - [comet](https://github.com/Unbabel/COMET)
 - [comet-mtqe](https://github.com/Unbabel/COMET)
+- [labse](https://huggingface.co/sentence-transformers/LaBSE)
 
 ### Basic usage
 
@@ -278,3 +279,76 @@ Wait for processing to complete.
 }
 ```
 
+### LaBSE
+
+The language-agnostic BERT sentence embedding encodes text into high dimensional vectors. The model is trained and optimized to produce similar representations exclusively for bilingual sentence pairs that are translations of each other. So it can be used for mining for translations of a sentence in a larger corpus. Intento uses a port of the LaBSE model to PyTorch from [huggingface](https://huggingface.co/sentence-transformers/LaBSE).
+
+LaBSE takes 3 parameters as an input:
+1. `items` - results of the machine translation
+2. `source` - a list of source sentences 
+3. `lang` - language of translation
+
+Setting `ignore_errors` to `true` in the scores array, makes the API to return results regardless of consecutive errors.
+
+**Note**: evaluation endpoints are supported only in async mode. 
+
+#### Usage
+
+```sh
+curl  -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/evaluate/score'  -d '{
+    "data": {
+        "items": [
+            "A sample text",
+            "Some text"
+        ],
+        "reference": [],
+        "source": [
+            "Un texto de muestra",
+            "Algún otro texto"
+        ],
+        "lang": "en"
+    },
+    "scores": [
+        {
+            "name": "labse",
+            "ignore_errors": true
+        }
+    ],
+    "itemize": false,
+    "async": true
+}'
+```
+
+**Note**: `reference` field is required but can be an empty list.
+
+The response contains id of the operation:
+
+```json
+{ "id": "8ab6da9a-c218-405d-88d6-a7d48b507c54" }
+```
+
+Wait for processing to complete.
+
+```json
+{
+    "id": "8ab6da9a-c218-405d-88d6-a7d48b507c54",
+    "done": true,
+    "response": {
+        "results": {
+            "scores": [
+                {
+                    "value": 0.922886312007904,
+                    "name": "LaBSE"
+                },
+                {
+                    "value": 0.7924383878707886,
+                    "name": "LaBSE"
+                }
+            ]
+        },
+        "type": "scores"
+    },
+    "error": null,
+    "meta": {}
+}
+```
