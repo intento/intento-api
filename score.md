@@ -11,6 +11,7 @@ List of available scores:
 - [sacrebleu](https://github.com/awslabs/sockeye/tree/3cca0c3ec397fbcb4c0ff0f51487e29338f53614/sockeye_contrib/sacrebleu)
 - [rouge](https://github.com/pltrdy/rouge)
 - [chrf](https://github.com/mjpost/sacrebleu)
+- [chrf++](https://github.com/mjpost/sacrebleu)
 - [bert](https://github.com/Tiiiger/bert_score)
 - [comet](https://github.com/Unbabel/COMET)
 - [comet-mtqe](https://github.com/Unbabel/COMET)
