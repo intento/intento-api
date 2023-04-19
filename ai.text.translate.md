@@ -971,7 +971,7 @@ More information about sets and rules can be found at `https://api.inten.to/sett
 ## Gender control processing
 
 Some languages are sensitive to gender. Gender may depend on who is speaking and on who is the recipient of the phrase. 
-Machine translation providers cannot catch this content, and it results in heavy post-editing efforts. Gender control processing
+Machine translation providers cannot catch this content, and it results to heavy post-editing efforts. Gender control processing
 provides the capabilities to specify the gender of speaker and audience. To use this processing one should specify the following API:
 
 ### Basic usage
@@ -986,15 +986,15 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
 	"service": {
 		"async": false,
 		"trace": false,
-        "processing": {
-            "pre": ["gender_control"],
-            "config": {
-                "gender_control": {
-                    "speaker": "female",
-					"audience": "male"
-				}
-            }
-        }
+		"processing": {
+		"pre": ["gender_control"],
+		    "config": {
+		        "gender_control": {
+		            "speaker": "female",
+		            "audience": "male"
+		        }
+		    }
+		}
 	}
 }'
 ```
@@ -1008,17 +1008,17 @@ The response contains the following result:
 
 ```json
 {
-    "results": [
-        "Я приготовил для тебя кое-что. Ты приготовила для меня что-нибудь?"
-    ],
-    "meta": {
-      ...
-        "gender_control": {
-            "used": true,
-            "speaker": "male",
-            "audience": "female"
-        }
-    },
+  "results": [
+    "Я приготовил для тебя кое-что. Ты приготовила для меня что-нибудь?"
+  ],
+  "meta": {
+    ...
+    "gender_control": {
+      "used": true,
+      "speaker": "male",
+      "audience": "female"
+    }
+  },
   ...
 }
 ```
@@ -1035,44 +1035,48 @@ Inject, suffix and prefix are not exposed to the user.
 
 ```json
 {
-	"context": {
-		"from": "en",
-		"to": "ru",
-		"text": "I have made something for you. Did you make anything for me?"
-	},
-	"service": {
-		"async": false,
-		"trace": false,
-        "processing": {
-            "pre": ["gender_control"],
-            "config": {
-                "gender_control": {
-                  "custom_inject": "boy says to a girl:"
-				}
-            }
+  "context": {
+    "from": "en",
+    "to": "ru",
+    "text": "I have made something for you. Did you make anything for me?"
+  },
+  "service": {
+    "async": false,
+    "trace": false,
+    "processing": {
+      "pre": [
+        "gender_control"
+      ],
+      "config": {
+        "gender_control": {
+          "custom_inject": "boy says to a girl:"
         }
-	}
+      }
+    }
+  }
 }
 ```
-In case if `"custom_inject"` is specified, `speaker` and `audience` parameters are redundant.
+In case when `"custom_inject"` is specified, `speaker` and `audience` parameters are redundant.
 
 One can also provide custom `prefix` and `suffix` parameters:
 
 ```json
 {
-	...
-	"service": {
-		..
-        "processing": {
-            "pre": ["gender_control"],
-            "config": {
-                "gender_control": {
-                  ...
-                  "prefix": "[[custom_gc_suffix[["
-                  "suffix": "]]custom_gc_suffix]]"
-				}
-            }
+  ...
+  "service": {
+    ..
+    "processing": {
+      "pre": [
+        "gender_control"
+      ],
+      "config": {
+        "gender_control": {
+          ...
+          "prefix": "[[custom_gc_suffix[[",
+          "suffix": "]]custom_gc_suffix]]"
         }
-	}
+      }
+    }
+  }
 }
 ```
