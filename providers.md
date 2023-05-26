@@ -165,10 +165,6 @@ A provider supports passing custom glossaries.
 
 A provider supports training models (only on their side for now) and passing them as a `custom_model` parameter when requesting a job.
 
-### `delegated_credentials`
-
-Intento supports connecting your accounts of Google Cloud Advanced Translation API and Google AutoML providers. See more details in the [Connected Accounts section](./delegated_credentials.md). The fastest way to set up Google Cloud Advanced Translation API and Google AutoML with Intento is our [Connected accounts Manager](https://console.inten.to/credentials).
-
 ### `integrated`
 
 Intento can route requests to a provider.
