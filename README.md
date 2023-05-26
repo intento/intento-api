@@ -598,7 +598,6 @@ or
 [ai.speech.transcribe]: <ai.speech.transcribe.md>
 [usage.md]: <usage.md>
 [score.md]: <score.md>
-[delegated_credentials.md]: <delegated_credentials.md>
 [processing-oversized-requests]: <https://github.com/intento/intento-api/blob/master/processing-oversized-requests.md>
 [async-mode]: <https://github.com/intento/intento-api#async-mode>
 [ai.text.translate.demo]: <https://inten.to/api-platform/ai/text/translate#mt-demo>
