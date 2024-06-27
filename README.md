@@ -96,7 +96,7 @@ Currently, the following features are available:
 
 We use the token-based authentication. Each request to intento API should pass an access key in header `apikey` as demonstrated in the examples below.
 
-For each account, we provide two keys, a real key and a sandbox one. Requests performed with the real key are actually fulfilled via third-party services and billed towards your account. Usage limits for real keys are governed by the subscription tier you have. Requests performed with the sandbox key are intended for testing purposes and return some sample responses. Usage limits for sandbox keys are quite low, let us know if anything is wrong with that.
+For each account, we provide one production key by default. Requests performed with the production key are actually fulfilled via third-party services and billed towards your account. Usage limits for production keys are governed by the subscription tier you have. Additional production keys can be created upon request.
 
 ## Usage limits
 
