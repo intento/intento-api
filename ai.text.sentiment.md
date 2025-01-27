@@ -88,6 +88,7 @@ curl -XPOST -H "apikey: YOUR_API_KEY" "https://api.inten.to/ai/text/sentiment" -
 }'
 ```
 
+### :lock: Multi mode
 The response contains the processed texts and a service information:
 
 ```json
@@ -110,6 +111,23 @@ The response contains the processed texts and a service information:
         }
     }
 }
+```
+
+In the multi mode, the processing of the text is performed using a list of providers. The mode is activated by passing an array of provider identificators.
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/sentiment' -d '{
+    "context": {
+        "text": "We love this trail and make the trip every year. The views are breathtaking and well worth the hike!",
+        "lang": "en"
+    },
+    "service": {
+        "provider": [
+            "ai.text.sentiment.ibm.natural_language_understanding",
+            "ai.text.sentiment.aylien.text_analysis_api.1-0"
+        ]
+    }
+}'
 ```
 
 The response contains the analyzed text and service information:          ↑
