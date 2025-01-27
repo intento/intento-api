@@ -113,6 +113,7 @@ The response contains the processed texts and a service information:
 ```
 
 ### :lock: Multi mode
+
 In the multi mode, the processing of the text is performed using a list of providers. The mode is activated by passing an array of provider identificators.
 
 ```sh
@@ -130,7 +131,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/sentiment' -
 }'
 ```
 
-The response contains the analyzed text and service information:          ↑
+The response contains the analyzed text and a service information:          ↑
 
 ```json
 [
