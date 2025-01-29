@@ -180,9 +180,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "from": "en"
     },
     "service": {
-        "provider": [
-            "ai.text.translate.microsoft.translator_text_api.3-0"
-        ],
+        "provider": "ai.text.translate.microsoft.translator_text_api.3-0",
         "async": true
     }
 }'
@@ -321,9 +319,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
         "to": "es"
     },
     "service": {
-        "provider": [
-            "ai.text.translate.google.translate_api.v3"
-        ],
+        "provider": "ai.text.translate.google.translate_api.v3",
         "trace": true
     }
 }'
