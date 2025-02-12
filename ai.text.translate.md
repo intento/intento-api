@@ -32,6 +32,10 @@ This is an intent to translate text from one language to another.
         - [Memsource version of the XLIFF](#memsource-version-of-the-xliff)
     - [List of providers supporting a specified format](#list-of-providers-supporting-a-specified-format)
 - [Content processing](#content-processing)
+    - [Gender control processing](#gender-control-processing)
+      - [Basic usage](#basic-usage)
+      - [Supported languages](#supported-languages)
+      - [Custom injects](#custom-injects)
 
 <!-- /TOC -->
 
@@ -962,5 +966,117 @@ More information about sets and rules can be found at `https://api.inten.to/sett
             ...
         ]
     }
+}
+```
+## Gender control processing
+
+Some languages are sensitive to gender. Gender may depend on who is speaking and on who is the recipient of the phrase. 
+Machine translation providers cannot catch this content, and it results to heavy post-editing efforts. Gender control processing
+provides the capabilities to specify the gender of speaker and audience. To use this processing one should specify the following API:
+
+### Basic usage
+
+```sh
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+	"context": {
+		"from": "en",
+		"to": "ru",
+		"text": "I have made something for you. Did you make anything for me?"
+	},
+	"service": {
+		"async": false,
+		"trace": false,
+		"processing": {
+		"pre": ["gender_control"],
+		    "config": {
+		        "gender_control": {
+		            "speaker": "female",
+		            "audience": "male"
+		        }
+		    }
+		}
+	}
+}'
+```
+
+Available values for `speaker` and `audience` are: 
+- `female`
+- `male`
+- `any`
+
+The response contains the following result:
+
+```json
+{
+  "results": [
+    "Я приготовил для тебя кое-что. Ты приготовила для меня что-нибудь?"
+  ],
+  "meta": {
+    ...
+    "gender_control": {
+      "used": true,
+      "speaker": "male",
+      "audience": "female"
+    }
+  },
+  ...
+}
+```
+
+### Supported languages
+Gender control currently supports translations from English(`en`) and Dutch(`nl`) languages. Target language selection is not limited.
+
+
+### Custom injects
+`Gender control` API provides the ability to specify `custom injects`, `prefixes` and `suffixes`, 
+that will be injected to the text before translation, and removed after.
+Inject, suffix and prefix are not exposed to the user.
+
+
+```json
+{
+  "context": {
+    "from": "en",
+    "to": "ru",
+    "text": "I have made something for you. Did you make anything for me?"
+  },
+  "service": {
+    "async": false,
+    "trace": false,
+    "processing": {
+      "pre": [
+        "gender_control"
+      ],
+      "config": {
+        "gender_control": {
+          "custom_inject": "boy says to a girl:"
+        }
+      }
+    }
+  }
+}
+```
+In case when `"custom_inject"` is specified, `speaker` and `audience` parameters are redundant.
+
+One can also provide custom `prefix` and `suffix` parameters:
+
+```json
+{
+  ...
+  "service": {
+    ..
+    "processing": {
+      "pre": [
+        "gender_control"
+      ],
+      "config": {
+        "gender_control": {
+          ...
+          "prefix": "[[custom_gc_suffix[[",
+          "suffix": "]]custom_gc_suffix]]"
+        }
+      }
+    }
+  }
 }
 ```
