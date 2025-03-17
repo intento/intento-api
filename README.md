@@ -1,3 +1,4 @@
+
 # API User Manual
 
 This is a human-friendly manual to the Intento API. The interactive API Reference is available at [intento.github.io](https://intento.github.io).
@@ -135,10 +136,10 @@ Error codes:
 
 A simple example of how to use Intento API.
 
-To translate a text, send a POST request to Intento API at [https://api.inten.to/ai/text/translate](https://api.inten.to/ai/text/translate). Specify the source text, the target language and the desired translation provider in JSON body of the request as in the following example:
+To translate a text, send a POST request to Intento API at [https://sync.inten.to/ai/text/translate](https://sync.inten.to/ai/text/translate). Specify the source text, the target language and the desired translation provider in JSON body of the request as in the following example:
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://sync.inten.to/ai/text/translate' -d '{
     "context": {
         "text": "A sample text",
         "to": "es"
@@ -320,6 +321,7 @@ curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -
     },
     "service": {
         "provider": "ai.text.translate.google.translate_api.v3",
+        "async": true,
         "trace": true
     }
 }'
@@ -340,7 +342,7 @@ Auth object structure is different for different providers and may be obtained t
 
 ```sh
 curl -H 'apikey: YOUR_INTENTO_KEY'
-   'https://api.inten.to/ai/text/translate/ai.text.translate.microsoft.translator_text_api.3-0'
+   'https://sync.inten.to/ai/text/translate/ai.text.translate.microsoft.translator_text_api.3-0'
 ```
 
 Response:
@@ -391,7 +393,7 @@ Response:
 ```
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+curl -XPOST -H 'apikey: YOUR_INTENTO_KEY' 'https://sync.inten.to/ai/text/translate' -d '{
     "context": {
         "text": "A sample text",
         "to": "es"
@@ -484,7 +486,7 @@ Response:
 By default, when the provider is missing, requests are routed to a provider with the best expected price/performance ratio. This behavior may be controlled by specifying the desired routing strategy in the `service.routing` parameter. Contact us at hello@inten.to to set up it for you.
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://sync.inten.to/ai/text/translate' -d '{
     "context": {
         "text": "A sample text",
         "to": "es"
@@ -502,7 +504,7 @@ Both for smart routing mode and basic mode, a failover is supported. By default,
 In the following example we set the provider, but specify the list of alternatives to control the failover:
 
 ```sh
-curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+curl -XPOST -H 'apikey: YOUR_API_KEY' 'https://sync.inten.to/ai/text/translate' -d '{
     "context": {
         "text": "A sample text",
         "to": "es"
@@ -542,7 +544,7 @@ For each translation, Intento returns its unique id in `service.id` field:
 This id may be used to send back the translation quality feedback:
 
 ```sh
-curl -XPUT -H 'apikey: YOUR_API_KEY' 'https://api.inten.to/ai/text/translate' -d '{
+curl -XPUT -H 'apikey: YOUR_API_KEY' 'https://sync.inten.to/ai/text/translate' -d '{
     "id": "AVsAnRaMhIu3DcCXPJYY",
     "feedback": {
         "type": "raw",
